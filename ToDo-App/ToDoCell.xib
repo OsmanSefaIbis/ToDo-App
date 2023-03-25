@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="316" id="KGk-i7-Jjw" customClass="ToDoCell" customModule="ToDo_App" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="616" height="316"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="616" height="316"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="VZh-kU-6Ms">
+                        <rect key="frame" x="0.0" y="0.0" width="616" height="316"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Klc-tK-muA">
+                                <rect key="frame" x="0.0" y="0.0" width="616" height="108"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KHb-Fi-lHM">
+                                        <rect key="frame" x="0.0" y="0.0" width="616" height="108"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MNV-D3-dBB">
+                                                <rect key="frame" x="0.0" y="0.0" width="578" height="108"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOq-l8-SWe">
+                                                <rect key="frame" x="578" y="0.0" width="38" height="108"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="..."/>
+                                                <connections>
+                                                    <action selector="OptionsToDoButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="aZ3-55-BbP"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="KHb-Fi-lHM" firstAttribute="top" secondItem="Klc-tK-muA" secondAttribute="top" id="3Ig-ZB-Efk"/>
+                                    <constraint firstAttribute="trailing" secondItem="KHb-Fi-lHM" secondAttribute="trailing" id="LsD-Q7-GOD"/>
+                                    <constraint firstAttribute="bottom" secondItem="KHb-Fi-lHM" secondAttribute="bottom" id="dXi-me-e7b"/>
+                                    <constraint firstItem="KHb-Fi-lHM" firstAttribute="leading" secondItem="Klc-tK-muA" secondAttribute="leading" id="v1f-f2-6Dp"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sFq-dr-laP">
+                                <rect key="frame" x="0.0" y="108" width="616" height="158"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6YZ-dV-YaU">
+                                        <rect key="frame" x="253" y="53" width="88" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eit-jt-Xe6">
+                                <rect key="frame" x="0.0" y="266" width="616" height="50"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W8I-cY-nbU">
+                                        <rect key="frame" x="0.0" y="0.0" width="616" height="50"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sH5-Fz-qfP">
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="50"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2b-4Y-yYf">
+                                                        <rect key="frame" x="10" y="9.9999999999999982" width="33.333333333333336" height="20.333333333333329"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="D2b-4Y-yYf" firstAttribute="top" secondItem="sH5-Fz-qfP" secondAttribute="top" constant="10" id="nlo-9K-xcz"/>
+                                                    <constraint firstItem="D2b-4Y-yYf" firstAttribute="leading" secondItem="sH5-Fz-qfP" secondAttribute="leading" constant="10" id="vvA-1Z-SFo"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L2h-wK-AfN">
+                                                <rect key="frame" x="240" y="0.0" width="376" height="50"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                <connections>
+                                                    <action selector="DoneButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="aGJ-g8-TGf"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="W8I-cY-nbU" secondAttribute="trailing" id="7b3-8n-uCJ"/>
+                                    <constraint firstItem="W8I-cY-nbU" firstAttribute="top" secondItem="eit-jt-Xe6" secondAttribute="top" id="Ylo-Ud-g40"/>
+                                    <constraint firstItem="W8I-cY-nbU" firstAttribute="leading" secondItem="eit-jt-Xe6" secondAttribute="leading" id="jij-SR-b7w"/>
+                                    <constraint firstAttribute="bottom" secondItem="W8I-cY-nbU" secondAttribute="bottom" id="kDU-G7-s7S"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="VZh-kU-6Ms" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="KOI-jU-TRh"/>
+                    <constraint firstItem="VZh-kU-6Ms" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Rhx-uu-489"/>
+                    <constraint firstAttribute="trailing" secondItem="VZh-kU-6Ms" secondAttribute="trailing" id="WYA-tI-izu"/>
+                    <constraint firstAttribute="bottom" secondItem="VZh-kU-6Ms" secondAttribute="bottom" id="tVz-YC-nKN"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="OptionsToDoButton" destination="yOq-l8-SWe" id="FcW-Eb-S1D"/>
+                <outlet property="ToDoDescriptionLabel" destination="6YZ-dV-YaU" id="rEQ-O8-de2"/>
+                <outlet property="ToDoDoneButton" destination="L2h-wK-AfN" id="J3p-pY-L8h"/>
+                <outlet property="ToDoTagsLabel" destination="D2b-4Y-yYf" id="X4w-gS-QOV"/>
+                <outlet property="ToDoTitleLabel" destination="MNV-D3-dBB" id="aQY-4W-i21"/>
+            </connections>
+            <point key="canvasLocation" x="294.6564885496183" y="63.380281690140848"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
