@@ -32,26 +32,35 @@ class ToDoViewController: UIViewController {
     }
 
     func setupUI(){
-        self.ToDoTableview.register(.init(nibName: "ToDoCell", bundle: nil), forCellReuseIdentifier: "ToDoCell")
-        self.ToDoTableview.separatorStyle = ToDoCell.SeparatorStyle.none
         ToDoTableview.delegate = self
         ToDoTableview.dataSource = self
+        self.ToDoTableview.register(.init(nibName: "ToDoCell", bundle: nil), forCellReuseIdentifier: "ToDoCell")
+        self.ToDoTableview.separatorStyle = ToDoCell.SeparatorStyle.none
+        
     }
     @IBAction func AddToDoButtonPressed(_ sender: Any) {
         let nextSB = UIStoryboard(name: "Main", bundle: nil)
         let vc = nextSB.instantiateViewController(withIdentifier: "AddToDoViewController") as! AddToDoViewController
         vc.modalPresentationStyle = .fullScreen
+        // assign delegate 
+        vc.delegate = self
         self.present(vc, animated: false)
     }
 }
-extension ToDoViewController: UITableViewDelegate{
-
-        // Set the spacing between sections
-        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            let cellSpacingHeight: CGFloat = 5
-            return cellSpacingHeight
+extension ToDoViewController: ToDoAddedDelegate{
+    func didChanged(_ title: String?, _ description: String?) {
+        if let title, let description{
+            let newData: ToDoCellModel = .init(title: title, description: description)
+            data.append(newData)
+            self.ToDoTableview.reloadData()
         }
-    
+    }
+}
+extension ToDoViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let cellSpacingHeight: CGFloat = 5
+        return cellSpacingHeight
+    }
 }
 extension ToDoViewController: UITableViewDataSource{
     
@@ -63,15 +72,5 @@ extension ToDoViewController: UITableViewDataSource{
         cell.configure(with: data[indexPath.row])
         return cell
     }
-}
-
-extension ToDoViewController: ToDoAddedDelegate{
-    func didChanged(_ title: String?, _ description: String?) {
-        if let title, let description{
-            self.data.append(.init(title: title, description: description))
-            ToDoTableview.reloadData()
-        }
-    }
-    
 }
 

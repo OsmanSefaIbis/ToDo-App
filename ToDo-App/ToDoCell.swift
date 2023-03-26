@@ -41,7 +41,6 @@ class ToDoCell: UITableViewCell {
 struct ToDoCellModel{
     var title: String
     var description: String
-    var tags: [TagEnum] = []
 }
 
 enum TagEnum: String{
