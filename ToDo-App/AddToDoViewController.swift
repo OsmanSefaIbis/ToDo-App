@@ -36,6 +36,8 @@ class AddToDoViewController: UIViewController {
     
     func setupUI(){
         AddDescriptionTextView.delegate = self
+        AddTitleTextField.delegate = self
+        
         AddDescriptionTextView.text = "add a description ..."
         AddDescriptionTextView.textColor = .lightGray
     }
@@ -58,8 +60,21 @@ extension AddToDoViewController: UITextViewDelegate{
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         if AddDescriptionTextView.text.isEmpty {
-            AddDescriptionTextView.text = "Placeholder"
+            AddDescriptionTextView.text = "add a description ..."
             AddDescriptionTextView.textColor = UIColor.lightGray
         }
     }
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+}
+extension AddToDoViewController: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            textField.resignFirstResponder()
+            return true
+        }
 }

@@ -50,9 +50,8 @@ class ToDoViewController: UIViewController {
 extension ToDoViewController: ToDoAddedDelegate{
     func didChanged(_ title: String?, _ description: String?) {
         if let title, let description{
-            let newData: ToDoCellModel = .init(title: title, description: description)
-            data.append(newData)
-            self.ToDoTableview.reloadData()
+            data.append(.init(title: title, description: description))
+            ToDoTableview.reloadData()
         }
     }
 }
