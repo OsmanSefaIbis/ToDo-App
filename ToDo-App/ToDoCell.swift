@@ -19,9 +19,15 @@ class ToDoCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let margins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+        contentView.frame = contentView.frame.inset(by: margins)
+    }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    func configure(with model: ToDoCellModel){
+        ToDoTitleLabel.text = model.title
+        ToDoDescriptionLabel.text = model.description
     }
     
     @IBAction func OptionsToDoButtonPressed(_ sender: Any) {
@@ -30,4 +36,17 @@ class ToDoCell: UITableViewCell {
     @IBAction func DoneButtonPressed(_ sender: Any) {
         
     }
+}
+
+struct ToDoCellModel{
+    var title: String
+    var description: String
+    var tags: [TagEnum] = []
+}
+
+enum TagEnum: String{
+    case work
+    case study
+    case entertainment
+    case family
 }
