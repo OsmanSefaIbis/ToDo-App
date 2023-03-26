@@ -65,3 +65,13 @@ extension ToDoViewController: UITableViewDataSource{
     }
 }
 
+extension ToDoViewController: ToDoAddedDelegate{
+    func didChanged(_ title: String?, _ description: String?) {
+        if let title, let description{
+            self.data.append(.init(title: title, description: description))
+            ToDoTableview.reloadData()
+        }
+    }
+    
+}
+

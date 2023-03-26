@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ToDoAddedDelegate: AnyObject{
+    func didChanged(_ title: String?, _ description: String?)
+}
+
 class AddToDoViewController: UIViewController {
     
     // MARK: UI Components
@@ -14,7 +18,7 @@ class AddToDoViewController: UIViewController {
     @IBOutlet weak var TitleLabel: UILabel!
     @IBOutlet weak var AddTitleTextField: UITextField!
     @IBOutlet weak var DescriptionLabel: UILabel!
-    @IBOutlet weak var AddDescriptionTextField: UITextField!
+    @IBOutlet weak var AddDescriptionTextView: UITextView!
     @IBOutlet weak var TagsLabel: UILabel!
     @IBOutlet weak var TagButtonWork: UIButton!
     @IBOutlet weak var TagButtonStudy: UIButton!
@@ -23,16 +27,39 @@ class AddToDoViewController: UIViewController {
     @IBOutlet weak var CancelToDoButton: UIButton!
     @IBOutlet weak var AddToDoButton: UIButton!
     
+    weak var delegate: ToDoAddedDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+    }
+    
+    func setupUI(){
+        AddDescriptionTextView.delegate = self
+        AddDescriptionTextView.text = "add a description ..."
+        AddDescriptionTextView.textColor = .lightGray
     }
     
     @IBAction func CancelToDoButtonPressed(_ sender: Any) {
-        let landingSB = UIStoryboard(name: "Main", bundle: nil)
-        let vc = landingSB.instantiateViewController(withIdentifier: "ToDoViewController") as! ToDoViewController
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false)
+        dismiss(animated: false)
     }
     @IBAction func AddToDoButtonPressed(_ sender: Any) {
+        delegate?.didChanged(AddTitleTextField.text, AddDescriptionTextView.text)
+        dismiss(animated: false)
+    }
+}
+
+extension AddToDoViewController: UITextViewDelegate{
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if AddDescriptionTextView.textColor == UIColor.lightGray {
+            AddDescriptionTextView.text = nil
+            AddDescriptionTextView.textColor = UIColor.black
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if AddDescriptionTextView.text.isEmpty {
+            AddDescriptionTextView.text = "Placeholder"
+            AddDescriptionTextView.textColor = UIColor.lightGray
+        }
     }
 }
