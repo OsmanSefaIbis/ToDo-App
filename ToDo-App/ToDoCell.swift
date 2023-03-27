@@ -28,6 +28,7 @@ class ToDoCell: UITableViewCell {
     func configure(with model: ToDoCellModel){
         ToDoTitleLabel.text = model.title
         ToDoDescriptionLabel.text = model.description
+        ToDoTagsLabel.text = model.tags.map{ "\($0)" }.joined(separator: ", ")
     }
     
     @IBAction func OptionsToDoButtonPressed(_ sender: Any) {
@@ -41,6 +42,7 @@ class ToDoCell: UITableViewCell {
 struct ToDoCellModel{
     var title: String
     var description: String
+    var tags: Set<TagEnum>
 }
 
 enum TagEnum: String{

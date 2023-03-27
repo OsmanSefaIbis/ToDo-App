@@ -57,6 +57,9 @@
                                                                     <color key="baseForegroundColor" systemColor="labelColor"/>
                                                                     <color key="baseBackgroundColor" systemColor="opaqueSeparatorColor"/>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="TagWorkButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1Dy-mf-jzS"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="l5b-w9-BGp">
                                                                 <rect key="frame" x="81" y="0.0" width="31.666666666666671" height="30"/>
@@ -68,6 +71,9 @@
                                                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="baseBackgroundColor" systemColor="opaqueSeparatorColor"/>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="TagStudyButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RGE-cT-RDt"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="4zH-qJ-JIV">
                                                                 <rect key="frame" x="166" y="0.0" width="79.333333333333314" height="30"/>
@@ -79,6 +85,9 @@
                                                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="baseBackgroundColor" systemColor="opaqueSeparatorColor"/>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="TagEntertainmentButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WOa-34-3W9"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="dTv-Yx-TZY">
                                                                 <rect key="frame" x="299" y="0.0" width="34" height="30"/>
@@ -90,6 +99,9 @@
                                                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="baseBackgroundColor" systemColor="opaqueSeparatorColor"/>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="TagFamilyButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7Pz-T4-xCY"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -305,6 +317,9 @@
                                                                         <buttonConfiguration key="configuration" style="plain" title="work">
                                                                             <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                                         </buttonConfiguration>
+                                                                        <connections>
+                                                                            <action selector="TagButtonWorkPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="s2a-hG-0Pb"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OIp-Oc-Hxc">
                                                                         <rect key="frame" x="0.0" y="31.666666666666629" width="361" height="31.333333333333329"/>
@@ -313,6 +328,9 @@
                                                                         <buttonConfiguration key="configuration" style="plain" title="study">
                                                                             <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                                         </buttonConfiguration>
+                                                                        <connections>
+                                                                            <action selector="TagButtonStudyPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="sYg-AD-G8c"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEU-ex-spR">
                                                                         <rect key="frame" x="0.0" y="62.999999999999993" width="361" height="31.666666666666664"/>
@@ -321,6 +339,9 @@
                                                                         <buttonConfiguration key="configuration" style="plain" title="entertainment">
                                                                             <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                                         </buttonConfiguration>
+                                                                        <connections>
+                                                                            <action selector="TagButtonEntertainmentPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="zw2-9v-dmI"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Na-dc-vHp">
                                                                         <rect key="frame" x="0.0" y="94.666666666666629" width="361" height="31.333333333333329"/>
@@ -329,6 +350,9 @@
                                                                         <buttonConfiguration key="configuration" style="plain" title="family">
                                                                             <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                                         </buttonConfiguration>
+                                                                        <connections>
+                                                                            <action selector="TagButtonFamilyPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="IOI-qL-3PG"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                             </stackView>
@@ -360,7 +384,7 @@
                                                                     <color key="baseBackgroundColor" red="0.97290045020000004" green="0.97287446259999999" blue="0.96950978040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
-                                                                    <action selector="CancelToDoButtonPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="9ce-dk-7xm"/>
+                                                                    <action selector="CancelToDoButtonPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="DGR-L7-Ij3"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="GOF-vb-yYS">

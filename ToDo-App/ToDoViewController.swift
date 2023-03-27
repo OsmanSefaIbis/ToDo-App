@@ -18,39 +18,91 @@ class ToDoViewController: UIViewController {
     @IBOutlet weak var ToDoTableview: UITableView!
     @IBOutlet weak var AddToDoButton: UIButton!
     
-    // MARK: DATA
+    // MARK: Data
     var data: [ToDoCellModel] =
-        [
-            .init(title: "Apply for IOS jobs", description: "Edit your CV, linkedin. Scout for network. Do learning projects. Do case study examples from web or suggestions. Revisit your learnings."),
-            .init(title: "Holiday Plan", description: "Select a non-visa country, find cheap accommodation, buy tickets, ask friends to join, plan travel route and locations."),
-            .init(title: "Organize a family party", description: "Reserve the occasion place. Buy groceries and other stuff related with the party. Invite family members and additional relatives. Arrange a party mix. Buy Drinks !!!")
-        ]
+    [
+        .init(title: "Work", description: "Edit ", tags: [.work]),
+        .init(title: "Study", description: "Edit.", tags: [.study]),
+        .init(title: "WorkStudy", description: "Edit.", tags: [.work,.study]),
+        .init(title: "WorkStudyEntertainment", description: "Edit.", tags: [.work, .study, .entertainment]),
+        .init(title: "StudyEntertainment", description: "Edit.", tags: [ .study, .entertainment]),
+        .init(title: "EntertainmentFamily", description: "Edit.", tags: [ .entertainment,.family]),
+        .init(title: "Family", description: "Edit.", tags: [.family]),
+        .init(title: "WorkFamily", description: "Edit.", tags: [.work,.family]),
+        .init(title: "All", description: "All", tags: [.work, .study, .entertainment,.family]),
+    ]
+    var filteredData: [ToDoCellModel] = []
+    
+    private var tagSelection: Set<TagEnum> = []
+    
+    // Tag Flags
+    private var workPressedFlag: Bool = false
+    private var studyPressedFlag: Bool = false
+    private var entertainmentPressedFlag: Bool = false
+    private var familyPressedFlag: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
-
+    
     func setupUI(){
         ToDoTableview.delegate = self
         ToDoTableview.dataSource = self
         self.ToDoTableview.register(.init(nibName: "ToDoCell", bundle: nil), forCellReuseIdentifier: "ToDoCell")
         self.ToDoTableview.separatorStyle = ToDoCell.SeparatorStyle.none
-        
+        checkTagSelection()
+    }
+    
+    func TagButtonPressedHelper(flag pressedFlag: inout Bool, tag tagEnum: TagEnum){
+        pressedFlag = !pressedFlag
+        if pressedFlag{
+            tagSelection.insert(tagEnum)
+        }else{
+            tagSelection.remove(tagEnum)
+        }
+        filteredData = data.filter { element in
+            element.tags.contains(where: { Array(tagSelection).contains($0) })
+        }
+        checkTagSelection()
+        ToDoTableview.reloadData()
+    }
+    func checkTagSelection(){
+        if Array(tagSelection).isEmpty{
+            filteredData = data
+        }
+    }
+    
+    // MARK: Button Actions
+    
+    @IBAction func TagWorkButtonPressed(_ sender: Any) {
+        TagButtonPressedHelper(flag: &workPressedFlag, tag: .work)
+    }
+    @IBAction func TagStudyButtonPressed(_ sender: Any) {
+        TagButtonPressedHelper(flag: &studyPressedFlag, tag: .study)
+    }
+    @IBAction func TagEntertainmentButtonPressed(_ sender: Any) {
+        TagButtonPressedHelper(flag: &entertainmentPressedFlag, tag: .entertainment)
+    }
+    @IBAction func TagFamilyButtonPressed(_ sender: Any) {
+        TagButtonPressedHelper(flag: &familyPressedFlag, tag: .family)
     }
     @IBAction func AddToDoButtonPressed(_ sender: Any) {
         let nextSB = UIStoryboard(name: "Main", bundle: nil)
         let vc = nextSB.instantiateViewController(withIdentifier: "AddToDoViewController") as! AddToDoViewController
         vc.modalPresentationStyle = .fullScreen
-        // assign delegate 
+        // assign delegate
         vc.delegate = self
         self.present(vc, animated: false)
     }
 }
+
+
+// MARK: Extensions
 extension ToDoViewController: ToDoAddedDelegate{
-    func didChanged(_ title: String?, _ description: String?) {
-        if let title, let description{
-            data.append(.init(title: title, description: description))
+    func didChanged(_ title: String?, _ description: String?, _ tags: Set<TagEnum>?) {
+        if let title, let description, let tags{
+            data.append(.init(title: title, description: description, tags: tags))
             ToDoTableview.reloadData()
         }
     }
@@ -62,13 +114,12 @@ extension ToDoViewController: UITableViewDelegate{
     }
 }
 extension ToDoViewController: UITableViewDataSource{
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        filteredData.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.ToDoTableview.dequeueReusableCell(withIdentifier: "ToDoCell") as! ToDoCell
-        cell.configure(with: data[indexPath.row])
+        cell.configure(with: filteredData[indexPath.row])
         return cell
     }
 }
