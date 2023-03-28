@@ -120,6 +120,7 @@ extension ToDoViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.ToDoTableview.dequeueReusableCell(withIdentifier: "ToDoCell") as! ToDoCell
         cell.configure(with: filteredData[indexPath.row])
+        cell.indexPath = indexPath
         return cell
     }
 }

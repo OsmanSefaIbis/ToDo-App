@@ -6,16 +6,21 @@
 //
 
 import UIKit
-
+protocol CustomCellDelegate: AnyObject{
+    func deleteActionPressed(as indexPath: IndexPath?)
+}
 class ToDoCell: UITableViewCell {
-    
+
     // MARK: UI Components
     @IBOutlet weak var ToDoTitleLabel: UILabel!
     @IBOutlet weak var OptionsToDoButton: UIButton!
     @IBOutlet weak var ToDoDescriptionLabel: UILabel!
     @IBOutlet weak var ToDoTagsLabel: UILabel!
     @IBOutlet weak var ToDoDoneButton: UIButton!
-
+    
+    var indexPath: IndexPath?
+    weak var delegate: CustomCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -29,9 +34,23 @@ class ToDoCell: UITableViewCell {
         ToDoTitleLabel.text = model.title
         ToDoDescriptionLabel.text = model.description
         ToDoTagsLabel.text = model.tags.map{ "\($0)" }.joined(separator: ", ")
+        
+    }
+    func setMenuOptions() -> UIMenu{
+        let actionEdit = UIAction(title: "Edit") { _ in
+            print("action edit pressed")
+        }
+        let actionDelete = UIAction(title: "Delete") { _ in
+            guard let indexPath = self.indexPath else { return }
+            guard let tableView = self.superview as? UITableView else { return }
+            // TODO: Somehow delete the selected row from the tableview
+        }
+        return UIMenu(title: "", children: [actionEdit, actionDelete])
     }
     
     @IBAction func OptionsToDoButtonPressed(_ sender: Any) {
+        OptionsToDoButton.menu = setMenuOptions()
+        OptionsToDoButton.showsMenuAsPrimaryAction = true
         
     }
     @IBAction func DoneButtonPressed(_ sender: Any) {
@@ -39,6 +58,7 @@ class ToDoCell: UITableViewCell {
     }
 }
 
+// MARK: ToDoCellModel
 struct ToDoCellModel{
     var title: String
     var description: String
@@ -51,3 +71,5 @@ enum TagEnum: String{
     case entertainment
     case family
 }
+
+
