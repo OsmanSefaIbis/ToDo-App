@@ -32,7 +32,6 @@ class ToDoViewController: UIViewController {
         .init(title: "All", description: "All", tags: [.work, .study, .entertainment,.family]),
     ]
     var filteredData: [ToDoCellModel] = []
-    
     private var tagSelection: Set<TagEnum> = []
     
     // Tag Flags
@@ -121,7 +120,17 @@ extension ToDoViewController: UITableViewDataSource{
         let cell = self.ToDoTableview.dequeueReusableCell(withIdentifier: "ToDoCell") as! ToDoCell
         cell.configure(with: filteredData[indexPath.row])
         cell.indexPath = indexPath
+        cell.delegate = self
         return cell
     }
+}
+extension ToDoViewController: CustomCellDelegate{
+    func deleteActionPressed(at indexPath: IndexPath) {
+        data.remove(at: indexPath.row)
+        filteredData = data
+        ToDoTableview.reloadData()
+    }
+    
+
 }
 

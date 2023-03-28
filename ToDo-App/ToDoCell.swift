@@ -7,7 +7,7 @@
 
 import UIKit
 protocol CustomCellDelegate: AnyObject{
-    func deleteActionPressed(as indexPath: IndexPath?)
+    func deleteActionPressed(at indexPath: IndexPath)
 }
 class ToDoCell: UITableViewCell {
 
@@ -34,24 +34,21 @@ class ToDoCell: UITableViewCell {
         ToDoTitleLabel.text = model.title
         ToDoDescriptionLabel.text = model.description
         ToDoTagsLabel.text = model.tags.map{ "\($0)" }.joined(separator: ", ")
-        
     }
     func setMenuOptions() -> UIMenu{
         let actionEdit = UIAction(title: "Edit") { _ in
             print("action edit pressed")
         }
         let actionDelete = UIAction(title: "Delete") { _ in
-            guard let indexPath = self.indexPath else { return }
-            guard let tableView = self.superview as? UITableView else { return }
-            // TODO: Somehow delete the selected row from the tableview
+            if let indexpath = self.indexPath{
+                self.delegate?.deleteActionPressed(at: indexpath)
+            }
         }
         return UIMenu(title: "", children: [actionEdit, actionDelete])
     }
-    
     @IBAction func OptionsToDoButtonPressed(_ sender: Any) {
         OptionsToDoButton.menu = setMenuOptions()
         OptionsToDoButton.showsMenuAsPrimaryAction = true
-        
     }
     @IBAction func DoneButtonPressed(_ sender: Any) {
         
