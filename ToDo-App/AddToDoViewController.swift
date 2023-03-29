@@ -9,6 +9,7 @@ import UIKit
 
 protocol ToDoAddedDelegate: AnyObject{
     func didChanged(_ title: String?, _ description: String?, _ tags: Set<TagEnum>?)
+    func editChanged(_ title: String?, _ description: String?, _ tags: Set<TagEnum>?, at indexPath: IndexPath?)
 }
 
 class AddToDoViewController: UIViewController {
@@ -29,6 +30,9 @@ class AddToDoViewController: UIViewController {
     
     weak var delegate: ToDoAddedDelegate?
     
+    var editFlag = false
+    var editIndexPath = IndexPath()
+    
     private var tagSelection: Set<TagEnum> = []
     // Tag Flags
     private var workPressedFlag: Bool = false
@@ -43,12 +47,26 @@ class AddToDoViewController: UIViewController {
     
     func setupUI(){
         assignDelegates()
+        appTitleStrikeThrough()
         AddDescriptionTextView.text = "add a description ..."
         AddDescriptionTextView.textColor = .lightGray
     }
     func assignDelegates(){
         AddDescriptionTextView.delegate = self
         AddTitleTextField.delegate = self
+    }
+    func configureFields(with cellModel: ToDoCellModel){
+        self.AddTitleTextField.text = cellModel.title
+        self.AddDescriptionTextView.text = cellModel.description
+        self.tagSelection = cellModel.tags
+    }
+    func appTitleStrikeThrough(){
+        let text = "todo"
+        let attributeString = NSMutableAttributedString(string: text)
+        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+            self.AppTitleLabel.attributedText = attributeString
+        }
     }
     
     // MARK: Button Actions
@@ -89,12 +107,14 @@ class AddToDoViewController: UIViewController {
         dismiss(animated: false)
     }
     @IBAction func AddToDoButtonPressed(_ sender: Any) {
-        delegate?.didChanged(AddTitleTextField.text, AddDescriptionTextView.text, tagSelection)
+        if self.editFlag == true{
+            delegate?.editChanged(AddTitleTextField.text, AddDescriptionTextView.text, self.tagSelection, at: self.editIndexPath)
+        }else{
+            delegate?.didChanged(AddTitleTextField.text, AddDescriptionTextView.text, tagSelection)
+        }
         dismiss(animated: false)
     }
 }
-
-
 // MARK: Extensions
 extension AddToDoViewController: UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
