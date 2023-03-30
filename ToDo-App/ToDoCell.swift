@@ -39,8 +39,27 @@ class ToDoCell: UITableViewCell {
     func configure(with model: ToDoCellModel){
         ToDoTitleLabel.text = model.title
         ToDoDescriptionLabel.text = model.description
-        // TODO: text - image conversion
-        ToDoTagsLabel.text = model.tags.map{ "\($0)" }.joined(separator: ", ")
+        let tagsCellConcat = model.tags.map{ "\($0)" }.joined(separator: ",")
+        ToDoTagsLabel.attributedText = tagIconConversion(tags: tagsCellConcat)
+    }
+    func tagIconConversion(tags tagString: String) -> NSAttributedString{
+        // Compositon
+        let todoVC = ToDoViewController()
+        var tagImageArray: [UIImage] = []
+        let tagArray = tagString.split(separator: ",")
+        for tag in tagArray{
+            tagImageArray.append(todoVC.createTagIcon(tag: String(tag), font: 18))
+        }
+        // Loop through the array of images and add a text attachment for each image
+        let tagAttributedString = NSMutableAttributedString()
+        for tagImage in tagImageArray {
+            let attachment = NSTextAttachment()
+            attachment.image = tagImage
+            let attachmentString = NSAttributedString(attachment: attachment)
+            tagAttributedString.append(attachmentString)
+            tagAttributedString.append(NSAttributedString("\t"))
+        }
+        return NSAttributedString(attributedString: tagAttributedString)
     }
     func buttonConfigure(hex colorHex: String, font fontSize: Int, imageName sfIconName: String){
         let doneColor = UIColor(hex: colorHex)!

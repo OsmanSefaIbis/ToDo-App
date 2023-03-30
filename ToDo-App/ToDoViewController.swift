@@ -51,8 +51,16 @@ class ToDoViewController: UIViewController {
         self.ToDoTableview.separatorStyle = ToDoCell.SeparatorStyle.none
         configureButtonIcons()
         checkTagSelection()
+        configureAddToDoButton()
     }
-    
+    func configureAddToDoButton(){
+        let workTagColor = UIColor(hex: "#69665CFF")!
+        let iconFont = UIFont.systemFont(ofSize: CGFloat(40),weight: .bold)
+        let configuration = UIImage.SymbolConfiguration(font: iconFont)
+        let addButtonIcon = UIImage(systemName: "plus", withConfiguration: configuration)?.withTintColor(workTagColor, renderingMode: .alwaysOriginal)
+        AddToDoButton.setImage(addButtonIcon, for: .normal)
+
+    }
     func TagButtonPressedHelper(for tagName: String, flag pressedFlag: inout Bool, tag tagEnum: TagEnum){
         pressedFlag = !pressedFlag
         revertTagButtonBackground(for: tagName, with: pressedFlag)
@@ -110,16 +118,16 @@ class ToDoViewController: UIViewController {
         }
     }
     func configureButtonIcons(){
-        self.TagButtonWork.setImage(createTagIcon(tag: "work"), for: .normal)
+        self.TagButtonWork.setImage(createTagIcon(tag: "work", font:12), for: .normal)
         self.TagButtonWork.layer.cornerRadius = 15.0
-        self.TagButtonStudy.setImage(createTagIcon(tag: "study"), for: .normal)
+        self.TagButtonStudy.setImage(createTagIcon(tag: "study", font:12), for: .normal)
         self.TagButtonStudy.layer.cornerRadius = 15.0
-        self.TagButtonEntertainment.setImage(createTagIcon(tag: "entertainment"), for: .normal)
+        self.TagButtonEntertainment.setImage(createTagIcon(tag: "entertainment", font:12), for: .normal)
         self.TagButtonEntertainment.layer.cornerRadius = 15.0
-        self.TagButtonFamily.setImage(createTagIcon(tag: "family"), for: .normal)
+        self.TagButtonFamily.setImage(createTagIcon(tag: "family", font:12), for: .normal)
         self.TagButtonFamily.layer.cornerRadius = 15.0
     }
-    func createTagIcon(tag tagName: String) -> UIImage{
+    func createTagIcon(tag tagName: String, font FontSize: Int) -> UIImage{
         var tagIcon = UIImage(systemName: "circle.fill")
         // Color hexs
         let workTagColor = UIColor(hex: "#D2CEFFFF")!
@@ -127,7 +135,7 @@ class ToDoViewController: UIViewController {
         let entertainmentTagColor = UIColor(hex: "#FFCECEFF")!
         let familyTagColor = UIColor(hex: "#DAF2D6FF")!
         // Configure
-        let iconFont = UIFont.systemFont(ofSize: 12)
+        let iconFont = UIFont.systemFont(ofSize: CGFloat(FontSize))
         let configuration = UIImage.SymbolConfiguration(font: iconFont)
         switch tagName{
             case "work":
