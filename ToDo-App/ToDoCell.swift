@@ -20,12 +20,16 @@ class ToDoCell: UITableViewCell {
     @IBOutlet weak var ToDoTagsLabel: UILabel!
     @IBOutlet weak var ToDoDoneButton: UIButton!
     
+    let iconDoneCheck: String = "checkmark.square.fill"
+    let iconDoneUncheck: String = "square.fill"
+    
     var indexPath: IndexPath?
     private var doneFlag: Bool = false
     weak var delegate: CustomCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        buttonConfigure(hex: "#B2AFA1FF", font: 10, imageName: iconDoneUncheck)
     }
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -35,7 +39,16 @@ class ToDoCell: UITableViewCell {
     func configure(with model: ToDoCellModel){
         ToDoTitleLabel.text = model.title
         ToDoDescriptionLabel.text = model.description
+        // TODO: text - image conversion
         ToDoTagsLabel.text = model.tags.map{ "\($0)" }.joined(separator: ", ")
+    }
+    func buttonConfigure(hex colorHex: String, font fontSize: Int, imageName sfIconName: String){
+        let doneColor = UIColor(hex: colorHex)!
+        let iconFont = UIFont.systemFont(ofSize: CGFloat(fontSize))
+        let fontConfiguration = UIImage.SymbolConfiguration(font: iconFont)
+        let image = UIImage(systemName: sfIconName, withConfiguration: fontConfiguration)?.withTintColor(doneColor, renderingMode: .alwaysOriginal)
+        ToDoDoneButton.setImage(image, for: .normal)
+        ToDoDoneButton.configuration?.imagePlacement = .trailing
     }
     func setMenuOptions() -> UIMenu{
         let actionEdit = UIAction(title: "Edit") { _ in
@@ -72,6 +85,7 @@ class ToDoCell: UITableViewCell {
         OptionsToDoButton.showsMenuAsPrimaryAction = true
     }
     @IBAction func DoneButtonPressed(_ sender: Any) {
+        buttonConfigure(hex: "#69665CFF", font: 10, imageName: iconDoneCheck)
         doneFlag = !doneFlag
         if doneFlag {
             delegate?.doneButtonPressed(self)
