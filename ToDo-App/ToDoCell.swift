@@ -44,11 +44,10 @@ class ToDoCell: UITableViewCell {
     }
     func tagIconConversion(tags tagString: String) -> NSAttributedString{
         // Compositon
-        let todoVC = ToDoViewController()
         var tagImageArray: [UIImage] = []
         let tagArray = tagString.split(separator: ",")
         for tag in tagArray{
-            tagImageArray.append(todoVC.createTagIcon(tag: String(tag), font: 18))
+            tagImageArray.append(createTagIcon(tag: String(tag), font: 18))
         }
         // Loop through the array of images and add a text attachment for each image
         let tagAttributedString = NSMutableAttributedString()

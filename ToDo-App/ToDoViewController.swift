@@ -18,18 +18,18 @@ class ToDoViewController: UIViewController {
     @IBOutlet weak var ToDoTableview: UITableView!
     @IBOutlet weak var AddToDoButton: UIButton!
     
-    // MARK: Data
+    // MARK: Mock Data
     var data: [ToDoCellModel] =
     [
         .init(title: "Work", description: "Edit ", tags: [.work]),
         .init(title: "Study", description: "Edit.", tags: [.study]),
-        .init(title: "WorkStudy", description: "Edit.", tags: [.work,.study]),
-        .init(title: "WorkStudyEntertainment", description: "Edit.", tags: [.work, .study, .entertainment]),
-        .init(title: "StudyEntertainment", description: "Edit.", tags: [ .study, .entertainment]),
-        .init(title: "Entertainment", description: "Edit.", tags: [ .entertainment]),
-        .init(title: "Family", description: "Edit.", tags: [.family]),
-        .init(title: "WorkFamily", description: "Edit.", tags: [.work,.family]),
-        .init(title: "All", description: "All", tags: [.work, .study, .entertainment,.family]),
+//        .init(title: "WorkStudy", description: "Edit.", tags: [.work,.study]),
+//        .init(title: "WorkStudyEntertainment", description: "Edit.", tags: [.work, .study, .entertainment]),
+//        .init(title: "StudyEntertainment", description: "Edit.", tags: [ .study, .entertainment]),
+//        .init(title: "Entertainment", description: "Edit.", tags: [ .entertainment]),
+//        .init(title: "Family", description: "Edit.", tags: [.family]),
+//        .init(title: "WorkFamily", description: "Edit.", tags: [.work,.family]),
+//        .init(title: "All", description: "All", tags: [.work, .study, .entertainment,.family]),
     ]
     var filteredData: [ToDoCellModel] = []
     private var tagSelection: Set<TagEnum> = []
@@ -38,7 +38,7 @@ class ToDoViewController: UIViewController {
     private var studyPressedFlag: Bool = false
     private var entertainmentPressedFlag: Bool = false
     private var familyPressedFlag: Bool = false
-    
+    // MARK: View Life-Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -127,31 +127,6 @@ class ToDoViewController: UIViewController {
         self.TagButtonFamily.setImage(createTagIcon(tag: "family", font:12), for: .normal)
         self.TagButtonFamily.layer.cornerRadius = 15.0
     }
-    func createTagIcon(tag tagName: String, font FontSize: Int) -> UIImage{
-        var tagIcon = UIImage(systemName: "circle.fill")
-        // Color hexs
-        let workTagColor = UIColor(hex: "#D2CEFFFF")!
-        let studyTagColor = UIColor(hex: "#D1E5F7FF")!
-        let entertainmentTagColor = UIColor(hex: "#FFCECEFF")!
-        let familyTagColor = UIColor(hex: "#DAF2D6FF")!
-        // Configure
-        let iconFont = UIFont.systemFont(ofSize: CGFloat(FontSize))
-        let configuration = UIImage.SymbolConfiguration(font: iconFont)
-        switch tagName{
-            case "work":
-                tagIcon = UIImage(systemName: "circle.fill", withConfiguration: configuration)?.withTintColor(workTagColor, renderingMode: .alwaysOriginal)
-            case "study":
-                tagIcon = UIImage(systemName: "circle.fill", withConfiguration: configuration)?.withTintColor(studyTagColor, renderingMode: .alwaysOriginal)
-            case "entertainment":
-                tagIcon = UIImage(systemName: "circle.fill", withConfiguration: configuration)?.withTintColor(entertainmentTagColor, renderingMode: .alwaysOriginal)
-            case "family":
-                tagIcon = UIImage(systemName: "circle.fill", withConfiguration: configuration)?.withTintColor(familyTagColor, renderingMode: .alwaysOriginal)
-            default:
-                tagIcon = UIImage(systemName: "circle.fill")
-        }
-        return tagIcon!
-    }
-    
     // MARK: Button Actions
     
     @IBAction func TagWorkButtonPressed(_ sender: Any) {
@@ -172,6 +147,7 @@ class ToDoViewController: UIViewController {
 }
 
 // MARK: Extensions
+/* Delegation Pattern */
 extension ToDoViewController: ToDoAddedDelegate{
     func editChanged(_ title: String?, _ description: String?, _ tags: Set<TagEnum>?, at indexPath: IndexPath?) {
         if let indexPath,let title, let description, let tags{
@@ -182,14 +158,29 @@ extension ToDoViewController: ToDoAddedDelegate{
             ToDoTableview.reloadData()
         }
     }
-    
     func didChanged(_ title: String?, _ description: String?, _ tags: Set<TagEnum>?) {
         if let title, let description, let tags{
             data.append(.init(title: title, description: description, tags: tags))
+            filteredData = data
             ToDoTableview.reloadData()
         }
     }
 }
+extension ToDoViewController: CustomCellDelegate{
+    func deleteActionPressed(at indexPath: IndexPath) {
+        data.remove(at: indexPath.row)
+        filteredData = data
+        ToDoTableview.reloadData()
+    }
+    func editActionPressed(at indexPath: IndexPath) {
+        createAddToDoViewController(at: indexPath, flag: true)
+    }
+    func doneButtonPressed(_ cell: ToDoCell) {
+        guard let indexPath = ToDoTableview.indexPath(for: cell) else { return }
+        ToDoTableview.moveRow(at: indexPath, to: IndexPath(row: ToDoTableview.numberOfRows(inSection: 0) - 1, section: 0))
+    }
+}
+/* TableView Related */
 extension ToDoViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let cellSpacingHeight: CGFloat = 5
@@ -208,18 +199,29 @@ extension ToDoViewController: UITableViewDataSource{
         return cell
     }
 }
-extension ToDoViewController: CustomCellDelegate{
-    func deleteActionPressed(at indexPath: IndexPath) {
-        data.remove(at: indexPath.row)
-        filteredData = data
-        ToDoTableview.reloadData()
-    }
-    func editActionPressed(at indexPath: IndexPath) {
-        createAddToDoViewController(at: indexPath, flag: true)
-    }
-    func doneButtonPressed(_ cell: ToDoCell) {
-        guard let indexPath = ToDoTableview.indexPath(for: cell) else { return }
-        ToDoTableview.moveRow(at: indexPath, to: IndexPath(row: ToDoTableview.numberOfRows(inSection: 0) - 1, section: 0))
-    }
-}
 
+// MARK: Global Func's
+func createTagIcon(tag tagName: String, font FontSize: Int) -> UIImage{
+    var tagIcon = UIImage(systemName: "circle.fill")
+    // Color hexs
+    let workTagColor = UIColor(hex: "#D2CEFFFF")!
+    let studyTagColor = UIColor(hex: "#D1E5F7FF")!
+    let entertainmentTagColor = UIColor(hex: "#FFCECEFF")!
+    let familyTagColor = UIColor(hex: "#DAF2D6FF")!
+    // Configure
+    let iconFont = UIFont.systemFont(ofSize: CGFloat(FontSize))
+    let configuration = UIImage.SymbolConfiguration(font: iconFont)
+    switch tagName{
+        case "work":
+            tagIcon = UIImage(systemName: "circle.fill", withConfiguration: configuration)?.withTintColor(workTagColor, renderingMode: .alwaysOriginal)
+        case "study":
+            tagIcon = UIImage(systemName: "circle.fill", withConfiguration: configuration)?.withTintColor(studyTagColor, renderingMode: .alwaysOriginal)
+        case "entertainment":
+            tagIcon = UIImage(systemName: "circle.fill", withConfiguration: configuration)?.withTintColor(entertainmentTagColor, renderingMode: .alwaysOriginal)
+        case "family":
+            tagIcon = UIImage(systemName: "circle.fill", withConfiguration: configuration)?.withTintColor(familyTagColor, renderingMode: .alwaysOriginal)
+        default:
+            tagIcon = UIImage(systemName: "circle.fill")
+    }
+    return tagIcon!
+}

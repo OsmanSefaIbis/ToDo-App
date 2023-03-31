@@ -50,10 +50,44 @@ class AddToDoViewController: UIViewController {
         appTitleStrikeThrough()
         AddDescriptionTextView.text = "add a description ..."
         AddDescriptionTextView.textColor = .lightGray
+        configureTagButtons()
     }
     func assignDelegates(){
         AddDescriptionTextView.delegate = self
         AddTitleTextField.delegate = self
+    }
+    func configureTagButtons(){
+        self.TagButtonWork.setImage(createTagIcon(tag: "work", font:12), for: .normal)
+        self.TagButtonWork.layer.cornerRadius = 15.0
+        self.TagButtonStudy.setImage(createTagIcon(tag: "study", font:12), for: .normal)
+        self.TagButtonStudy.layer.cornerRadius = 15.0
+        self.TagButtonEntertainment.setImage(createTagIcon(tag: "entertainment", font:12), for: .normal)
+        self.TagButtonEntertainment.layer.cornerRadius = 15.0
+        self.TagButtonFamily.setImage(createTagIcon(tag: "family", font:12), for: .normal)
+        self.TagButtonFamily.layer.cornerRadius = 15.0
+    }
+    func revertTagButtonBackground(for tagName: String, with flag: Bool){
+        let desired = (tagName, true)
+        switch desired{
+            case ("work",flag):
+                TagButtonWork.backgroundColor = UIColor(hex: "#D2CEFF66")
+            case ("work",_):
+                TagButtonWork.backgroundColor = UIColor.white
+            case ("study",flag):
+                TagButtonStudy.backgroundColor = UIColor(hex: "#D1E5F788")
+            case ("study",_):
+                TagButtonStudy.backgroundColor = UIColor.white
+            case ("entertainment",flag):
+                TagButtonEntertainment.backgroundColor = UIColor(hex: "#FFCECE66")
+            case ("entertainment",_):
+                TagButtonEntertainment.backgroundColor = UIColor.white
+            case ("family",flag):
+                TagButtonFamily.backgroundColor = UIColor(hex: "#DAF2D688")
+            case ("family",_):
+                TagButtonFamily.backgroundColor = UIColor.white
+            default:
+                break
+        }
     }
     func configureFields(with cellModel: ToDoCellModel){
         self.AddTitleTextField.text = cellModel.title
@@ -72,6 +106,7 @@ class AddToDoViewController: UIViewController {
     // MARK: Button Actions
     @IBAction func TagButtonWorkPressed(_ sender: Any) {
         workPressedFlag = !workPressedFlag
+        revertTagButtonBackground(for: "work", with: workPressedFlag)
         if workPressedFlag{
             tagSelection.insert(.work)
         }else{
@@ -80,6 +115,7 @@ class AddToDoViewController: UIViewController {
     }
     @IBAction func TagButtonStudyPressed(_ sender: Any) {
         studyPressedFlag = !studyPressedFlag
+        revertTagButtonBackground(for: "study", with: studyPressedFlag)
         if studyPressedFlag{
             tagSelection.insert(.study)
         }else{
@@ -88,6 +124,7 @@ class AddToDoViewController: UIViewController {
     }
     @IBAction func TagButtonEntertainmentPressed(_ sender: Any) {
         entertainmentPressedFlag = !entertainmentPressedFlag
+        revertTagButtonBackground(for: "entertainment", with: entertainmentPressedFlag)
         if entertainmentPressedFlag{
             tagSelection.insert(.entertainment)
         }else{
@@ -96,6 +133,7 @@ class AddToDoViewController: UIViewController {
     }
     @IBAction func TagButtonFamilyPressed(_ sender: Any) {
         familyPressedFlag = !familyPressedFlag
+        revertTagButtonBackground(for: "family", with: familyPressedFlag)
         if familyPressedFlag{
             tagSelection.insert(.family)
         }else{
@@ -112,6 +150,8 @@ class AddToDoViewController: UIViewController {
         }else{
             delegate?.didChanged(AddTitleTextField.text, AddDescriptionTextView.text, tagSelection)
         }
+        let todoVc = ToDoViewController()
+        todoVc.checkTagSelection()
         dismiss(animated: false)
     }
 }
