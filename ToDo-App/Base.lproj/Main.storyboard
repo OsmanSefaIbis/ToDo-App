@@ -229,7 +229,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TsY-9E-prf">
                                                         <rect key="frame" x="16" y="0.0" width="361" height="48.666666666666664"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mK5-iZ-Anj">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mK5-iZ-Anj">
                                                                 <rect key="frame" x="0.0" y="0.0" width="361" height="20"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="20" id="3L0-BL-8WI"/>
@@ -247,6 +247,7 @@
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="tUh-6G-sgU" firstAttribute="top" secondItem="mK5-iZ-Anj" secondAttribute="bottom" id="mkp-lS-8JQ"/>
+                                                            <constraint firstItem="mK5-iZ-Anj" firstAttribute="top" secondItem="TsY-9E-prf" secondAttribute="top" id="pqs-zA-FBn"/>
                                                         </constraints>
                                                     </stackView>
                                                 </subviews>
@@ -265,7 +266,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Gxh-aJ-q4I">
                                                         <rect key="frame" x="16" y="0.0" width="361" height="380.66666666666669"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHW-Vw-bq5">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHW-Vw-bq5">
                                                                 <rect key="frame" x="0.0" y="0.0" width="361" height="20"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="20" id="gaQ-dk-943"/>
@@ -301,7 +302,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="XPK-j9-33b" userLabel="TagButtonsVerticalStack">
                                                         <rect key="frame" x="16" y="0.0" width="361" height="146"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4z-C4-MXl">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4z-C4-MXl">
                                                                 <rect key="frame" x="0.0" y="0.0" width="361" height="20"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="20" id="Kem-80-Vh2"/>
@@ -442,16 +443,13 @@
                     <connections>
                         <outlet property="AddDescriptionTextView" destination="oUE-oW-CEm" id="72P-08-kVK"/>
                         <outlet property="AddTitleTextField" destination="tUh-6G-sgU" id="Z0p-S7-prh"/>
-                        <outlet property="AddToDoButton" destination="GOF-vb-yYS" id="3tA-VV-231"/>
-                        <outlet property="AppTitleLabel" destination="oqQ-yg-5Zi" id="LOj-yw-may"/>
+                        <outlet property="AddToDoButton" destination="GOF-vb-yYS" id="yj8-DB-jnY"/>
+                        <outlet property="AppTitleLabel" destination="oqQ-yg-5Zi" id="Ofm-KI-4Gl"/>
                         <outlet property="CancelToDoButton" destination="ArG-bH-T8T" id="0Rb-CM-Yps"/>
-                        <outlet property="DescriptionLabel" destination="lHW-Vw-bq5" id="3Ib-hq-Rbv"/>
                         <outlet property="TagButtonEntertainment" destination="jEU-ex-spR" id="MW4-ga-Rk2"/>
                         <outlet property="TagButtonFamily" destination="3Na-dc-vHp" id="jiX-bT-73h"/>
                         <outlet property="TagButtonStudy" destination="OIp-Oc-Hxc" id="GkI-1F-JSb"/>
                         <outlet property="TagButtonWork" destination="FXo-wE-21B" id="Gwg-SS-UeO"/>
-                        <outlet property="TagsLabel" destination="R4z-C4-MXl" id="Z2f-Ee-l1f"/>
-                        <outlet property="TitleLabel" destination="mK5-iZ-Anj" id="SNg-td-Rvs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2jx-Ww-bTv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

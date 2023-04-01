@@ -39,12 +39,6 @@ class ToDoViewController: UIViewController {
     private var entertainmentPressedFlag = false
     private var familyPressedFlag = false
     private var isRotating = false
-    // Custom Vars
-    private let tagButtonsCornerRadius = 15.0
-    private let tagButtonsIconFontSize = 12
-    private let addButtonIconFontSize = 40
-    private let cellName = "ToDoCell"
-    private let addButtonIconName = "plus"
     
     // MARK: View Life-Cycle
     override func viewDidLoad() {
@@ -64,10 +58,9 @@ class ToDoViewController: UIViewController {
         self.ToDoTableview.separatorStyle = ToDoCell.SeparatorStyle.none
     }
     func configureAddToDoButton(){
-        let addButtonColor = addButtonColor
         let iconFont = UIFont.systemFont(ofSize: CGFloat(addButtonIconFontSize),weight: .bold)
         let configuration = UIImage.SymbolConfiguration(font: iconFont)
-        let addButtonIcon = UIImage(systemName: addButtonIconName, withConfiguration: configuration)?.withTintColor(workTagColor, renderingMode: .alwaysOriginal)
+        let addButtonIcon = UIImage(systemName: addButtonIconName, withConfiguration: configuration)?.withTintColor(addButtonColor, renderingMode: .alwaysOriginal)
         AddToDoButton.setImage(addButtonIcon, for: .normal)
     }
     func TagButtonPressedHelper(for tagName: String, flag pressedFlag: inout Bool, tag tagEnum: TagEnum){
@@ -172,7 +165,7 @@ class ToDoViewController: UIViewController {
     }
 }
 // MARK: Delegate Extensions
-extension ToDoViewController: ToDoAddedDelegate{
+extension ToDoViewController: ToDoChangeDelegate{
     func editChanged(for todoModel: ToDoCellModel, at indexPath: IndexPath?) {
         if let indexPath{
             data.remove(at: indexPath.row)
@@ -259,7 +252,16 @@ func buttonScaleUpAnimation(_ sender: UIButton){
     })
 }
 /* Vars */
+let tagButtonsCornerRadius = 15.0
+let tagButtonsIconFontSize = 12
+let tagButtonsIconFontBigSize = 18
+let addButtonIconFontSize = 40
+let doneButtonFont = 10
+let cellName = "ToDoCell"
+let addButtonIconName = "plus"
 let tagIconName = "circle.fill"
+let iconDoneCheck = "checkmark.square.fill"
+let iconDoneUncheck = "square.fill"
 let workTagColor = UIColor(hex: "#D2CEFFFF")!
 let workTagSoftColor = UIColor(hex: "#D2CEFF66")!
 let studyTagColor = UIColor(hex: "#D1E5F7FF")!
@@ -269,3 +271,6 @@ let entertainmentTagSoftColor = UIColor(hex: "#FFCECE66")!
 let familyTagColor = UIColor(hex: "#DAF2D6FF")!
 let familyTagSoftColor = UIColor(hex: "#DAF2D688")!
 let addButtonColor = UIColor(hex: "#69665CFF")!
+let lightGrayColor = UIColor(hex: "#69665CFF")!
+let darkGrayColor = UIColor(hex: "#B2AFA1FF")!
+let cornSilkColor = UIColor(hex: "#FFF9DEFF")!

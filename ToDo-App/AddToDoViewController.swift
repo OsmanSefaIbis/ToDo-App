@@ -7,33 +7,28 @@
 
 import UIKit
 
-protocol ToDoAddedDelegate: AnyObject{
+protocol ToDoChangeDelegate: AnyObject{
     func editChanged(for todoModel: ToDoCellModel, at indexPath: IndexPath?)
     func toDoAdded(for todoModel: ToDoCellModel)
 }
-
 class AddToDoViewController: UIViewController {
-    
     // MARK: UI Components
     @IBOutlet weak var AppTitleLabel: UILabel!
-    @IBOutlet weak var TitleLabel: UILabel!
     @IBOutlet weak var AddTitleTextField: UITextField!
-    @IBOutlet weak var DescriptionLabel: UILabel!
     @IBOutlet weak var AddDescriptionTextView: UITextView!
-    @IBOutlet weak var TagsLabel: UILabel!
     @IBOutlet weak var TagButtonWork: UIButton!
     @IBOutlet weak var TagButtonStudy: UIButton!
     @IBOutlet weak var TagButtonEntertainment: UIButton!
     @IBOutlet weak var TagButtonFamily: UIButton!
-    @IBOutlet weak var CancelToDoButton: UIButton!
     @IBOutlet weak var AddToDoButton: UIButton!
+    @IBOutlet weak var CancelToDoButton: UIButton!
     
-    weak var delegate: ToDoAddedDelegate?
-    
+    weak var delegate: ToDoChangeDelegate?
+    private var tagSelection: Set<TagEnum> = []
+    // Vars
     var editFlag = false
     var editIndexPath = IndexPath()
-    
-    private var tagSelection: Set<TagEnum> = []
+    let appTitle = "todo"
     // Tag Flags
     private var workPressedFlag: Bool = false
     private var studyPressedFlag: Bool = false
@@ -44,65 +39,66 @@ class AddToDoViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
     }
-    
     func setupUI(){
         assignDelegates()
         appTitleStrikeThrough()
-        AddDescriptionTextView.text = "add a description ..."
-        AddDescriptionTextView.textColor = .lightGray
+        configureTextViews()
         configureTagButtons()
     }
     func assignDelegates(){
         AddDescriptionTextView.delegate = self
         AddTitleTextField.delegate = self
     }
+    func configureTextViews(){
+        AddDescriptionTextView.text = "add a description ..."
+        AddDescriptionTextView.textColor = .lightGray
+    }
     func configureTagButtons(){
-        self.TagButtonWork.setImage(createTagIcon(tag: "work", font:12), for: .normal)
-        self.TagButtonWork.layer.cornerRadius = 15.0
-        self.TagButtonStudy.setImage(createTagIcon(tag: "study", font:12), for: .normal)
-        self.TagButtonStudy.layer.cornerRadius = 15.0
-        self.TagButtonEntertainment.setImage(createTagIcon(tag: "entertainment", font:12), for: .normal)
-        self.TagButtonEntertainment.layer.cornerRadius = 15.0
-        self.TagButtonFamily.setImage(createTagIcon(tag: "family", font:12), for: .normal)
-        self.TagButtonFamily.layer.cornerRadius = 15.0
+        TagButtonWork.setImage(createTagIcon(tag: "work", font: tagButtonsIconFontSize), for: .normal)
+        TagButtonWork.layer.cornerRadius = tagButtonsCornerRadius
+        TagButtonStudy.setImage(createTagIcon(tag: "study", font: tagButtonsIconFontSize), for: .normal)
+        TagButtonStudy.layer.cornerRadius = tagButtonsCornerRadius
+        TagButtonEntertainment.setImage(createTagIcon(tag: "entertainment", font: tagButtonsIconFontSize), for: .normal)
+        TagButtonEntertainment.layer.cornerRadius = tagButtonsCornerRadius
+        TagButtonFamily.setImage(createTagIcon(tag: "family", font:tagButtonsIconFontSize), for: .normal)
+        TagButtonFamily.layer.cornerRadius = tagButtonsCornerRadius
     }
     func revertTagButtonBackground(for tagName: String, with flag: Bool){
-        let desired = (tagName, true)
-        switch desired{
+        let coloredCase = (tagName, true)
+        switch coloredCase{
             case ("work",flag):
-                TagButtonWork.backgroundColor = UIColor(hex: "#D2CEFF66")
+                TagButtonWork.backgroundColor = workTagSoftColor
             case ("work",_):
-                TagButtonWork.backgroundColor = UIColor.white
+            TagButtonWork.backgroundColor = .white
             case ("study",flag):
-                TagButtonStudy.backgroundColor = UIColor(hex: "#D1E5F788")
+                TagButtonStudy.backgroundColor = studyTagSoftColor
             case ("study",_):
-                TagButtonStudy.backgroundColor = UIColor.white
+            TagButtonStudy.backgroundColor = .white
             case ("entertainment",flag):
-                TagButtonEntertainment.backgroundColor = UIColor(hex: "#FFCECE66")
+                TagButtonEntertainment.backgroundColor = entertainmentTagSoftColor
             case ("entertainment",_):
-                TagButtonEntertainment.backgroundColor = UIColor.white
+            TagButtonEntertainment.backgroundColor = .white
             case ("family",flag):
-                TagButtonFamily.backgroundColor = UIColor(hex: "#DAF2D688")
+                TagButtonFamily.backgroundColor = familyTagSoftColor
             case ("family",_):
-                TagButtonFamily.backgroundColor = UIColor.white
+            TagButtonFamily.backgroundColor = .white
             default:
                 break
         }
     }
     func configureFields(with cellModel: ToDoCellModel){
-        self.AddTitleTextField.text = cellModel.title
-        self.AddDescriptionTextView.text = cellModel.description
-        self.tagSelection = cellModel.tags
+        AddTitleTextField.text = cellModel.title
+        AddDescriptionTextView.text = cellModel.description
+        tagSelection = cellModel.tags
     }
     func appTitleStrikeThrough(){
-        let text = "todo"
+        let text = appTitle
         let attributeString = NSMutableAttributedString(string: text)
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
             self.AppTitleLabel.attributedText = attributeString
         }
     }
-    
     // MARK: Button Actions
     @IBAction func TagButtonWorkPressed(_ sender: UIButton) {
         buttonScaleUpAnimation(sender)
@@ -144,19 +140,15 @@ class AddToDoViewController: UIViewController {
             tagSelection.remove(.family)
         }
     }
-    
     @IBAction func CancelToDoButtonPressed(_ sender: Any) {
         dismiss(animated: false)
     }
     @IBAction func AddToDoButtonPressed(_ sender: Any) {
-        let todo: ToDoCellModel = .init(
-                title: AddTitleTextField.text!,
-                description: AddDescriptionTextView.text,
-                tags:self.tagSelection)
-        if self.editFlag == true{
-            delegate?.editChanged(for: todo, at: self.editIndexPath)
+        let newTodo: ToDoCellModel = .init( title: AddTitleTextField.text!, description: AddDescriptionTextView.text, tags: tagSelection)
+        if editFlag == true{
+            delegate?.editChanged(for: newTodo, at: editIndexPath)
         }else{
-            delegate?.toDoAdded(for: todo)
+            delegate?.toDoAdded(for: newTodo)
         }
         dismiss(animated: false)
     }

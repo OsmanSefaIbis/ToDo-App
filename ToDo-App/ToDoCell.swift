@@ -23,16 +23,10 @@ class ToDoCell: UITableViewCell {
     var indexPath: IndexPath?
     var doneFlag: Bool?
     weak var delegate: CustomCellDelegate?
-    
-    let iconDoneCheck: String = "checkmark.square.fill"
-    let iconDoneUncheck: String = "square.fill"
-    let lightGrayColorHex: String = "#69665CFF"
-    let darkGrayColorHex: String = "#B2AFA1FF"
-    let cornSilkColor: UIColor = UIColor(hex: "#FFF9DEFF") ?? .yellow
-    let doneButtonFont: Int = 10
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        buttonConfigure(hex: "#B2AFA1FF", font: 10, imageName: iconDoneUncheck)
+        buttonConfigure(color: darkGrayColor, font: doneButtonFont, imageName: iconDoneUncheck)
     }
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -50,7 +44,7 @@ class ToDoCell: UITableViewCell {
         var tagImageArray: [UIImage] = []
         let tagArray = tagString.split(separator: ",")
         for tag in tagArray{
-            tagImageArray.append(createTagIcon(tag: String(tag), font: 18))
+            tagImageArray.append(createTagIcon(tag: String(tag), font: tagButtonsIconFontBigSize))
         }
         // Loop through the array of images and add a text attachment for each image
         let tagAttributedString = NSMutableAttributedString()
@@ -63,8 +57,8 @@ class ToDoCell: UITableViewCell {
         }
         return NSAttributedString(attributedString: tagAttributedString)
     }
-    func buttonConfigure(hex colorHex: String, font fontSize: Int, imageName sfIconName: String){
-        let doneColor = UIColor(hex: colorHex)!
+    func buttonConfigure(color colorName: UIColor, font fontSize: Int, imageName sfIconName: String){
+        let doneColor = colorName
         let iconFont = UIFont.systemFont(ofSize: CGFloat(fontSize))
         let fontConfiguration = UIImage.SymbolConfiguration(font: iconFont)
         let image = UIImage(systemName: sfIconName, withConfiguration: fontConfiguration)?.withTintColor(doneColor, renderingMode: .alwaysOriginal)
@@ -72,17 +66,27 @@ class ToDoCell: UITableViewCell {
         ToDoDoneButton.configuration?.imagePlacement = .trailing
     }
     func setMenuOptions() -> UIMenu{
+        let font = UIFont.systemFont(ofSize: 12)
+        let attributes = [NSAttributedString.Key.font: font]
+        let editTitle = NSAttributedString(string: "Edit", attributes: attributes)
+        let deleteTitle = NSAttributedString(string: "Delete", attributes: attributes)
+        
         let actionEdit = UIAction(title: "Edit") { _ in
             if let indexpath = self.indexPath{
                 self.delegate?.editActionPressed(at: indexpath)
             }
         }
+        actionEdit.setValue(editTitle, forKey: "attributedTitle")
+        
         let actionDelete = UIAction(title: "Delete") { _ in
             if let indexpath = self.indexPath{
                 self.delegate?.deleteActionPressed(at: indexpath)
             }
         }
-        return UIMenu(title: "", children: [actionEdit, actionDelete])
+        actionDelete.setValue(deleteTitle, forKey: "attributedTitle")
+        let menu = UIMenu(title: "", children: [actionEdit, actionDelete])
+        menu.preferredElementSize = .small
+        return menu
     }
     func setAllViewsBackgroundColor( _ color: UIColor){
         for subview in contentView.subviews {
@@ -125,11 +129,11 @@ class ToDoCell: UITableViewCell {
         delegate?.doneButtonPressed(self)
         guard let done = doneFlag else { return }
         if !done {
-            buttonConfigure(hex: lightGrayColorHex, font: doneButtonFont, imageName: iconDoneCheck)
+            buttonConfigure(color: lightGrayColor, font: doneButtonFont, imageName: iconDoneCheck)
             strikeThroughLabels()
             setAllViewsBackgroundColor(.lightGray)
         }else{
-            buttonConfigure(hex: darkGrayColorHex, font: doneButtonFont , imageName: iconDoneUncheck)
+            buttonConfigure(color: darkGrayColor, font: doneButtonFont , imageName: iconDoneUncheck)
             unStrikeThroughLabels()
             setAllViewsBackgroundColor(cornSilkColor)
         }

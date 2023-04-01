@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -36,8 +37,13 @@
                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C02-sR-Vic">
                                                         <rect key="frame" x="330" y="0.0" width="38" height="50"/>
                                                         <color key="tintColor" red="0.80300050970000003" green="0.80297344920000002" blue="0.79946953060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="..."/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="...">
+                                                            <color key="titleColor" systemColor="labelColor"/>
+                                                        </state>
+                                                        <buttonConfiguration key="configuration" style="plain" title="...">
+                                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                                        </buttonConfiguration>
                                                         <connections>
                                                             <action selector="OptionsToDoButtonPressed:" destination="aHn-UT-gnC" eventType="touchUpInside" id="RKh-Im-uGM"/>
                                                         </connections>
@@ -139,4 +145,9 @@
             <point key="canvasLocation" x="218.32061068702288" y="1.4084507042253522"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
