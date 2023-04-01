@@ -20,13 +20,16 @@ class ToDoCell: UITableViewCell {
     @IBOutlet weak var ToDoTagsLabel: UILabel!
     @IBOutlet weak var ToDoDoneButton: UIButton!
     
-    let iconDoneCheck: String = "checkmark.square.fill"
-    let iconDoneUncheck: String = "square.fill"
-    
     var indexPath: IndexPath?
-    private var doneFlag: Bool = false
+    var doneFlag: Bool?
     weak var delegate: CustomCellDelegate?
     
+    let iconDoneCheck: String = "checkmark.square.fill"
+    let iconDoneUncheck: String = "square.fill"
+    let lightGrayColorHex: String = "#69665CFF"
+    let darkGrayColorHex: String = "#B2AFA1FF"
+    let cornSilkColor: UIColor = UIColor(hex: "#FFF9DEFF") ?? .yellow
+    let doneButtonFont: Int = 10
     override func awakeFromNib() {
         super.awakeFromNib()
         buttonConfigure(hex: "#B2AFA1FF", font: 10, imageName: iconDoneUncheck)
@@ -37,9 +40,9 @@ class ToDoCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: margins)
     }
     func configure(with model: ToDoCellModel){
+        let tagsCellConcat = model.tags.map{ "\($0)" }.joined(separator: ",")
         ToDoTitleLabel.text = model.title
         ToDoDescriptionLabel.text = model.description
-        let tagsCellConcat = model.tags.map{ "\($0)" }.joined(separator: ",")
         ToDoTagsLabel.attributedText = tagIconConversion(tags: tagsCellConcat)
     }
     func tagIconConversion(tags tagString: String) -> NSAttributedString{
@@ -98,41 +101,48 @@ class ToDoCell: UITableViewCell {
         attributedText.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributedText.length))
         return attributedText
     }
+    func removeStrikeThrough(for text: NSAttributedString?)-> (NSMutableAttributedString){
+        guard let text else { return NSMutableAttributedString()}
+        let mutableAttributedText = NSMutableAttributedString(attributedString: text)
+        mutableAttributedText.removeAttribute(.strikethroughStyle, range: NSMakeRange(0, mutableAttributedText.length))
+        return mutableAttributedText
+    }
+    func strikeThroughLabels(){
+        ToDoTitleLabel.attributedText = strikeThrough(for: ToDoTitleLabel.text)
+        ToDoDescriptionLabel.attributedText = strikeThrough(for: ToDoDescriptionLabel.text)
+    }
+    func unStrikeThroughLabels(){
+        ToDoTitleLabel.attributedText = removeStrikeThrough(for: ToDoTitleLabel.attributedText)
+        ToDoDescriptionLabel.attributedText = removeStrikeThrough(for: ToDoDescriptionLabel.attributedText)
+    }
+    // MARK: Button Actions
     @IBAction func OptionsToDoButtonPressed(_ sender: Any) {
         OptionsToDoButton.menu = setMenuOptions()
         OptionsToDoButton.showsMenuAsPrimaryAction = true
     }
-    @IBAction func DoneButtonPressed(_ sender: Any) {
-        buttonConfigure(hex: "#69665CFF", font: 10, imageName: iconDoneCheck)
-        doneFlag = !doneFlag
-        if doneFlag {
-            delegate?.doneButtonPressed(self)
+    @IBAction func DoneButtonPressed(_ sender: UIButton) {
+        buttonScaleUpAnimation(sender)
+        delegate?.doneButtonPressed(self)
+        guard let done = doneFlag else { return }
+        if !done {
+            buttonConfigure(hex: lightGrayColorHex, font: doneButtonFont, imageName: iconDoneCheck)
+            strikeThroughLabels()
             setAllViewsBackgroundColor(.lightGray)
-            ToDoTitleLabel.attributedText = strikeThrough(for: ToDoTitleLabel.text)
-            ToDoDescriptionLabel.attributedText = strikeThrough(for: ToDoDescriptionLabel.text)
         }else{
-            if let attributedText = ToDoTitleLabel.attributedText {
-                let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
-                mutableAttributedText.removeAttribute(.strikethroughStyle, range: NSMakeRange(0, mutableAttributedText.length))
-                ToDoTitleLabel.attributedText = mutableAttributedText
-            }
-            if let attributedText = ToDoDescriptionLabel.attributedText {
-                let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
-                mutableAttributedText.removeAttribute(.strikethroughStyle, range: NSMakeRange(0, mutableAttributedText.length))
-                ToDoDescriptionLabel.attributedText = mutableAttributedText
-            }
-            if let cornSilk = UIColor(hex: "#FFF9DEFF"){
-                setAllViewsBackgroundColor(cornSilk)
-            }
+            buttonConfigure(hex: darkGrayColorHex, font: doneButtonFont , imageName: iconDoneUncheck)
+            unStrikeThroughLabels()
+            setAllViewsBackgroundColor(cornSilkColor)
         }
+        doneFlag = !done
     }
 }
 
-// MARK: ToDoCellModel
+// MARK: ToDo Cell Model
 struct ToDoCellModel{
     var title: String
     var description: String
     var tags: Set<TagEnum>
+    var doneFlag: Bool = false
 }
 
 enum TagEnum: String{

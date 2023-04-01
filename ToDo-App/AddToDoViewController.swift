@@ -8,8 +8,8 @@
 import UIKit
 
 protocol ToDoAddedDelegate: AnyObject{
-    func didChanged(_ title: String?, _ description: String?, _ tags: Set<TagEnum>?)
-    func editChanged(_ title: String?, _ description: String?, _ tags: Set<TagEnum>?, at indexPath: IndexPath?)
+    func editChanged(for todoModel: ToDoCellModel, at indexPath: IndexPath?)
+    func toDoAdded(for todoModel: ToDoCellModel)
 }
 
 class AddToDoViewController: UIViewController {
@@ -104,7 +104,8 @@ class AddToDoViewController: UIViewController {
     }
     
     // MARK: Button Actions
-    @IBAction func TagButtonWorkPressed(_ sender: Any) {
+    @IBAction func TagButtonWorkPressed(_ sender: UIButton) {
+        buttonScaleUpAnimation(sender)
         workPressedFlag = !workPressedFlag
         revertTagButtonBackground(for: "work", with: workPressedFlag)
         if workPressedFlag{
@@ -113,7 +114,8 @@ class AddToDoViewController: UIViewController {
             tagSelection.remove(.work)
         }
     }
-    @IBAction func TagButtonStudyPressed(_ sender: Any) {
+    @IBAction func TagButtonStudyPressed(_ sender: UIButton) {
+        buttonScaleUpAnimation(sender)
         studyPressedFlag = !studyPressedFlag
         revertTagButtonBackground(for: "study", with: studyPressedFlag)
         if studyPressedFlag{
@@ -122,7 +124,8 @@ class AddToDoViewController: UIViewController {
             tagSelection.remove(.study)
         }
     }
-    @IBAction func TagButtonEntertainmentPressed(_ sender: Any) {
+    @IBAction func TagButtonEntertainmentPressed(_ sender: UIButton) {
+        buttonScaleUpAnimation(sender)
         entertainmentPressedFlag = !entertainmentPressedFlag
         revertTagButtonBackground(for: "entertainment", with: entertainmentPressedFlag)
         if entertainmentPressedFlag{
@@ -131,7 +134,8 @@ class AddToDoViewController: UIViewController {
             tagSelection.remove(.entertainment)
         }
     }
-    @IBAction func TagButtonFamilyPressed(_ sender: Any) {
+    @IBAction func TagButtonFamilyPressed(_ sender: UIButton) {
+        buttonScaleUpAnimation(sender)
         familyPressedFlag = !familyPressedFlag
         revertTagButtonBackground(for: "family", with: familyPressedFlag)
         if familyPressedFlag{
@@ -145,13 +149,15 @@ class AddToDoViewController: UIViewController {
         dismiss(animated: false)
     }
     @IBAction func AddToDoButtonPressed(_ sender: Any) {
+        let todo: ToDoCellModel = .init(
+                title: AddTitleTextField.text!,
+                description: AddDescriptionTextView.text,
+                tags:self.tagSelection)
         if self.editFlag == true{
-            delegate?.editChanged(AddTitleTextField.text, AddDescriptionTextView.text, self.tagSelection, at: self.editIndexPath)
+            delegate?.editChanged(for: todo, at: self.editIndexPath)
         }else{
-            delegate?.didChanged(AddTitleTextField.text, AddDescriptionTextView.text, tagSelection)
+            delegate?.toDoAdded(for: todo)
         }
-        let todoVc = ToDoViewController()
-        todoVc.checkTagSelection()
         dismiss(animated: false)
     }
 }

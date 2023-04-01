@@ -21,8 +21,8 @@ class ToDoViewController: UIViewController {
     // MARK: Mock Data
     var data: [ToDoCellModel] =
     [
-        .init(title: "Work", description: "Edit ", tags: [.work]),
-        .init(title: "Study", description: "Edit.", tags: [.study]),
+//        .init(title: "Work", description: "Edit ", tags: [.work]),
+//        .init(title: "Study", description: "Edit.", tags: [.study]),
 //        .init(title: "WorkStudy", description: "Edit.", tags: [.work,.study]),
 //        .init(title: "WorkStudyEntertainment", description: "Edit.", tags: [.work, .study, .entertainment]),
 //        .init(title: "StudyEntertainment", description: "Edit.", tags: [ .study, .entertainment]),
@@ -30,6 +30,15 @@ class ToDoViewController: UIViewController {
 //        .init(title: "Family", description: "Edit.", tags: [.family]),
 //        .init(title: "WorkFamily", description: "Edit.", tags: [.work,.family]),
 //        .init(title: "All", description: "All", tags: [.work, .study, .entertainment,.family]),
+        .init(title: "1", description: "Edit ", tags: [.work]),
+        .init(title: "2", description: "Edit.", tags: [.study]),
+        .init(title: "3", description: "Edit.", tags: [.work,.study]),
+        .init(title: "4", description: "Edit.", tags: [.work, .study, .entertainment]),
+        .init(title: "5", description: "Edit.", tags: [ .study, .entertainment]),
+        .init(title: "6", description: "Edit.", tags: [ .entertainment]),
+        .init(title: "7", description: "Edit.", tags: [.family]),
+        .init(title: "8", description: "Edit.", tags: [.work,.family]),
+        .init(title: "9", description: "All", tags: [.work, .study, .entertainment,.family]),
     ]
     var filteredData: [ToDoCellModel] = []
     private var tagSelection: Set<TagEnum> = []
@@ -38,6 +47,7 @@ class ToDoViewController: UIViewController {
     private var studyPressedFlag: Bool = false
     private var entertainmentPressedFlag: Bool = false
     private var familyPressedFlag: Bool = false
+    private var isRotating = false
     // MARK: View Life-Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +60,7 @@ class ToDoViewController: UIViewController {
         self.ToDoTableview.register(.init(nibName: "ToDoCell", bundle: nil), forCellReuseIdentifier: "ToDoCell")
         self.ToDoTableview.separatorStyle = ToDoCell.SeparatorStyle.none
         configureButtonIcons()
-        checkTagSelection()
+        updateData()
         configureAddToDoButton()
     }
     func configureAddToDoButton(){
@@ -69,10 +79,17 @@ class ToDoViewController: UIViewController {
         }else{
             tagSelection.remove(tagEnum)
         }
-        filteredData = data.filter { element in
-            element.tags.contains(where: { Array(tagSelection).contains($0) })
+        updateData()
+
+    }
+    func updateData(){
+        if Array(tagSelection).isEmpty{
+            filteredData = data
+        }else{
+            filteredData = data.filter { element in
+                element.tags.contains(where: { Array(tagSelection).contains($0) })
+            }
         }
-        checkTagSelection()
         ToDoTableview.reloadData()
     }
     func revertTagButtonBackground(for tagName: String, with flag: Bool){
@@ -96,11 +113,6 @@ class ToDoViewController: UIViewController {
                 TagButtonFamily.backgroundColor = UIColor.white
             default:
                 break
-        }
-    }
-    func checkTagSelection(){
-        if Array(tagSelection).isEmpty{
-            filteredData = data
         }
     }
     func createAddToDoViewController(at indexPath: IndexPath?, flag editFlag: Bool?){
@@ -127,43 +139,55 @@ class ToDoViewController: UIViewController {
         self.TagButtonFamily.setImage(createTagIcon(tag: "family", font:12), for: .normal)
         self.TagButtonFamily.layer.cornerRadius = 15.0
     }
+    func buttonRotateNinetyDegree(_ sender: UIButton){
+        if !isRotating {
+                isRotating = true
+                UIView.animate(withDuration: 0.5, animations: {
+                    sender.transform = sender.transform.rotated(by: CGFloat.pi/2)
+                }, completion: { _ in
+                    self.isRotating = false
+                })
+            }
+    }
     // MARK: Button Actions
     
-    @IBAction func TagWorkButtonPressed(_ sender: Any) {
+    @IBAction func TagWorkButtonPressed(_ sender: UIButton) {
+        buttonScaleUpAnimation(sender)
         TagButtonPressedHelper(for: "work", flag: &workPressedFlag, tag: .work)
     }
-    @IBAction func TagStudyButtonPressed(_ sender: Any) {
+    @IBAction func TagStudyButtonPressed(_ sender: UIButton) {
+        buttonScaleUpAnimation(sender)
         TagButtonPressedHelper(for: "study", flag: &studyPressedFlag, tag: .study)
     }
-    @IBAction func TagEntertainmentButtonPressed(_ sender: Any) {
+    @IBAction func TagEntertainmentButtonPressed(_ sender: UIButton) {
+        buttonScaleUpAnimation(sender)
         TagButtonPressedHelper(for: "entertainment", flag: &entertainmentPressedFlag, tag: .entertainment)
     }
-    @IBAction func TagFamilyButtonPressed(_ sender: Any) {
+    @IBAction func TagFamilyButtonPressed(_ sender: UIButton) {
+        buttonScaleUpAnimation(sender)
         TagButtonPressedHelper(for: "family", flag: &familyPressedFlag, tag: .family)
     }
-    @IBAction func AddToDoButtonPressed(_ sender: Any) {
-        createAddToDoViewController(at: nil, flag: nil)
+    @IBAction func AddToDoButtonPressed(_ sender: UIButton) {
+        buttonRotateNinetyDegree(sender)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+            self.createAddToDoViewController(at: nil, flag: nil)
+        }
     }
 }
 
 // MARK: Extensions
-/* Delegation Pattern */
 extension ToDoViewController: ToDoAddedDelegate{
-    func editChanged(_ title: String?, _ description: String?, _ tags: Set<TagEnum>?, at indexPath: IndexPath?) {
-        if let indexPath,let title, let description, let tags{
+    func editChanged(for todoModel: ToDoCellModel, at indexPath: IndexPath?) {
+        if let indexPath{
+            let sourceRow = indexPath.row
             data.remove(at: indexPath.row)
-            data.append(.init(title: title, description: description, tags: tags))
-            print(data)
-            filteredData = data
-            ToDoTableview.reloadData()
+            data.append(todoModel)
+            updateData()
         }
     }
-    func didChanged(_ title: String?, _ description: String?, _ tags: Set<TagEnum>?) {
-        if let title, let description, let tags{
-            data.append(.init(title: title, description: description, tags: tags))
-            filteredData = data
-            ToDoTableview.reloadData()
-        }
+    func toDoAdded(for todoModel: ToDoCellModel) {
+        data.append(todoModel)
+        updateData()
     }
 }
 extension ToDoViewController: CustomCellDelegate{
@@ -176,11 +200,24 @@ extension ToDoViewController: CustomCellDelegate{
         createAddToDoViewController(at: indexPath, flag: true)
     }
     func doneButtonPressed(_ cell: ToDoCell) {
-        guard let indexPath = ToDoTableview.indexPath(for: cell) else { return }
-        ToDoTableview.moveRow(at: indexPath, to: IndexPath(row: ToDoTableview.numberOfRows(inSection: 0) - 1, section: 0))
+        guard let sourceIndexPath = ToDoTableview.indexPath(for: cell) else { return }
+        let destinationIndexPath = IndexPath(row: (data.count-1), section: 0)
+        // invert done flag of the specified data
+        let doneCheck = data[sourceIndexPath.row].doneFlag
+        data[sourceIndexPath.row].doneFlag = !doneCheck
+        // manipulate data
+        let itemToMove = data.remove(at: sourceIndexPath.row)
+        data.append(itemToMove)
+        // manipulate view
+        if !doneCheck{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.32){ [weak self] in
+                self!.ToDoTableview.reloadData()
+               //self!.ToDoTableview.moveRow(at: sourceIndexPath, to: destinationIndexPath)
+            }
+        }
     }
 }
-/* TableView Related */
+/* MARK: TableView Related */
 extension ToDoViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let cellSpacingHeight: CGFloat = 5
@@ -193,9 +230,10 @@ extension ToDoViewController: UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.ToDoTableview.dequeueReusableCell(withIdentifier: "ToDoCell") as! ToDoCell
-        cell.configure(with: filteredData[indexPath.row])
-        cell.indexPath = indexPath
         cell.delegate = self
+        cell.indexPath = indexPath
+        cell.doneFlag = data[indexPath.row].doneFlag
+        cell.configure(with: filteredData[indexPath.row])
         return cell
     }
 }
@@ -224,4 +262,14 @@ func createTagIcon(tag tagName: String, font FontSize: Int) -> UIImage{
             tagIcon = UIImage(systemName: "circle.fill")
     }
     return tagIcon!
+}
+
+func buttonScaleUpAnimation(_ sender: UIButton){
+    UIView.animate(withDuration: 0.3, animations: {
+        sender.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+    }, completion: { _ in
+        UIView.animate(withDuration: 0.3, animations: {
+            sender.transform = CGAffineTransform.identity
+        })
+    })
 }
