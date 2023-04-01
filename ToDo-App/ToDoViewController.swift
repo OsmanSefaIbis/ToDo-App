@@ -21,15 +21,6 @@ class ToDoViewController: UIViewController {
     // MARK: Mock Data
     var data: [ToDoCellModel] =
     [
-//        .init(title: "Work", description: "Edit ", tags: [.work]),
-//        .init(title: "Study", description: "Edit.", tags: [.study]),
-//        .init(title: "WorkStudy", description: "Edit.", tags: [.work,.study]),
-//        .init(title: "WorkStudyEntertainment", description: "Edit.", tags: [.work, .study, .entertainment]),
-//        .init(title: "StudyEntertainment", description: "Edit.", tags: [ .study, .entertainment]),
-//        .init(title: "Entertainment", description: "Edit.", tags: [ .entertainment]),
-//        .init(title: "Family", description: "Edit.", tags: [.family]),
-//        .init(title: "WorkFamily", description: "Edit.", tags: [.work,.family]),
-//        .init(title: "All", description: "All", tags: [.work, .study, .entertainment,.family]),
         .init(title: "1", description: "Edit ", tags: [.work]),
         .init(title: "2", description: "Edit.", tags: [.study]),
         .init(title: "3", description: "Edit.", tags: [.work,.study]),
@@ -43,33 +34,41 @@ class ToDoViewController: UIViewController {
     var filteredData: [ToDoCellModel] = []
     private var tagSelection: Set<TagEnum> = []
     // Tag Flags
-    private var workPressedFlag: Bool = false
-    private var studyPressedFlag: Bool = false
-    private var entertainmentPressedFlag: Bool = false
-    private var familyPressedFlag: Bool = false
+    private var workPressedFlag = false
+    private var studyPressedFlag = false
+    private var entertainmentPressedFlag = false
+    private var familyPressedFlag = false
     private var isRotating = false
+    // Custom Vars
+    private let tagButtonsCornerRadius = 15.0
+    private let tagButtonsIconFontSize = 12
+    private let addButtonIconFontSize = 40
+    private let cellName = "ToDoCell"
+    private let addButtonIconName = "plus"
+    
     // MARK: View Life-Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
-    
     func setupUI(){
-        ToDoTableview.delegate = self
-        ToDoTableview.dataSource = self
-        self.ToDoTableview.register(.init(nibName: "ToDoCell", bundle: nil), forCellReuseIdentifier: "ToDoCell")
-        self.ToDoTableview.separatorStyle = ToDoCell.SeparatorStyle.none
+        tableviewSetupUI()
         configureButtonIcons()
         updateData()
         configureAddToDoButton()
     }
+    func tableviewSetupUI(){
+        ToDoTableview.delegate = self
+        ToDoTableview.dataSource = self
+        self.ToDoTableview.register(.init(nibName: cellName, bundle: nil), forCellReuseIdentifier: cellName)
+        self.ToDoTableview.separatorStyle = ToDoCell.SeparatorStyle.none
+    }
     func configureAddToDoButton(){
-        let workTagColor = UIColor(hex: "#69665CFF")!
-        let iconFont = UIFont.systemFont(ofSize: CGFloat(40),weight: .bold)
+        let addButtonColor = addButtonColor
+        let iconFont = UIFont.systemFont(ofSize: CGFloat(addButtonIconFontSize),weight: .bold)
         let configuration = UIImage.SymbolConfiguration(font: iconFont)
-        let addButtonIcon = UIImage(systemName: "plus", withConfiguration: configuration)?.withTintColor(workTagColor, renderingMode: .alwaysOriginal)
+        let addButtonIcon = UIImage(systemName: addButtonIconName, withConfiguration: configuration)?.withTintColor(workTagColor, renderingMode: .alwaysOriginal)
         AddToDoButton.setImage(addButtonIcon, for: .normal)
-
     }
     func TagButtonPressedHelper(for tagName: String, flag pressedFlag: inout Bool, tag tagEnum: TagEnum){
         pressedFlag = !pressedFlag
@@ -80,7 +79,6 @@ class ToDoViewController: UIViewController {
             tagSelection.remove(tagEnum)
         }
         updateData()
-
     }
     func updateData(){
         if Array(tagSelection).isEmpty{
@@ -96,19 +94,19 @@ class ToDoViewController: UIViewController {
         let desired = (tagName, true)
         switch desired{
             case ("work",flag):
-                TagButtonWork.backgroundColor = UIColor(hex: "#D2CEFF66")
+                TagButtonWork.backgroundColor = workTagSoftColor
             case ("work",_):
                 TagButtonWork.backgroundColor = UIColor.white
             case ("study",flag):
-                TagButtonStudy.backgroundColor = UIColor(hex: "#D1E5F788")
+                TagButtonStudy.backgroundColor = studyTagSoftColor
             case ("study",_):
                 TagButtonStudy.backgroundColor = UIColor.white
             case ("entertainment",flag):
-                TagButtonEntertainment.backgroundColor = UIColor(hex: "#FFCECE66")
+                TagButtonEntertainment.backgroundColor = entertainmentTagSoftColor
             case ("entertainment",_):
                 TagButtonEntertainment.backgroundColor = UIColor.white
             case ("family",flag):
-                TagButtonFamily.backgroundColor = UIColor(hex: "#DAF2D688")
+                TagButtonFamily.backgroundColor = familyTagSoftColor
             case ("family",_):
                 TagButtonFamily.backgroundColor = UIColor.white
             default:
@@ -130,14 +128,14 @@ class ToDoViewController: UIViewController {
         }
     }
     func configureButtonIcons(){
-        self.TagButtonWork.setImage(createTagIcon(tag: "work", font:12), for: .normal)
-        self.TagButtonWork.layer.cornerRadius = 15.0
-        self.TagButtonStudy.setImage(createTagIcon(tag: "study", font:12), for: .normal)
-        self.TagButtonStudy.layer.cornerRadius = 15.0
-        self.TagButtonEntertainment.setImage(createTagIcon(tag: "entertainment", font:12), for: .normal)
-        self.TagButtonEntertainment.layer.cornerRadius = 15.0
-        self.TagButtonFamily.setImage(createTagIcon(tag: "family", font:12), for: .normal)
-        self.TagButtonFamily.layer.cornerRadius = 15.0
+        TagButtonWork.setImage(createTagIcon(tag: "work", font: tagButtonsIconFontSize), for: .normal)
+        TagButtonWork.layer.cornerRadius = tagButtonsCornerRadius
+        TagButtonStudy.setImage(createTagIcon(tag: "study", font: tagButtonsIconFontSize), for: .normal)
+        TagButtonStudy.layer.cornerRadius = tagButtonsCornerRadius
+        TagButtonEntertainment.setImage(createTagIcon(tag: "entertainment", font: tagButtonsIconFontSize), for: .normal)
+        TagButtonEntertainment.layer.cornerRadius = tagButtonsCornerRadius
+        TagButtonFamily.setImage(createTagIcon(tag: "family", font: tagButtonsIconFontSize), for: .normal)
+        TagButtonFamily.layer.cornerRadius = tagButtonsCornerRadius
     }
     func buttonRotateNinetyDegree(_ sender: UIButton){
         if !isRotating {
@@ -150,7 +148,6 @@ class ToDoViewController: UIViewController {
             }
     }
     // MARK: Button Actions
-    
     @IBAction func TagWorkButtonPressed(_ sender: UIButton) {
         buttonScaleUpAnimation(sender)
         TagButtonPressedHelper(for: "work", flag: &workPressedFlag, tag: .work)
@@ -174,12 +171,10 @@ class ToDoViewController: UIViewController {
         }
     }
 }
-
-// MARK: Extensions
+// MARK: Delegate Extensions
 extension ToDoViewController: ToDoAddedDelegate{
     func editChanged(for todoModel: ToDoCellModel, at indexPath: IndexPath?) {
         if let indexPath{
-            let sourceRow = indexPath.row
             data.remove(at: indexPath.row)
             data.append(todoModel)
             updateData()
@@ -193,8 +188,7 @@ extension ToDoViewController: ToDoAddedDelegate{
 extension ToDoViewController: CustomCellDelegate{
     func deleteActionPressed(at indexPath: IndexPath) {
         data.remove(at: indexPath.row)
-        filteredData = data
-        ToDoTableview.reloadData()
+        updateData()
     }
     func editActionPressed(at indexPath: IndexPath) {
         createAddToDoViewController(at: indexPath, flag: true)
@@ -202,26 +196,21 @@ extension ToDoViewController: CustomCellDelegate{
     func doneButtonPressed(_ cell: ToDoCell) {
         guard let sourceIndexPath = ToDoTableview.indexPath(for: cell) else { return }
         let destinationIndexPath = IndexPath(row: (data.count-1), section: 0)
-        // invert done flag of the specified data
         let doneCheck = data[sourceIndexPath.row].doneFlag
         data[sourceIndexPath.row].doneFlag = !doneCheck
-        // manipulate data
         let itemToMove = data.remove(at: sourceIndexPath.row)
         data.append(itemToMove)
-        // manipulate view
         if !doneCheck{
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.32){ [weak self] in
-                self!.ToDoTableview.reloadData()
-               //self!.ToDoTableview.moveRow(at: sourceIndexPath, to: destinationIndexPath)
+               self!.ToDoTableview.moveRow(at: sourceIndexPath, to: destinationIndexPath)
             }
         }
     }
 }
-/* MARK: TableView Related */
+/* MARK: TableView Extension */
 extension ToDoViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let cellSpacingHeight: CGFloat = 5
-        return cellSpacingHeight
+        CGFloat(5.0)
     }
 }
 extension ToDoViewController: UITableViewDataSource{
@@ -229,37 +218,33 @@ extension ToDoViewController: UITableViewDataSource{
         filteredData.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.ToDoTableview.dequeueReusableCell(withIdentifier: "ToDoCell") as! ToDoCell
-        cell.delegate = self
-        cell.indexPath = indexPath
-        cell.doneFlag = data[indexPath.row].doneFlag
-        cell.configure(with: filteredData[indexPath.row])
-        return cell
+        let todoCell = self.ToDoTableview.dequeueReusableCell(withIdentifier: cellName) as! ToDoCell
+        todoCell.delegate = self
+        todoCell.indexPath = indexPath
+        todoCell.doneFlag = filteredData[indexPath.row].doneFlag
+        todoCell.configure(with: filteredData[indexPath.row])
+        return todoCell
     }
 }
 
-// MARK: Global Func's
+// MARK: Global's
+
+/* Funcs */
 func createTagIcon(tag tagName: String, font FontSize: Int) -> UIImage{
-    var tagIcon = UIImage(systemName: "circle.fill")
-    // Color hexs
-    let workTagColor = UIColor(hex: "#D2CEFFFF")!
-    let studyTagColor = UIColor(hex: "#D1E5F7FF")!
-    let entertainmentTagColor = UIColor(hex: "#FFCECEFF")!
-    let familyTagColor = UIColor(hex: "#DAF2D6FF")!
-    // Configure
+    var tagIcon = UIImage(systemName: tagIconName)
     let iconFont = UIFont.systemFont(ofSize: CGFloat(FontSize))
     let configuration = UIImage.SymbolConfiguration(font: iconFont)
     switch tagName{
         case "work":
-            tagIcon = UIImage(systemName: "circle.fill", withConfiguration: configuration)?.withTintColor(workTagColor, renderingMode: .alwaysOriginal)
+            tagIcon = UIImage(systemName: tagIconName, withConfiguration: configuration)?.withTintColor(workTagColor, renderingMode: .alwaysOriginal)
         case "study":
-            tagIcon = UIImage(systemName: "circle.fill", withConfiguration: configuration)?.withTintColor(studyTagColor, renderingMode: .alwaysOriginal)
+            tagIcon = UIImage(systemName: tagIconName, withConfiguration: configuration)?.withTintColor(studyTagColor, renderingMode: .alwaysOriginal)
         case "entertainment":
-            tagIcon = UIImage(systemName: "circle.fill", withConfiguration: configuration)?.withTintColor(entertainmentTagColor, renderingMode: .alwaysOriginal)
+            tagIcon = UIImage(systemName: tagIconName, withConfiguration: configuration)?.withTintColor(entertainmentTagColor, renderingMode: .alwaysOriginal)
         case "family":
-            tagIcon = UIImage(systemName: "circle.fill", withConfiguration: configuration)?.withTintColor(familyTagColor, renderingMode: .alwaysOriginal)
+            tagIcon = UIImage(systemName: tagIconName, withConfiguration: configuration)?.withTintColor(familyTagColor, renderingMode: .alwaysOriginal)
         default:
-            tagIcon = UIImage(systemName: "circle.fill")
+            tagIcon = UIImage(systemName: tagIconName)
     }
     return tagIcon!
 }
@@ -273,3 +258,14 @@ func buttonScaleUpAnimation(_ sender: UIButton){
         })
     })
 }
+/* Vars */
+let tagIconName = "circle.fill"
+let workTagColor = UIColor(hex: "#D2CEFFFF")!
+let workTagSoftColor = UIColor(hex: "#D2CEFF66")!
+let studyTagColor = UIColor(hex: "#D1E5F7FF")!
+let studyTagSoftColor = UIColor(hex: "#D1E5F788")!
+let entertainmentTagColor = UIColor(hex: "#FFCECEFF")!
+let entertainmentTagSoftColor = UIColor(hex: "#FFCECE66")!
+let familyTagColor = UIColor(hex: "#DAF2D6FF")!
+let familyTagSoftColor = UIColor(hex: "#DAF2D688")!
+let addButtonColor = UIColor(hex: "#69665CFF")!
