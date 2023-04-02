@@ -29,11 +29,12 @@ class AddToDoViewController: UIViewController {
     var editFlag = false
     var editIndexPath = IndexPath()
     let appTitle = "todo"
+    let placeholderLabel = UILabel()
     // Tag Flags
-    private var workPressedFlag: Bool = false
-    private var studyPressedFlag: Bool = false
-    private var entertainmentPressedFlag: Bool = false
-    private var familyPressedFlag: Bool = false
+    private var workPressedFlag = false
+    private var studyPressedFlag = false
+    private var entertainmentPressedFlag = false
+    private var familyPressedFlag = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +51,17 @@ class AddToDoViewController: UIViewController {
         AddTitleTextField.delegate = self
     }
     func configureTextViews(){
-        AddDescriptionTextView.text = "add a description ..."
-        AddDescriptionTextView.textColor = .lightGray
+        placeholderLabel.frame = CGRect(x: 5, y: 5, width: AddDescriptionTextView.frame.width, height: 20)
+        placeholderLabel.text = "add a description ..."
+        placeholderLabel.textColor = UIColor.lightGray
+        placeholderLabel.font = UIFont.systemFont(ofSize: 14)
+        AddDescriptionTextView.addSubview(placeholderLabel)
+        AddDescriptionTextView.layer.borderWidth = 0.5
+        AddDescriptionTextView.layer.borderColor = UIColor.lightGray.cgColor
+        AddDescriptionTextView.layer.cornerRadius = 5.0
+        AddTitleTextField.layer.borderWidth = 0.5
+        AddTitleTextField.layer.borderColor = UIColor.lightGray.cgColor
+        AddTitleTextField.layer.cornerRadius = 5.0
     }
     func configureTagButtons(){
         TagButtonWork.setImage(createTagIcon(tag: "work", font: tagButtonsIconFontSize), for: .normal)
@@ -63,34 +73,53 @@ class AddToDoViewController: UIViewController {
         TagButtonFamily.setImage(createTagIcon(tag: "family", font:tagButtonsIconFontSize), for: .normal)
         TagButtonFamily.layer.cornerRadius = tagButtonsCornerRadius
     }
-    func revertTagButtonBackground(for tagName: String, with flag: Bool){
-        let coloredCase = (tagName, true)
-        switch coloredCase{
-            case ("work",flag):
-                TagButtonWork.backgroundColor = workTagSoftColor
-            case ("work",_):
-            TagButtonWork.backgroundColor = .white
-            case ("study",flag):
-                TagButtonStudy.backgroundColor = studyTagSoftColor
-            case ("study",_):
-            TagButtonStudy.backgroundColor = .white
-            case ("entertainment",flag):
-                TagButtonEntertainment.backgroundColor = entertainmentTagSoftColor
-            case ("entertainment",_):
-            TagButtonEntertainment.backgroundColor = .white
-            case ("family",flag):
-                TagButtonFamily.backgroundColor = familyTagSoftColor
-            case ("family",_):
-            TagButtonFamily.backgroundColor = .white
-            default:
-                break
-        }
-    }
     func configureFields(with cellModel: ToDoCellModel){
         AddTitleTextField.text = cellModel.title
         AddDescriptionTextView.text = cellModel.description
         tagSelection = cellModel.tags
+        transferTagSelectionToButtons(for: tagSelection)
     }
+    func transferTagSelectionToButtons(for tags: Set<TagEnum>){
+        for tag in tags{
+            switch tag{
+            case .work:
+                revertTagButtonBackground(for: "work", with: true)
+                workPressedFlag.toggle()
+            case .study:
+                revertTagButtonBackground(for: "study", with: true)
+                studyPressedFlag.toggle()
+            case .entertainment:
+                revertTagButtonBackground(for: "entertainment", with: true)
+                entertainmentPressedFlag.toggle()
+            case .family:
+                revertTagButtonBackground(for: "family", with: true)
+                familyPressedFlag.toggle()
+            }
+        }
+    }
+    func revertTagButtonBackground(for tagName: String, with flag: Bool){
+       let coloredCase = (tagName, true)
+       switch coloredCase{
+           case ("work",flag):
+               TagButtonWork.backgroundColor = workTagSoftColor
+           case ("work",_):
+           TagButtonWork.backgroundColor = .white
+           case ("study",flag):
+               TagButtonStudy.backgroundColor = studyTagSoftColor
+           case ("study",_):
+           TagButtonStudy.backgroundColor = .white
+           case ("entertainment",flag):
+               TagButtonEntertainment.backgroundColor = entertainmentTagSoftColor
+           case ("entertainment",_):
+           TagButtonEntertainment.backgroundColor = .white
+           case ("family",flag):
+               TagButtonFamily.backgroundColor = familyTagSoftColor
+           case ("family",_):
+           TagButtonFamily.backgroundColor = .white
+           default:
+               break
+       }
+   }
     func appTitleStrikeThrough(){
         let text = appTitle
         let attributeString = NSMutableAttributedString(string: text)
@@ -101,8 +130,9 @@ class AddToDoViewController: UIViewController {
     }
     // MARK: Button Actions
     @IBAction func TagButtonWorkPressed(_ sender: UIButton) {
+        hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
-        workPressedFlag = !workPressedFlag
+        workPressedFlag.toggle()
         revertTagButtonBackground(for: "work", with: workPressedFlag)
         if workPressedFlag{
             tagSelection.insert(.work)
@@ -111,8 +141,9 @@ class AddToDoViewController: UIViewController {
         }
     }
     @IBAction func TagButtonStudyPressed(_ sender: UIButton) {
+        hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
-        studyPressedFlag = !studyPressedFlag
+        studyPressedFlag.toggle()
         revertTagButtonBackground(for: "study", with: studyPressedFlag)
         if studyPressedFlag{
             tagSelection.insert(.study)
@@ -121,8 +152,9 @@ class AddToDoViewController: UIViewController {
         }
     }
     @IBAction func TagButtonEntertainmentPressed(_ sender: UIButton) {
+        hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
-        entertainmentPressedFlag = !entertainmentPressedFlag
+        entertainmentPressedFlag.toggle()
         revertTagButtonBackground(for: "entertainment", with: entertainmentPressedFlag)
         if entertainmentPressedFlag{
             tagSelection.insert(.entertainment)
@@ -131,8 +163,9 @@ class AddToDoViewController: UIViewController {
         }
     }
     @IBAction func TagButtonFamilyPressed(_ sender: UIButton) {
+        hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
-        familyPressedFlag = !familyPressedFlag
+        familyPressedFlag.toggle()
         revertTagButtonBackground(for: "family", with: familyPressedFlag)
         if familyPressedFlag{
             tagSelection.insert(.family)
@@ -141,6 +174,7 @@ class AddToDoViewController: UIViewController {
         }
     }
     @IBAction func CancelToDoButtonPressed(_ sender: Any) {
+        hapticFeedbackSoft()
         dismiss(animated: false)
     }
     @IBAction func AddToDoButtonPressed(_ sender: Any) {
@@ -150,11 +184,15 @@ class AddToDoViewController: UIViewController {
         }else{
             delegate?.toDoAdded(for: newTodo)
         }
+        hapticFeedbackHeavy()
         dismiss(animated: false)
     }
 }
 // MARK: Extensions
 extension AddToDoViewController: UITextViewDelegate{
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+            return true
+        }
     func textViewDidBeginEditing(_ textView: UITextView) {
         if AddDescriptionTextView.textColor == UIColor.lightGray {
             AddDescriptionTextView.text = nil
@@ -167,6 +205,9 @@ extension AddToDoViewController: UITextViewDelegate{
             AddDescriptionTextView.textColor = UIColor.lightGray
         }
     }
+    func textViewDidChange(_ textView: UITextView) {
+            placeholderLabel.isHidden = !textView.text.isEmpty
+        }
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             textView.resignFirstResponder()

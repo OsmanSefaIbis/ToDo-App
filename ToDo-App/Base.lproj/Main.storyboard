@@ -315,7 +315,7 @@
                                                                 <rect key="frame" x="0.0" y="20" width="361" height="126"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FXo-wE-21B">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="28.333333333333332"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="54.666666666666657" height="28.333333333333332"/>
                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <state key="normal" title="Button"/>
                                                                         <buttonConfiguration key="configuration" style="tinted" title=" work" cornerStyle="capsule">
@@ -351,7 +351,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Na-dc-vHp">
-                                                                        <rect key="frame" x="0.0" y="97.666666666666629" width="61.333333333333336" height="28.333333333333329"/>
+                                                                        <rect key="frame" x="0.0" y="97.666666666666629" width="61.333333333333343" height="28.333333333333329"/>
                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <state key="normal" title="Button"/>
                                                                         <buttonConfiguration key="configuration" style="tinted" title=" family" cornerStyle="capsule">

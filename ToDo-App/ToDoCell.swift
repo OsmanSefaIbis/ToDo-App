@@ -123,8 +123,10 @@ class ToDoCell: UITableViewCell {
     @IBAction func OptionsToDoButtonPressed(_ sender: Any) {
         OptionsToDoButton.menu = setMenuOptions()
         OptionsToDoButton.showsMenuAsPrimaryAction = true
+        hapticFeedbackSoft()
     }
     @IBAction func DoneButtonPressed(_ sender: UIButton) {
+        hapticFeedbackHeavy()
         buttonScaleUpAnimation(sender)
         delegate?.doneButtonPressed(self)
         guard let done = doneFlag else { return }
@@ -137,7 +139,7 @@ class ToDoCell: UITableViewCell {
             unStrikeThroughLabels()
             setAllViewsBackgroundColor(cornSilkColor)
         }
-        doneFlag = !done
+        doneFlag?.toggle()
     }
 }
 
