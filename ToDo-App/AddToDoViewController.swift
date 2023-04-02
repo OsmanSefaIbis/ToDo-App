@@ -29,7 +29,6 @@ class AddToDoViewController: UIViewController {
     var editFlag = false
     var editIndexPath = IndexPath()
     let appTitle = "todo"
-    let placeholderLabel = UILabel()
     // Tag Flags
     private var workPressedFlag = false
     private var studyPressedFlag = false
@@ -51,17 +50,18 @@ class AddToDoViewController: UIViewController {
         AddTitleTextField.delegate = self
     }
     func configureTextViews(){
-        placeholderLabel.frame = CGRect(x: 5, y: 5, width: AddDescriptionTextView.frame.width, height: 20)
-        placeholderLabel.text = "add a description ..."
-        placeholderLabel.textColor = UIColor.lightGray
-        placeholderLabel.font = UIFont.systemFont(ofSize: 14)
-        AddDescriptionTextView.addSubview(placeholderLabel)
+        AddDescriptionTextView.addPlaceholder("add a description ...")
         AddDescriptionTextView.layer.borderWidth = 0.5
         AddDescriptionTextView.layer.borderColor = UIColor.lightGray.cgColor
         AddDescriptionTextView.layer.cornerRadius = 5.0
+        AddDescriptionTextView.autocorrectionType = .no
+        AddDescriptionTextView.autocapitalizationType = .sentences
         AddTitleTextField.layer.borderWidth = 0.5
         AddTitleTextField.layer.borderColor = UIColor.lightGray.cgColor
         AddTitleTextField.layer.cornerRadius = 5.0
+        AddTitleTextField.autocorrectionType = .no
+        AddTitleTextField.autocapitalizationType = .words
+    
     }
     func configureTagButtons(){
         TagButtonWork.setImage(createTagIcon(tag: "work", font: tagButtonsIconFontSize), for: .normal)
@@ -178,21 +178,36 @@ class AddToDoViewController: UIViewController {
         dismiss(animated: false)
     }
     @IBAction func AddToDoButtonPressed(_ sender: Any) {
-        let newTodo: ToDoCellModel = .init( title: AddTitleTextField.text!, description: AddDescriptionTextView.text, tags: tagSelection)
-        if editFlag == true{
-            delegate?.editChanged(for: newTodo, at: editIndexPath)
-        }else{
-            delegate?.toDoAdded(for: newTodo)
+        if AddTitleTextField.text!.isEmpty {
+            AddTitleTextField.placeholder = "title please ... "
+            AddTitleTextField.shake()
+        }else if AddDescriptionTextView.text.isEmpty {
+            AddDescriptionTextView.removePlaceholder()
+            AddDescriptionTextView.addPlaceholder("description please ... ")
+            AddDescriptionTextView.shake()
         }
-        hapticFeedbackHeavy()
-        dismiss(animated: false)
+        else{
+            let newTodo: ToDoCellModel = .init( title: AddTitleTextField.text!, description: AddDescriptionTextView.text, tags: tagSelection)
+            if editFlag == true{
+                delegate?.editChanged(for: newTodo, at: editIndexPath)
+            }else{
+                delegate?.toDoAdded(for: newTodo)
+            }
+            hapticFeedbackHeavy()
+            dismiss(animated: false)
+        }
     }
 }
 // MARK: Extensions
 extension AddToDoViewController: UITextViewDelegate{
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-            return true
+        return true
+    }
+    func textViewDidChange(_ textView: UITextView) {
+        if !textView.text.isEmpty{
+            textView.removePlaceholder()
         }
+    }
     func textViewDidBeginEditing(_ textView: UITextView) {
         if AddDescriptionTextView.textColor == UIColor.lightGray {
             AddDescriptionTextView.text = nil
@@ -205,9 +220,6 @@ extension AddToDoViewController: UITextViewDelegate{
             AddDescriptionTextView.textColor = UIColor.lightGray
         }
     }
-    func textViewDidChange(_ textView: UITextView) {
-            placeholderLabel.isHidden = !textView.text.isEmpty
-        }
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             textView.resignFirstResponder()
@@ -216,9 +228,38 @@ extension AddToDoViewController: UITextViewDelegate{
         return true
     }
 }
+
 extension AddToDoViewController: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             textField.resignFirstResponder()
             return true
         }
+}
+
+extension UIView {
+    func shake() {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.1
+        animation.repeatCount = 6
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: self.center.x - 10, y: self.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + 10, y: self.center.y))
+        self.layer.add(animation, forKey: "position")
+    }
+}
+// placeholderLabel.frame = CGRect(x: 5, y: 5, width: AddDescriptionTextView.frame.width, height: 20)
+extension UITextView {
+    func addPlaceholder(_ placeholder: String) {
+        let placeholderLabel = UILabel()
+        placeholderLabel.text = placeholder
+        placeholderLabel.font = UIFont.systemFont(ofSize: 14)
+        placeholderLabel.sizeToFit()
+        placeholderLabel.frame.origin = CGPoint(x: 5, y: 5)
+        placeholderLabel.textColor = UIColor.lightGray
+        placeholderLabel.tag = 100
+        self.addSubview(placeholderLabel)
+    }
+    func removePlaceholder() {
+        self.viewWithTag(100)?.removeFromSuperview()
+    }
 }

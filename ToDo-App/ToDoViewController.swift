@@ -91,6 +91,7 @@ class ToDoViewController: UIViewController {
         self.present(vc, animated: false)
         
         if let indexPath, let editFlag{
+            vc.AddDescriptionTextView.removePlaceholder()
             vc.AddToDoButton.setTitle("Edit", for: .normal)
             vc.editFlag = editFlag
             vc.configureFields(with: filteredData[indexPath.row])
