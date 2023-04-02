@@ -181,10 +181,12 @@ class AddToDoViewController: UIViewController {
         if AddTitleTextField.text!.isEmpty {
             AddTitleTextField.placeholder = "title please ... "
             AddTitleTextField.shake()
+            hapticFeedbackMedium()
         }else if AddDescriptionTextView.text.isEmpty {
             AddDescriptionTextView.removePlaceholder()
             AddDescriptionTextView.addPlaceholder("description please ... ")
             AddDescriptionTextView.shake()
+            hapticFeedbackMedium()
         }
         else{
             let newTodo: ToDoCellModel = .init( title: AddTitleTextField.text!, description: AddDescriptionTextView.text, tags: tagSelection)
