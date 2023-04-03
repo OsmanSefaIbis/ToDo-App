@@ -20,15 +20,36 @@ extension ToDoViewController: CustomCellDelegate {
     
     func doneButtonPressed(_ cell: ToDoCell) {
         guard let sourceIndexPath = ToDoTableview.indexPath(for: cell) else { return }
-        let destinationIndexPath = IndexPath(row: (tableviewData.count-1), section: 0)
+        var destinationIndexPath = IndexPath()
         let doneCheck = tableviewData[sourceIndexPath.row].doneFlag
-        tableviewData[sourceIndexPath.row].doneFlag.toggle()
-        let itemToMove = tableviewData.remove(at: sourceIndexPath.row)
-        tableviewData.append(itemToMove)
+        
         if !doneCheck{
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.32){ [weak self] in
-               self!.ToDoTableview.moveRow(at: sourceIndexPath, to: destinationIndexPath)
-            }
+            tableviewData[sourceIndexPath.row].doneFlag.toggle()
+            destinationIndexPath = IndexPath(row: doneTableViewData.count, section: 1)
+            tableView(ToDoTableview, moveRowAt: sourceIndexPath, to: destinationIndexPath)
+        }else{
+            doneTableViewData[sourceIndexPath.row].doneFlag.toggle()
+            destinationIndexPath = IndexPath(row: tableviewData.count, section: 0)
+            tableView(ToDoTableview, moveRowAt: sourceIndexPath, to: destinationIndexPath)
         }
+        updateData()
+//            let itemToMove = tableviewData[sourceIndexPath.section].remove(at: sourceIndexPath.row)
+//            doneTableViewData.append(itemToMove)
+//            let destinationIndexPath = IndexPath(row: doneTableViewData.count-1, section: 1)
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.32){ [weak self] in
+//                self!.ToDoTableview.beginUpdates()
+//                self!.ToDoTableview.deleteRows(at: [sourceIndexPath], with: .automatic)
+//                self!.ToDoTableview.insertRows(at: [destinationIndexPath], with: .automatic)
+//                self!.ToDoTableview.endUpdates()
+//            }
+//        }else{
+//            doneTableViewData[sourceIndexPath.row].doneFlag.toggle()
+//            let itemToMove = doneTableViewData.remove(at: sourceIndexPath.row)
+//            tableviewData.append(itemToMove)
+//            let destinationIndexPath = IndexPath(row: tableviewData.count-1, section: 0)
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.32){ [weak self] in
+//               self!.ToDoTableview.moveRow(at: sourceIndexPath, to: destinationIndexPath)
+//            }
+//        }
     }
 }

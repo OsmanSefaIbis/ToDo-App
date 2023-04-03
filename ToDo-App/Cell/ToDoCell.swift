@@ -138,7 +138,6 @@ class ToDoCell: UITableViewCell {
     @IBAction func DoneButtonPressed(_ sender: UIButton) {
         hapticFeedbackHeavy()
         buttonScaleUpAnimation(sender)
-        delegate?.doneButtonPressed(self)
         guard let done = doneFlag else { return }
         if !done {
             buttonConfigure(color: EnumColor.lightGray.getColor(), font: EnumFont.doneButton.rawValue, imageName: EnumIcon.forDoneCheck.rawValue)
@@ -149,7 +148,10 @@ class ToDoCell: UITableViewCell {
             unStrikeThroughLabels()
             setAllViewsBackgroundColor(EnumColor.cornSilk.getColor())
         }
+        // TODO: Below is causing issue, trace it !!!
+        //delegate?.doneButtonPressed(self)
         doneFlag?.toggle()
+        delegate?.doneButtonPressed(self)
     }
     
     // MARK: EOF

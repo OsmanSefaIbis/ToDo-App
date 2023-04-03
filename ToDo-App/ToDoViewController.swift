@@ -43,10 +43,9 @@ class ToDoViewController: UIViewController {
     func initiateTableViewWithMockData() {
         let mockData = MockData()
         tableviewData = mockData.dataSet1
-        doneTableViewData = mockData.dataSet1
     }
     
-    func updateData() {
+    public func updateData() {
         if Array(tagSelection).isEmpty{
             filteredTableViewData = tableviewData
         }else{
