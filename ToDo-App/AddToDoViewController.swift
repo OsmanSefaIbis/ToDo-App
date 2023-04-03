@@ -74,19 +74,15 @@ class AddToDoViewController: UIViewController {
         for tag in tags{
             switch tag{
             case .work:
-                tagSelection.insert(.work)
                 tagFlagDictionary["workFlag"] = true
                 revertTagButtonBackground(for: "work", with: &tagFlagDictionary["workFlag"]!, toogle: false)
             case .study:
-                tagSelection.insert(.study)
                 tagFlagDictionary["studyFlag"] = true
                 revertTagButtonBackground(for: "study", with: &tagFlagDictionary["studyFlag"]!, toogle: false)
             case .entertainment:
-                tagSelection.insert(.entertainment)
                 tagFlagDictionary["entertainmentFlag"] = true
                 revertTagButtonBackground(for: "entertainment", with: &tagFlagDictionary["entertainmentFlag"]!, toogle: false)
             case .family:
-                tagSelection.insert(.family)
                 tagFlagDictionary["familyFlag"] = true
                 revertTagButtonBackground(for: "family", with: &tagFlagDictionary["familyFlag"]!, toogle: false)
             }
@@ -204,10 +200,10 @@ class AddToDoViewController: UIViewController {
             let newTodo: ToDoCellModel = .init( title: AddTitleTextField.text!,
                                                 description: AddDescriptionTextView.text,
                                                 tags: tagSelection)
-            if editFlag == true{
-                delegate?.editChanged(for: newTodo, at: editIndexPath)
-            }else{
+            if !editFlag{
                 delegate?.toDoAdded(for: newTodo)
+            }else{
+                delegate?.editChanged(for: newTodo, at: editIndexPath)
             }
             hapticFeedbackHeavy()
             dismiss(animated: false)

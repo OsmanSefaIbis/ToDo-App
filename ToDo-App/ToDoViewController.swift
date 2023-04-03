@@ -101,8 +101,8 @@ class ToDoViewController: UIViewController {
         if let indexPath, let editFlag{
             vc.AddDescriptionTextView.removePlaceholder()
             vc.editFlag = editFlag
-            vc.configureFields(with: filteredTableViewData[indexPath.row])
             vc.editIndexPath = indexPath
+            vc.configureFields(with: filteredTableViewData[indexPath.row])
         }
     }
     
