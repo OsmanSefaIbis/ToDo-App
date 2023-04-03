@@ -41,14 +41,18 @@ class ToDoCell: UITableViewCell {
     }
     
     func configure(with model: ToDoCellModel) {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 5
-        let attributes: [NSAttributedString.Key: Any] = [ .paragraphStyle: paragraphStyle]
-        let attributedString = NSAttributedString(string: model.description, attributes: attributes)
+        
         let tagsCellConcat = model.tags.map{ "\($0)" }.joined(separator: ",")
         ToDoTitleLabel.text = model.title
-        ToDoDescriptionLabel.attributedText = attributedString
+        ToDoDescriptionLabel.attributedText = spacingAdded(for: model.description, space: 5)
         ToDoTagsLabel.attributedText = tagIconConversion(tags: tagsCellConcat)
+    }
+    
+    func spacingAdded(for description: String, space lineSpace: Int) -> NSAttributedString {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = Double(lineSpace)
+        let attributes: [NSAttributedString.Key: Any] = [ .paragraphStyle: paragraphStyle]
+        return NSAttributedString(string: description, attributes: attributes)
     }
     
     func tagIconConversion(tags tagString: String) -> NSAttributedString {
