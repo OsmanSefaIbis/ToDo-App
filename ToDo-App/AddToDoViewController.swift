@@ -11,7 +11,6 @@ protocol ToDoChangeDelegate: AnyObject{
     
     func editChanged(for todoModel: ToDoCellModel, at indexPath: IndexPath?)
     func toDoAdded(for todoModel: ToDoCellModel)
-    
 }
 
 class AddToDoViewController: UIViewController {
@@ -75,18 +74,29 @@ class AddToDoViewController: UIViewController {
         for tag in tags{
             switch tag{
             case .work:
-                revertTagButtonBackground(for: "work", with: &tagFlagDictionary["workPressedFlag"]!)
+                tagSelection.insert(.work)
+                tagFlagDictionary["workFlag"] = true
+                revertTagButtonBackground(for: "work", with: &tagFlagDictionary["workFlag"]!, toogle: false)
             case .study:
-                revertTagButtonBackground(for: "study", with: &tagFlagDictionary["studyPressedFlag"]!);
+                tagSelection.insert(.study)
+                tagFlagDictionary["studyFlag"] = true
+                revertTagButtonBackground(for: "study", with: &tagFlagDictionary["studyFlag"]!, toogle: false)
             case .entertainment:
-                revertTagButtonBackground(for: "entertainment", with: &tagFlagDictionary["entertainmentPressedFlag"]!)
+                tagSelection.insert(.entertainment)
+                tagFlagDictionary["entertainmentFlag"] = true
+                revertTagButtonBackground(for: "entertainment", with: &tagFlagDictionary["entertainmentFlag"]!, toogle: false)
             case .family:
-                revertTagButtonBackground(for: "family", with: &tagFlagDictionary["familyPressedFlag"]!)
+                tagSelection.insert(.family)
+                tagFlagDictionary["familyFlag"] = true
+                revertTagButtonBackground(for: "family", with: &tagFlagDictionary["familyFlag"]!, toogle: false)
             }
         }
     }
     
-    func revertTagButtonBackground(for tagName: String, with flag: inout Bool) {
+    func revertTagButtonBackground(for tagName: String, with flag: inout Bool, toogle: Bool) {
+        if(toogle){
+            flag.toggle()
+        }
        let coloredCase = (tagName, true)
        switch coloredCase{
            case ("work",flag):
@@ -108,7 +118,6 @@ class AddToDoViewController: UIViewController {
            default:
                break
        }
-        flag.toggle()
     }
     
     func appTitleStrikeThrough() {
@@ -123,10 +132,10 @@ class AddToDoViewController: UIViewController {
     
     func initiateflags() {
         tagFlagDictionary = [
-            "workPressedFlag" : false,
-            "studyPressedFlag" : false,
-            "entertainmentPressedFlag" : false,
-            "familyPressedFlag" : false,
+            "workFlag" : false,
+            "studyFlag" : false,
+            "entertainmentFlag" : false,
+            "familyFlag" : false,
         ]
     }
     
@@ -134,8 +143,8 @@ class AddToDoViewController: UIViewController {
     @IBAction func TagButtonWorkPressed(_ sender: UIButton) {
         hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
-        revertTagButtonBackground(for: "work", with: &tagFlagDictionary["studyPressedFlag"]!)
-        if tagFlagDictionary["workPressedFlag"]!{
+        revertTagButtonBackground(for: "work", with: &tagFlagDictionary["workFlag"]!, toogle: true)
+        if tagFlagDictionary["workFlag"]!{
             tagSelection.insert(.work)
         }else{
             tagSelection.remove(.work)
@@ -145,8 +154,8 @@ class AddToDoViewController: UIViewController {
     @IBAction func TagButtonStudyPressed(_ sender: UIButton) {
         hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
-        revertTagButtonBackground(for: "study", with: &tagFlagDictionary["workPressedFlag"]!)
-        if tagFlagDictionary["studyPressedFlag"]!{
+        revertTagButtonBackground(for: "study", with: &tagFlagDictionary["studyFlag"]!, toogle: true)
+        if tagFlagDictionary["studyFlag"]!{
             tagSelection.insert(.study)
         }else{
             tagSelection.remove(.study)
@@ -156,8 +165,8 @@ class AddToDoViewController: UIViewController {
     @IBAction func TagButtonEntertainmentPressed(_ sender: UIButton) {
         hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
-        revertTagButtonBackground(for: "entertainment", with: &tagFlagDictionary["entertainmentPressedFlag"]!)
-        if tagFlagDictionary["entertainmentPressedFlag"]!{
+        revertTagButtonBackground(for: "entertainment", with: &tagFlagDictionary["entertainmentFlag"]!, toogle: true)
+        if tagFlagDictionary["entertainmentFlag"]!{
             tagSelection.insert(.entertainment)
         }else{
             tagSelection.remove(.entertainment)
@@ -167,8 +176,8 @@ class AddToDoViewController: UIViewController {
     @IBAction func TagButtonFamilyPressed(_ sender: UIButton) {
         hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
-        revertTagButtonBackground(for: "family", with: &tagFlagDictionary["familyPressedFlag"]!)
-        if tagFlagDictionary["familyPressedFlag"]!{
+        revertTagButtonBackground(for: "family", with: &tagFlagDictionary["familyFlag"]!, toogle: true)
+        if tagFlagDictionary["familyFlag"]!{
             tagSelection.insert(.family)
         }else{
             tagSelection.remove(.family)

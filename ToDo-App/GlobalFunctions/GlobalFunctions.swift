@@ -27,6 +27,7 @@ func hapticFeedbackSoft() {
 }
 
 func addConfigureTV(for textViewName: UITextView) {
+    textViewName.removePlaceholder()
     textViewName.addPlaceholder("add a description ...")
     textViewName.layer.borderWidth = 0.5
     textViewName.layer.borderColor = UIColor.lightGray.cgColor

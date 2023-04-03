@@ -106,29 +106,29 @@ class ToDoViewController: UIViewController {
         }
     }
     
-     func revertTagButtonBackground(for tagName: String, with flag: Bool) {
-        let coloredCase = (tagName, true)
-        switch coloredCase{
-            case ("work",flag):
-                TagButtonWork.backgroundColor = EnumColor.workSoft.getColor()
-            case ("work",_):
-            TagButtonWork.backgroundColor = .white
-            case ("study",flag):
-                TagButtonStudy.backgroundColor = EnumColor.studySoft.getColor()
-            case ("study",_):
-            TagButtonStudy.backgroundColor = .white
-            case ("entertainment",flag):
-                TagButtonEntertainment.backgroundColor = EnumColor.entertainmentSoft.getColor()
-            case ("entertainment",_):
-            TagButtonEntertainment.backgroundColor = .white
-            case ("family",flag):
-                TagButtonFamily.backgroundColor = EnumColor.familySoft.getColor()
-            case ("family",_):
-            TagButtonFamily.backgroundColor = .white
-            default:
-                break
-        }
+    func revertTagButtonBackground(for tagName: String, with flag: Bool) {
+    let coloredCase = (tagName, true)
+    switch coloredCase{
+        case ("work",flag):
+            TagButtonWork.backgroundColor = EnumColor.workSoft.getColor()
+        case ("work",_):
+        TagButtonWork.backgroundColor = .white
+        case ("study",flag):
+            TagButtonStudy.backgroundColor = EnumColor.studySoft.getColor()
+        case ("study",_):
+        TagButtonStudy.backgroundColor = .white
+        case ("entertainment",flag):
+            TagButtonEntertainment.backgroundColor = EnumColor.entertainmentSoft.getColor()
+        case ("entertainment",_):
+        TagButtonEntertainment.backgroundColor = .white
+        case ("family",flag):
+            TagButtonFamily.backgroundColor = EnumColor.familySoft.getColor()
+        case ("family",_):
+        TagButtonFamily.backgroundColor = .white
+        default:
+            break
     }
+}
     
     func buttonRotateNinetyDegree(_ sender: UIButton) {
         if !isRotating {
@@ -173,7 +173,7 @@ class ToDoViewController: UIViewController {
     @IBAction func TagFamilyButtonPressed(_ sender: UIButton) {
         hapticFeedbackMedium()
         buttonScaleUpAnimation(sender)
-        TagButtonPressedHelper(for: "family", flag: &tagFlagDictionary["entertainmentPressedFlag"]!, tag: .family)
+        TagButtonPressedHelper(for: "family", flag: &tagFlagDictionary["familyPressedFlag"]!, tag: .family)
     }
     
     @IBAction func AddToDoButtonPressed(_ sender: UIButton) {

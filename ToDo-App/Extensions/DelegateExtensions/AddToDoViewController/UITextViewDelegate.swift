@@ -28,7 +28,8 @@ extension AddToDoViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if AddDescriptionTextView.text.isEmpty {
-            AddDescriptionTextView.text = "add a description ..."
+            AddDescriptionTextView.removePlaceholder()
+            AddDescriptionTextView.addPlaceholder("add a description ...")
             AddDescriptionTextView.textColor = UIColor.lightGray
         }
     }

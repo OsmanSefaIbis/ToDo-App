@@ -28,6 +28,8 @@ class ToDoCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         buttonConfigure(color: EnumColor.darkGray.getColor(), font: EnumFont.doneButton.rawValue, imageName: EnumIcon.forDoneUncheck.rawValue)
+        OptionsToDoButton.menu = setMenuOptions()
+        OptionsToDoButton.showsMenuAsPrimaryAction = true
     }
     
     override func layoutSubviews() {
@@ -134,8 +136,6 @@ class ToDoCell: UITableViewCell {
     
     // MARK: Button Actions
     @IBAction func OptionsToDoButtonPressed(_ sender: Any) {
-        OptionsToDoButton.menu = setMenuOptions()
-        OptionsToDoButton.showsMenuAsPrimaryAction = true
         hapticFeedbackSoft()
     }
     
