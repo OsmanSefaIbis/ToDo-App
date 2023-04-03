@@ -30,6 +30,8 @@ class ToDoCell: UITableViewCell {
         buttonConfigure(color: EnumColor.darkGray.getColor(), font: EnumFont.doneButton.rawValue, imageName: EnumIcon.forDoneUncheck.rawValue)
         OptionsToDoButton.menu = setMenuOptions()
         OptionsToDoButton.showsMenuAsPrimaryAction = true
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 10
     }
     
     override func layoutSubviews() {
@@ -39,9 +41,13 @@ class ToDoCell: UITableViewCell {
     }
     
     func configure(with model: ToDoCellModel) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 5
+        let attributes: [NSAttributedString.Key: Any] = [ .paragraphStyle: paragraphStyle]
+        let attributedString = NSAttributedString(string: model.description, attributes: attributes)
         let tagsCellConcat = model.tags.map{ "\($0)" }.joined(separator: ",")
         ToDoTitleLabel.text = model.title
-        ToDoDescriptionLabel.text = model.description
+        ToDoDescriptionLabel.attributedText = attributedString
         ToDoTagsLabel.attributedText = tagIconConversion(tags: tagsCellConcat)
     }
     
