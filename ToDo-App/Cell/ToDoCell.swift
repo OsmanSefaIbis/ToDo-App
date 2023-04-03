@@ -43,7 +43,7 @@ class ToDoCell: UITableViewCell {
     func configure(with model: ToDoCellModel) {
         
         let tagsCellConcat = model.tags.map{ "\($0)" }.joined(separator: ",")
-        ToDoTitleLabel.text = model.title
+        ToDoTitleLabel.attributedText = spacingAdded(for: model.title, space: 5)
         ToDoDescriptionLabel.attributedText = spacingAdded(for: model.description, space: 5)
         ToDoTagsLabel.attributedText = tagIconConversion(tags: tagsCellConcat)
     }
@@ -118,20 +118,6 @@ class ToDoCell: UITableViewCell {
         for subSubview in subview.subviews {
             setSubviewBackgroundColor(subSubview, color: color)
         }
-    }
-    
-    func strikeThrough(for text: String?) -> (NSMutableAttributedString) {
-        guard let text else { return NSMutableAttributedString()}
-        let attributedText = NSMutableAttributedString(string: text)
-        attributedText.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributedText.length))
-        return attributedText
-    }
-    
-    func removeStrikeThrough(for text: NSAttributedString?)-> (NSMutableAttributedString) {
-        guard let text else { return NSMutableAttributedString()}
-        let mutableAttributedText = NSMutableAttributedString(attributedString: text)
-        mutableAttributedText.removeAttribute(.strikethroughStyle, range: NSMakeRange(0, mutableAttributedText.length))
-        return mutableAttributedText
     }
     
     func strikeThroughLabels() {

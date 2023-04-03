@@ -20,6 +20,7 @@ class ToDoViewController: UIViewController {
     public let cellName = "ToDoCell"
     public var tableviewData: [ToDoCellModel] = []
     public var filteredTableViewData: [ToDoCellModel] = []
+    public var doneTableViewData: [ToDoCellModel] = []
     
     private var isRotating = false
     private var tagSelection: Set<EnumTag> = []
@@ -42,6 +43,7 @@ class ToDoViewController: UIViewController {
     func initiateTableViewWithMockData() {
         let mockData = MockData()
         tableviewData = mockData.dataSet1
+        doneTableViewData = mockData.dataSet1
     }
     
     func updateData() {
@@ -58,8 +60,9 @@ class ToDoViewController: UIViewController {
     func tableviewSetupUI() {
         ToDoTableview.delegate = self
         ToDoTableview.dataSource = self
-        self.ToDoTableview.register(.init(nibName: cellName, bundle: nil), forCellReuseIdentifier: cellName)
-        self.ToDoTableview.separatorStyle = ToDoCell.SeparatorStyle.none
+        ToDoTableview.register(.init(nibName: cellName, bundle: nil), forCellReuseIdentifier: cellName)
+        ToDoTableview.separatorStyle = ToDoCell.SeparatorStyle.none
+        ToDoTableview.sectionIndexMinimumDisplayRowCount = 0
     }
     
     func configureButtonIcons() {

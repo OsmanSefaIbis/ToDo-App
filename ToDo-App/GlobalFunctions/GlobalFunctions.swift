@@ -70,6 +70,21 @@ func createTagIcon(tag tagName: String, font FontSize: Int) -> UIImage {
     return tagIcon!
 }
 
+
+func strikeThrough(for text: String?) -> (NSMutableAttributedString) {
+    guard let text else { return NSMutableAttributedString()}
+    let attributedText = NSMutableAttributedString(string: text)
+    attributedText.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributedText.length))
+    return attributedText
+}
+
+func removeStrikeThrough(for text: NSAttributedString?)-> (NSMutableAttributedString) {
+    guard let text else { return NSMutableAttributedString()}
+    let mutableAttributedText = NSMutableAttributedString(attributedString: text)
+    mutableAttributedText.removeAttribute(.strikethroughStyle, range: NSMakeRange(0, mutableAttributedText.length))
+    return mutableAttributedText
+}
+
 func buttonScaleUpAnimation(_ sender: UIButton) {
     UIView.animate(withDuration: 0.3, animations: {
         sender.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
