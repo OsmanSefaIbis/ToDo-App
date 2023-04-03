@@ -68,7 +68,7 @@
                                                                 <buttonConfiguration key="configuration" style="tinted" title=" study " cornerStyle="capsule">
                                                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                                     <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
-                                                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="baseForegroundColor" systemColor="labelColor"/>
                                                                     <color key="baseBackgroundColor" systemColor="systemGray5Color"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
@@ -82,7 +82,7 @@
                                                                 <buttonConfiguration key="configuration" style="tinted" title=" entertainment " cornerStyle="capsule">
                                                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                                     <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
-                                                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="baseForegroundColor" systemColor="labelColor"/>
                                                                     <color key="baseBackgroundColor" systemColor="systemGray5Color"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
@@ -96,7 +96,7 @@
                                                                 <buttonConfiguration key="configuration" style="tinted" title=" family " cornerStyle="capsule">
                                                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                                                     <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
-                                                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="baseForegroundColor" systemColor="labelColor"/>
                                                                     <color key="baseBackgroundColor" systemColor="systemGray5Color"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
@@ -104,6 +104,7 @@
                                                                 </connections>
                                                             </button>
                                                         </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     </stackView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -152,6 +153,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="vAV-ED-9pL" firstAttribute="top" secondItem="hQ5-gZ-vTr" secondAttribute="bottom" constant="10" id="NCH-7c-ZxE"/>
                                         </constraints>
@@ -434,7 +436,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="en5-St-Qhe"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Jxu-YK-hqg" firstAttribute="top" secondItem="en5-St-Qhe" secondAttribute="top" id="CI5-wa-pLX"/>
                             <constraint firstItem="en5-St-Qhe" firstAttribute="trailing" secondItem="Jxu-YK-hqg" secondAttribute="trailing" id="Cic-4L-WIo"/>
