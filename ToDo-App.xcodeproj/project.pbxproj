@@ -18,6 +18,21 @@
 		96A8E5C429CF2AAD00B80386 /* AddToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5C329CF2AAD00B80386 /* AddToDoViewController.swift */; };
 		96A8E5C729CF3B3400B80386 /* ToDoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5C529CF3B3400B80386 /* ToDoCell.swift */; };
 		96A8E5C829CF3B3400B80386 /* ToDoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A8E5C629CF3B3400B80386 /* ToDoCell.xib */; };
+		96A8E5CA29DA21A300B80386 /* MockData+Tableview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5C929DA21A300B80386 /* MockData+Tableview.swift */; };
+		96A8E5CC29DA9A6F00B80386 /* Extension+Tableview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5CB29DA9A6F00B80386 /* Extension+Tableview.swift */; };
+		96A8E5CE29DA9B1900B80386 /* EnumColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5CD29DA9B1900B80386 /* EnumColor.swift */; };
+		96A8E5D029DAA1CD00B80386 /* EnumIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5CF29DAA1CD00B80386 /* EnumIcon.swift */; };
+		96A8E5D229DAA52600B80386 /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5D129DAA52600B80386 /* Extension+UIColor.swift */; };
+		96A8E5D429DAA5DA00B80386 /* EnumTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5D329DAA5DA00B80386 /* EnumTag.swift */; };
+		96A8E5D629DAA65D00B80386 /* ToDoCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5D529DAA65D00B80386 /* ToDoCellModel.swift */; };
+		96A8E5DE29DAA78B00B80386 /* EnumFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5DD29DAA78B00B80386 /* EnumFont.swift */; };
+		96A8E5E029DAC2B000B80386 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5DF29DAC2B000B80386 /* GlobalFunctions.swift */; };
+		96A8E5E329DAC37600B80386 /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5E229DAC37600B80386 /* Extension+UIView.swift */; };
+		96A8E5E529DAC41100B80386 /* Extension+UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5E429DAC41100B80386 /* Extension+UITextView.swift */; };
+		96A8E5E929DAC4AA00B80386 /* CustomCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5E829DAC4AA00B80386 /* CustomCellDelegate.swift */; };
+		96A8E5EB29DAC51200B80386 /* ToDoChangeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5EA29DAC51200B80386 /* ToDoChangeDelegate.swift */; };
+		96A8E5EE29DAC58200B80386 /* UITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5ED29DAC58200B80386 /* UITextFieldDelegate.swift */; };
+		96A8E5F029DAC5FC00B80386 /* UITextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5EF29DAC5FC00B80386 /* UITextViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +49,21 @@
 		96A8E5C329CF2AAD00B80386 /* AddToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoViewController.swift; sourceTree = "<group>"; };
 		96A8E5C529CF3B3400B80386 /* ToDoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoCell.swift; sourceTree = "<group>"; };
 		96A8E5C629CF3B3400B80386 /* ToDoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToDoCell.xib; sourceTree = "<group>"; };
+		96A8E5C929DA21A300B80386 /* MockData+Tableview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MockData+Tableview.swift"; sourceTree = "<group>"; };
+		96A8E5CB29DA9A6F00B80386 /* Extension+Tableview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Tableview.swift"; sourceTree = "<group>"; };
+		96A8E5CD29DA9B1900B80386 /* EnumColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumColor.swift; sourceTree = "<group>"; };
+		96A8E5CF29DAA1CD00B80386 /* EnumIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumIcon.swift; sourceTree = "<group>"; };
+		96A8E5D129DAA52600B80386 /* Extension+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
+		96A8E5D329DAA5DA00B80386 /* EnumTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumTag.swift; sourceTree = "<group>"; };
+		96A8E5D529DAA65D00B80386 /* ToDoCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoCellModel.swift; sourceTree = "<group>"; };
+		96A8E5DD29DAA78B00B80386 /* EnumFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumFont.swift; sourceTree = "<group>"; };
+		96A8E5DF29DAC2B000B80386 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		96A8E5E229DAC37600B80386 /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
+		96A8E5E429DAC41100B80386 /* Extension+UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITextView.swift"; sourceTree = "<group>"; };
+		96A8E5E829DAC4AA00B80386 /* CustomCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellDelegate.swift; sourceTree = "<group>"; };
+		96A8E5EA29DAC51200B80386 /* ToDoChangeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoChangeDelegate.swift; sourceTree = "<group>"; };
+		96A8E5ED29DAC58200B80386 /* UITextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldDelegate.swift; sourceTree = "<group>"; };
+		96A8E5EF29DAC5FC00B80386 /* UITextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,18 +96,18 @@
 		96A8E5A629CCAF0300B80386 /* ToDo-App */ = {
 			isa = PBXGroup;
 			children = (
-				96A8E5A729CCAF0300B80386 /* AppDelegate.swift */,
-				96A8E5A929CCAF0300B80386 /* SceneDelegate.swift */,
-				96A8E5AB29CCAF0300B80386 /* ToDoViewController.swift */,
-				96A8E5C329CF2AAD00B80386 /* AddToDoViewController.swift */,
-				96A8E5C529CF3B3400B80386 /* ToDoCell.swift */,
-				96A8E5C629CF3B3400B80386 /* ToDoCell.xib */,
+				96A8E5D729DAA67C00B80386 /* AppSceneDelegates */,
+				96A8E5D829DAA69A00B80386 /* Enums */,
+				96A8E5D929DAA6A800B80386 /* Extensions */,
+				96A8E5E129DAC33F00B80386 /* GlobalFunctions */,
+				96A8E5DA29DAA6BA00B80386 /* MockData */,
+				96A8E5DB29DAA6F900B80386 /* Cell */,
 				96A8E5AD29CCAF0300B80386 /* Main.storyboard */,
-				96A8E5B329CCAF0400B80386 /* Assets.xcassets */,
-				96A8E5B529CCAF0400B80386 /* LaunchScreen.storyboard */,
+				96A8E5C329CF2AAD00B80386 /* AddToDoViewController.swift */,
+				96A8E5AB29CCAF0300B80386 /* ToDoViewController.swift */,
+				96A8E5DC29DAA72200B80386 /* Assets */,
 				96A8E5B829CCAF0400B80386 /* Info.plist */,
 				96A8E5B029CCAF0300B80386 /* ToDo_App.xcdatamodeld */,
-				96A8E5C229CCAF8E00B80386 /* Figma Mockup */,
 			);
 			path = "ToDo-App";
 			sourceTree = "<group>";
@@ -88,6 +118,101 @@
 				96A8E5BE29CCAF1600B80386 /* ToDoList App.png */,
 			);
 			path = "Figma Mockup";
+			sourceTree = "<group>";
+		};
+		96A8E5D729DAA67C00B80386 /* AppSceneDelegates */ = {
+			isa = PBXGroup;
+			children = (
+				96A8E5A729CCAF0300B80386 /* AppDelegate.swift */,
+				96A8E5A929CCAF0300B80386 /* SceneDelegate.swift */,
+			);
+			path = AppSceneDelegates;
+			sourceTree = "<group>";
+		};
+		96A8E5D829DAA69A00B80386 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				96A8E5CF29DAA1CD00B80386 /* EnumIcon.swift */,
+				96A8E5CD29DA9B1900B80386 /* EnumColor.swift */,
+				96A8E5D329DAA5DA00B80386 /* EnumTag.swift */,
+				96A8E5DD29DAA78B00B80386 /* EnumFont.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		96A8E5D929DAA6A800B80386 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				96A8E5E629DAC43B00B80386 /* DelegateExtensions */,
+				96A8E5CB29DA9A6F00B80386 /* Extension+Tableview.swift */,
+				96A8E5D129DAA52600B80386 /* Extension+UIColor.swift */,
+				96A8E5E229DAC37600B80386 /* Extension+UIView.swift */,
+				96A8E5E429DAC41100B80386 /* Extension+UITextView.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		96A8E5DA29DAA6BA00B80386 /* MockData */ = {
+			isa = PBXGroup;
+			children = (
+				96A8E5C929DA21A300B80386 /* MockData+Tableview.swift */,
+			);
+			path = MockData;
+			sourceTree = "<group>";
+		};
+		96A8E5DB29DAA6F900B80386 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				96A8E5C629CF3B3400B80386 /* ToDoCell.xib */,
+				96A8E5C529CF3B3400B80386 /* ToDoCell.swift */,
+				96A8E5D529DAA65D00B80386 /* ToDoCellModel.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		96A8E5DC29DAA72200B80386 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				96A8E5B529CCAF0400B80386 /* LaunchScreen.storyboard */,
+				96A8E5B329CCAF0400B80386 /* Assets.xcassets */,
+				96A8E5C229CCAF8E00B80386 /* Figma Mockup */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		96A8E5E129DAC33F00B80386 /* GlobalFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				96A8E5DF29DAC2B000B80386 /* GlobalFunctions.swift */,
+			);
+			path = GlobalFunctions;
+			sourceTree = "<group>";
+		};
+		96A8E5E629DAC43B00B80386 /* DelegateExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				96A8E5EC29DAC56200B80386 /* AddToDoViewController */,
+				96A8E5E729DAC47400B80386 /* ToDoViewController */,
+			);
+			path = DelegateExtensions;
+			sourceTree = "<group>";
+		};
+		96A8E5E729DAC47400B80386 /* ToDoViewController */ = {
+			isa = PBXGroup;
+			children = (
+				96A8E5E829DAC4AA00B80386 /* CustomCellDelegate.swift */,
+				96A8E5EA29DAC51200B80386 /* ToDoChangeDelegate.swift */,
+			);
+			path = ToDoViewController;
+			sourceTree = "<group>";
+		};
+		96A8E5EC29DAC56200B80386 /* AddToDoViewController */ = {
+			isa = PBXGroup;
+			children = (
+				96A8E5ED29DAC58200B80386 /* UITextFieldDelegate.swift */,
+				96A8E5EF29DAC5FC00B80386 /* UITextViewDelegate.swift */,
+			);
+			path = AddToDoViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,11 +289,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				96A8E5AC29CCAF0300B80386 /* ToDoViewController.swift in Sources */,
+				96A8E5E929DAC4AA00B80386 /* CustomCellDelegate.swift in Sources */,
+				96A8E5D629DAA65D00B80386 /* ToDoCellModel.swift in Sources */,
+				96A8E5E329DAC37600B80386 /* Extension+UIView.swift in Sources */,
+				96A8E5EB29DAC51200B80386 /* ToDoChangeDelegate.swift in Sources */,
+				96A8E5E029DAC2B000B80386 /* GlobalFunctions.swift in Sources */,
+				96A8E5CA29DA21A300B80386 /* MockData+Tableview.swift in Sources */,
 				96A8E5C729CF3B3400B80386 /* ToDoCell.swift in Sources */,
+				96A8E5D029DAA1CD00B80386 /* EnumIcon.swift in Sources */,
 				96A8E5A829CCAF0300B80386 /* AppDelegate.swift in Sources */,
+				96A8E5EE29DAC58200B80386 /* UITextFieldDelegate.swift in Sources */,
 				96A8E5C429CF2AAD00B80386 /* AddToDoViewController.swift in Sources */,
+				96A8E5DE29DAA78B00B80386 /* EnumFont.swift in Sources */,
+				96A8E5E529DAC41100B80386 /* Extension+UITextView.swift in Sources */,
+				96A8E5F029DAC5FC00B80386 /* UITextViewDelegate.swift in Sources */,
 				96A8E5AA29CCAF0300B80386 /* SceneDelegate.swift in Sources */,
 				96A8E5B229CCAF0300B80386 /* ToDo_App.xcdatamodeld in Sources */,
+				96A8E5CE29DA9B1900B80386 /* EnumColor.swift in Sources */,
+				96A8E5D429DAA5DA00B80386 /* EnumTag.swift in Sources */,
+				96A8E5CC29DA9A6F00B80386 /* Extension+Tableview.swift in Sources */,
+				96A8E5D229DAA52600B80386 /* Extension+UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
