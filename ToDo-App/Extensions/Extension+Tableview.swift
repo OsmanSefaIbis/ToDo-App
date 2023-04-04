@@ -22,6 +22,7 @@ extension ToDoViewController: UITableViewDelegate {
         headerView.backgroundColor = .systemBackground
         
         switch section{
+            
             case 0:
                 titleLabel.attributedText = NSAttributedString(string: "Active", attributes: attributes)
             case 1:
@@ -52,7 +53,7 @@ extension ToDoViewController: UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let todoCell = self.ToDoTableview.dequeueReusableCell(withIdentifier: cellName) as! ToDoCell
+        let todoCell = self.todoTableview.dequeueReusableCell(withIdentifier: cellName) as! ToDoCell
         todoCell.delegate = self
         todoCell.indexPath = indexPath
         todoCell.doneFlag = filteredTableViewData[indexPath.row].doneFlag

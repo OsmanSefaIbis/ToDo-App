@@ -7,23 +7,23 @@
 
 import UIKit
 
-protocol ToDoChangeDelegate: AnyObject{
+protocol TodoChangeDelegate: AnyObject{
     
     func editChanged(for todoModel: ToDoCellModel, at indexPath: IndexPath?)
-    func toDoAdded(for todoModel: ToDoCellModel)
+    func todoAdded(for todoModel: ToDoCellModel)
 }
 
 class AddToDoViewController: UIViewController {
     
-    @IBOutlet weak var AppTitleLabel: UILabel!
-    @IBOutlet weak var AddTitleTextField: UITextField!
-    @IBOutlet weak var AddDescriptionTextView: UITextView!
-    @IBOutlet weak var TagButtonWork: UIButton!
-    @IBOutlet weak var TagButtonStudy: UIButton!
-    @IBOutlet weak var TagButtonEntertainment: UIButton!
-    @IBOutlet weak var TagButtonFamily: UIButton!
-    @IBOutlet weak var AddToDoButton: UIButton!
-    @IBOutlet weak var CancelToDoButton: UIButton!
+    @IBOutlet weak var appTitleLabel: UILabel!
+    @IBOutlet weak var addTitleTextField: UITextField!
+    @IBOutlet weak var addDescriptionTextView: UITextView!
+    @IBOutlet weak var tagButtonWork: UIButton!
+    @IBOutlet weak var tagButtonStudy: UIButton!
+    @IBOutlet weak var tagButtonEntertainment: UIButton!
+    @IBOutlet weak var tagButtonFamily: UIButton!
+    @IBOutlet weak var addToDoButton: UIButton!
+    @IBOutlet weak var cancelToDoButton: UIButton!
     
     private let appTitle = "todo"
     private var tagSelection: Set<EnumTag> = []
@@ -31,7 +31,7 @@ class AddToDoViewController: UIViewController {
     
     var editFlag = false
     var editIndexPath = IndexPath()
-    weak var delegate: ToDoChangeDelegate?
+    weak var delegate: TodoChangeDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,25 +47,25 @@ class AddToDoViewController: UIViewController {
     }
     
     func assignDelegates() {
-        AddDescriptionTextView.delegate = self
-        AddTitleTextField.delegate = self
+        addDescriptionTextView.delegate = self
+        addTitleTextField.delegate = self
     }
     
     func configureTextViews() {
-        addConfigureTV(for: AddDescriptionTextView)
-        addConfigureTF(for: AddTitleTextField)
+        addConfigureTV(for: addDescriptionTextView)
+        addConfigureTF(for: addTitleTextField)
     }
     
     func configureTagButtons() {
-        configureButton(for: TagButtonWork, tag: "work")
-        configureButton(for: TagButtonStudy, tag: "study")
-        configureButton(for: TagButtonEntertainment, tag: "entertainment")
-        configureButton(for: TagButtonFamily, tag: "family")
+        configureButton(for: tagButtonWork, tag: "work")
+        configureButton(for: tagButtonStudy, tag: "study")
+        configureButton(for: tagButtonEntertainment, tag: "entertainment")
+        configureButton(for: tagButtonFamily, tag: "family")
     }
     
     func configureFields(with cellModel: ToDoCellModel) {
-        AddTitleTextField.text = cellModel.title
-        AddDescriptionTextView.text = cellModel.description
+        addTitleTextField.text = cellModel.title
+        addDescriptionTextView.text = cellModel.description
         tagSelection = cellModel.tags
         transferTagSelectionToButtons(for: tagSelection)
     }
@@ -96,21 +96,21 @@ class AddToDoViewController: UIViewController {
        let coloredCase = (tagName, true)
        switch coloredCase{
            case ("work",flag):
-               TagButtonWork.backgroundColor = EnumColor.workSoft.getColor()
+               tagButtonWork.backgroundColor = EnumColor.workSoft.getColor()
            case ("work",_):
-           TagButtonWork.backgroundColor = .white
+           tagButtonWork.backgroundColor = .white
            case ("study",flag):
-               TagButtonStudy.backgroundColor = EnumColor.studySoft.getColor()
+               tagButtonStudy.backgroundColor = EnumColor.studySoft.getColor()
            case ("study",_):
-           TagButtonStudy.backgroundColor = .white
+           tagButtonStudy.backgroundColor = .white
            case ("entertainment",flag):
-               TagButtonEntertainment.backgroundColor = EnumColor.entertainmentSoft.getColor()
+               tagButtonEntertainment.backgroundColor = EnumColor.entertainmentSoft.getColor()
            case ("entertainment",_):
-           TagButtonEntertainment.backgroundColor = .white
+           tagButtonEntertainment.backgroundColor = .white
            case ("family",flag):
-               TagButtonFamily.backgroundColor = EnumColor.familySoft.getColor()
+               tagButtonFamily.backgroundColor = EnumColor.familySoft.getColor()
            case ("family",_):
-           TagButtonFamily.backgroundColor = .white
+           tagButtonFamily.backgroundColor = .white
            default:
                break
        }
@@ -122,7 +122,7 @@ class AddToDoViewController: UIViewController {
         attributeString.addAttribute( NSAttributedString.Key.strikethroughStyle,
                                     value: 1, range: NSMakeRange(0, attributeString.length))
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-            self.AppTitleLabel.attributedText = attributeString
+            self.appTitleLabel.attributedText = attributeString
         }
     }
     
@@ -136,7 +136,7 @@ class AddToDoViewController: UIViewController {
     }
     
     // MARK: Button Actions
-    @IBAction func TagButtonWorkPressed(_ sender: UIButton) {
+    @IBAction func tagButtonWorkPressed(_ sender: UIButton) {
         hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
         revertTagButtonBackground(for: "work", with: &tagFlagDictionary["workFlag"]!, toogle: true)
@@ -147,7 +147,7 @@ class AddToDoViewController: UIViewController {
         }
     }
     
-    @IBAction func TagButtonStudyPressed(_ sender: UIButton) {
+    @IBAction func tagButtonStudyPressed(_ sender: UIButton) {
         hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
         revertTagButtonBackground(for: "study", with: &tagFlagDictionary["studyFlag"]!, toogle: true)
@@ -158,7 +158,7 @@ class AddToDoViewController: UIViewController {
         }
     }
     
-    @IBAction func TagButtonEntertainmentPressed(_ sender: UIButton) {
+    @IBAction func tagButtonEntertainmentPressed(_ sender: UIButton) {
         hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
         revertTagButtonBackground(for: "entertainment", with: &tagFlagDictionary["entertainmentFlag"]!, toogle: true)
@@ -169,7 +169,7 @@ class AddToDoViewController: UIViewController {
         }
     }
     
-    @IBAction func TagButtonFamilyPressed(_ sender: UIButton) {
+    @IBAction func tagButtonFamilyPressed(_ sender: UIButton) {
         hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
         revertTagButtonBackground(for: "family", with: &tagFlagDictionary["familyFlag"]!, toogle: true)
@@ -180,28 +180,28 @@ class AddToDoViewController: UIViewController {
         }
     }
     
-    @IBAction func CancelToDoButtonPressed(_ sender: Any) {
+    @IBAction func cancelToDoButtonPressed(_ sender: Any) {
         hapticFeedbackSoft()
         dismiss(animated: false)
     }
     
-    @IBAction func AddToDoButtonPressed(_ sender: Any) {
-        if AddTitleTextField.text!.isEmpty {
-            AddTitleTextField.placeholder = "title please ... "
-            AddTitleTextField.shake()
+    @IBAction func addToDoButtonPressed(_ sender: Any) {
+        if addTitleTextField.text!.isEmpty {
+            addTitleTextField.placeholder = "title please ... "
+            addTitleTextField.shake()
             hapticFeedbackMedium()
-        }else if AddDescriptionTextView.text.isEmpty {
-            AddDescriptionTextView.removePlaceholder()
-            AddDescriptionTextView.addPlaceholder("description please ... ")
-            AddDescriptionTextView.shake()
+        }else if addDescriptionTextView.text.isEmpty {
+            addDescriptionTextView.removePlaceholder()
+            addDescriptionTextView.addPlaceholder("description please ... ")
+            addDescriptionTextView.shake()
             hapticFeedbackMedium()
         }
         else{
-            let newTodo: ToDoCellModel = .init( title: AddTitleTextField.text!,
-                                                description: AddDescriptionTextView.text,
+            let newTodo: ToDoCellModel = .init( title: addTitleTextField.text!,
+                                                description: addDescriptionTextView.text,
                                                 tags: tagSelection)
             if !editFlag{
-                delegate?.toDoAdded(for: newTodo)
+                delegate?.todoAdded(for: newTodo)
             }else{
                 delegate?.editChanged(for: newTodo, at: editIndexPath)
             }

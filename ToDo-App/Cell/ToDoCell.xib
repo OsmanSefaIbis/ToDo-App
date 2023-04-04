@@ -48,7 +48,7 @@
                                                             <color key="baseForegroundColor" systemColor="labelColor"/>
                                                         </buttonConfiguration>
                                                         <connections>
-                                                            <action selector="OptionsToDoButtonPressed:" destination="aHn-UT-gnC" eventType="touchUpInside" id="RKh-Im-uGM"/>
+                                                            <action selector="optionsToDoButtonPressed:" destination="aHn-UT-gnC" eventType="touchUpInside" id="RKh-Im-uGM"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -103,7 +103,7 @@
                                                             <fontDescription key="titleFontDescription" type="system" pointSize="10"/>
                                                         </buttonConfiguration>
                                                         <connections>
-                                                            <action selector="DoneButtonPressed:" destination="aHn-UT-gnC" eventType="touchUpInside" id="Opg-rA-eUN"/>
+                                                            <action selector="doneButtonPressed:" destination="aHn-UT-gnC" eventType="touchUpInside" id="Opg-rA-eUN"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -140,11 +140,11 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="OptionsToDoButton" destination="C02-sR-Vic" id="0U0-y7-kUS"/>
-                <outlet property="ToDoDescriptionLabel" destination="Y2t-hX-6sX" id="veR-T9-ntM"/>
-                <outlet property="ToDoDoneButton" destination="tYi-FI-1Pe" id="uSN-54-zX0"/>
-                <outlet property="ToDoTagsLabel" destination="5IW-sW-2E9" id="VDM-4E-7kD"/>
-                <outlet property="ToDoTitleLabel" destination="zUT-EO-qqJ" id="SgP-1w-hm6"/>
+                <outlet property="optionsToDoButton" destination="C02-sR-Vic" id="0U0-y7-kUS"/>
+                <outlet property="todoDescriptionLabel" destination="Y2t-hX-6sX" id="veR-T9-ntM"/>
+                <outlet property="todoDoneButton" destination="tYi-FI-1Pe" id="uSN-54-zX0"/>
+                <outlet property="todoTagsLabel" destination="5IW-sW-2E9" id="VDM-4E-7kD"/>
+                <outlet property="todoTitleLabel" destination="zUT-EO-qqJ" id="SgP-1w-hm6"/>
             </connections>
             <point key="canvasLocation" x="218.32061068702288" y="1.4084507042253522"/>
         </tableViewCell>

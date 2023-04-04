@@ -58,7 +58,7 @@
                                                                     <color key="baseBackgroundColor" systemColor="systemGray5Color"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
-                                                                    <action selector="TagWorkButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1Dy-mf-jzS"/>
+                                                                    <action selector="tagWorkButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="O8g-kD-2eg"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="l5b-w9-BGp">
@@ -72,7 +72,7 @@
                                                                     <color key="baseBackgroundColor" systemColor="systemGray5Color"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
-                                                                    <action selector="TagStudyButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RGE-cT-RDt"/>
+                                                                    <action selector="tagStudyButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OVA-kJ-HQk"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="4zH-qJ-JIV">
@@ -86,7 +86,7 @@
                                                                     <color key="baseBackgroundColor" systemColor="systemGray5Color"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
-                                                                    <action selector="TagEntertainmentButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WOa-34-3W9"/>
+                                                                    <action selector="tagEntertainmentButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vE3-Dl-yQg"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="dTv-Yx-TZY">
@@ -100,7 +100,7 @@
                                                                     <color key="baseBackgroundColor" systemColor="systemGray5Color"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
-                                                                    <action selector="TagFamilyButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7Pz-T4-xCY"/>
+                                                                    <action selector="tagFamilyButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3kd-aU-Cb3"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -140,7 +140,7 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain"/>
                                                         <connections>
-                                                            <action selector="AddToDoButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TTy-oe-VZo"/>
+                                                            <action selector="addToDoButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TTy-oe-VZo"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -179,13 +179,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="Fzv-GG-bXP"/>
                     <connections>
-                        <outlet property="AddToDoButton" destination="vka-ht-ahX" id="c8t-UK-W9d"/>
-                        <outlet property="AppTitleLabel" destination="Ib6-M0-8GK" id="dAP-r2-dxj"/>
-                        <outlet property="TagButtonEntertainment" destination="4zH-qJ-JIV" id="r88-nm-Zka"/>
-                        <outlet property="TagButtonFamily" destination="dTv-Yx-TZY" id="vnq-gv-zbc"/>
-                        <outlet property="TagButtonStudy" destination="l5b-w9-BGp" id="LK3-pa-d6Y"/>
-                        <outlet property="TagButtonWork" destination="4XU-4o-T6E" id="9gj-kc-9NU"/>
-                        <outlet property="ToDoTableview" destination="vAV-ED-9pL" id="9TN-qn-1g1"/>
+                        <outlet property="addToDoButton" destination="vka-ht-ahX" id="c8t-UK-W9d"/>
+                        <outlet property="appTitleLabel" destination="Ib6-M0-8GK" id="dAP-r2-dxj"/>
+                        <outlet property="tagButtonEntertainment" destination="4zH-qJ-JIV" id="r88-nm-Zka"/>
+                        <outlet property="tagButtonFamily" destination="dTv-Yx-TZY" id="vnq-gv-zbc"/>
+                        <outlet property="tagButtonStudy" destination="l5b-w9-BGp" id="LK3-pa-d6Y"/>
+                        <outlet property="tagButtonWork" destination="4XU-4o-T6E" id="9gj-kc-9NU"/>
+                        <outlet property="todoTableview" destination="vAV-ED-9pL" id="IPX-OK-SBg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -280,7 +280,7 @@
                                                                 <rect key="frame" x="0.0" y="25" width="361" height="326.33333333333331"/>
                                                                 <color key="backgroundColor" red="0.96266549830000003" green="0.96266549830000003" blue="0.96266549830000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="dts-eC-agy"/>
+                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="140" id="dts-eC-agy"/>
                                                                 </constraints>
                                                                 <color key="textColor" systemColor="labelColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -315,7 +315,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MRm-nA-7H2" userLabel="ButtonVerticalStack">
                                                                 <rect key="frame" x="0.0" y="28" width="361" height="137.33333333333334"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FXo-wE-21B">
+                                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FXo-wE-21B">
                                                                         <rect key="frame" x="0.0" y="0.0" width="58" height="28.333333333333332"/>
                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <state key="normal" title="Button"/>
@@ -324,7 +324,7 @@
                                                                             <color key="baseBackgroundColor" systemColor="opaqueSeparatorColor"/>
                                                                         </buttonConfiguration>
                                                                         <connections>
-                                                                            <action selector="TagButtonWorkPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="s2a-hG-0Pb"/>
+                                                                            <action selector="tagButtonWorkPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="s2a-hG-0Pb"/>
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OIp-Oc-Hxc">
@@ -336,10 +336,10 @@
                                                                             <color key="baseBackgroundColor" systemColor="opaqueSeparatorColor"/>
                                                                         </buttonConfiguration>
                                                                         <connections>
-                                                                            <action selector="TagButtonStudyPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="sYg-AD-G8c"/>
+                                                                            <action selector="tagButtonStudyPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="sYg-AD-G8c"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEU-ex-spR">
+                                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEU-ex-spR">
                                                                         <rect key="frame" x="0.0" y="72.666666666666742" width="110.33333333333333" height="28.333333333333329"/>
                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <state key="normal" title="Button"/>
@@ -348,10 +348,10 @@
                                                                             <color key="baseBackgroundColor" systemColor="opaqueSeparatorColor"/>
                                                                         </buttonConfiguration>
                                                                         <connections>
-                                                                            <action selector="TagButtonEntertainmentPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="zw2-9v-dmI"/>
+                                                                            <action selector="tagButtonEntertainmentPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="zw2-9v-dmI"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Na-dc-vHp">
+                                                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Na-dc-vHp">
                                                                         <rect key="frame" x="0.0" y="109" width="64.666666666666671" height="28.333333333333343"/>
                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <state key="normal" title="Button"/>
@@ -360,7 +360,7 @@
                                                                             <color key="baseBackgroundColor" systemColor="opaqueSeparatorColor"/>
                                                                         </buttonConfiguration>
                                                                         <connections>
-                                                                            <action selector="TagButtonFamilyPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="IOI-qL-3PG"/>
+                                                                            <action selector="tagButtonFamilyPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="IOI-qL-3PG"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -374,7 +374,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="XPK-j9-33b" secondAttribute="trailing" constant="16" id="J5Q-Ve-eky"/>
                                                     <constraint firstAttribute="bottom" secondItem="XPK-j9-33b" secondAttribute="bottom" id="QwA-pW-Kp7"/>
                                                     <constraint firstItem="XPK-j9-33b" firstAttribute="top" secondItem="GG7-cg-yli" secondAttribute="top" id="X91-3N-gpZ"/>
-                                                    <constraint firstAttribute="height" constant="170" id="tZc-SQ-Grb"/>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="170" id="tZc-SQ-Grb"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXI-dq-GtX" userLabel="ButtonView">
@@ -393,7 +393,7 @@
                                                                     <color key="baseBackgroundColor" red="0.97290045020000004" green="0.97287446259999999" blue="0.96950978040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
-                                                                    <action selector="CancelToDoButtonPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="DGR-L7-Ij3"/>
+                                                                    <action selector="cancelToDoButtonPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="DGR-L7-Ij3"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="GOF-vb-yYS">
@@ -405,7 +405,7 @@
                                                                     <color key="baseBackgroundColor" red="0.3715601563" green="0.35816287990000001" blue="0.32073658700000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
-                                                                    <action selector="AddToDoButtonPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="4WO-3C-hNd"/>
+                                                                    <action selector="addToDoButtonPressed:" destination="PLc-St-gcs" eventType="touchUpInside" id="4WO-3C-hNd"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -421,9 +421,6 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstItem="WXI-dq-GtX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="GG7-cg-yli" secondAttribute="bottom" constant="1.1368683772161603e-13" id="TNq-QH-dHY"/>
-                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -445,15 +442,15 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="AddDescriptionTextView" destination="oUE-oW-CEm" id="72P-08-kVK"/>
-                        <outlet property="AddTitleTextField" destination="tUh-6G-sgU" id="Z0p-S7-prh"/>
-                        <outlet property="AddToDoButton" destination="GOF-vb-yYS" id="yj8-DB-jnY"/>
-                        <outlet property="AppTitleLabel" destination="oqQ-yg-5Zi" id="Ofm-KI-4Gl"/>
-                        <outlet property="CancelToDoButton" destination="ArG-bH-T8T" id="0Rb-CM-Yps"/>
-                        <outlet property="TagButtonEntertainment" destination="jEU-ex-spR" id="MW4-ga-Rk2"/>
-                        <outlet property="TagButtonFamily" destination="3Na-dc-vHp" id="jiX-bT-73h"/>
-                        <outlet property="TagButtonStudy" destination="OIp-Oc-Hxc" id="GkI-1F-JSb"/>
-                        <outlet property="TagButtonWork" destination="FXo-wE-21B" id="Gwg-SS-UeO"/>
+                        <outlet property="addDescriptionTextView" destination="oUE-oW-CEm" id="72P-08-kVK"/>
+                        <outlet property="addTitleTextField" destination="tUh-6G-sgU" id="Z0p-S7-prh"/>
+                        <outlet property="addToDoButton" destination="GOF-vb-yYS" id="yj8-DB-jnY"/>
+                        <outlet property="appTitleLabel" destination="oqQ-yg-5Zi" id="Ofm-KI-4Gl"/>
+                        <outlet property="cancelToDoButton" destination="ArG-bH-T8T" id="0Rb-CM-Yps"/>
+                        <outlet property="tagButtonEntertainment" destination="jEU-ex-spR" id="MW4-ga-Rk2"/>
+                        <outlet property="tagButtonFamily" destination="3Na-dc-vHp" id="jiX-bT-73h"/>
+                        <outlet property="tagButtonStudy" destination="OIp-Oc-Hxc" id="GkI-1F-JSb"/>
+                        <outlet property="tagButtonWork" destination="FXo-wE-21B" id="Gwg-SS-UeO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2jx-Ww-bTv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

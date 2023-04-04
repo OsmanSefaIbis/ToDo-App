@@ -20,17 +20,17 @@ extension AddToDoViewController: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if AddDescriptionTextView.textColor == UIColor.lightGray {
-            AddDescriptionTextView.text = nil
-            AddDescriptionTextView.textColor = UIColor.black
+        if addDescriptionTextView.textColor == UIColor.lightGray {
+            addDescriptionTextView.text = nil
+            addDescriptionTextView.textColor = UIColor.black
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if AddDescriptionTextView.text.isEmpty {
-            AddDescriptionTextView.removePlaceholder()
-            AddDescriptionTextView.addPlaceholder("add a description ...")
-            AddDescriptionTextView.textColor = UIColor.lightGray
+        if addDescriptionTextView.text.isEmpty {
+            addDescriptionTextView.removePlaceholder()
+            addDescriptionTextView.addPlaceholder("add a description ...")
+            addDescriptionTextView.textColor = UIColor.lightGray
         }
     }
     

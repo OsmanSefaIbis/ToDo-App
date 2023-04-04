@@ -19,18 +19,18 @@ extension ToDoViewController: CustomCellDelegate {
     }
     
     func doneButtonPressed(_ cell: ToDoCell) {
-        guard let sourceIndexPath = ToDoTableview.indexPath(for: cell) else { return }
+        guard let sourceIndexPath = todoTableview.indexPath(for: cell) else { return }
         var destinationIndexPath = IndexPath()
         let doneCheck = tableviewData[sourceIndexPath.row].doneFlag
         
         if !doneCheck{
             tableviewData[sourceIndexPath.row].doneFlag.toggle()
             destinationIndexPath = IndexPath(row: doneTableViewData.count, section: 1)
-            tableView(ToDoTableview, moveRowAt: sourceIndexPath, to: destinationIndexPath)
+            tableView(todoTableview, moveRowAt: sourceIndexPath, to: destinationIndexPath)
         }else{
             doneTableViewData[sourceIndexPath.row].doneFlag.toggle()
             destinationIndexPath = IndexPath(row: tableviewData.count, section: 0)
-            tableView(ToDoTableview, moveRowAt: sourceIndexPath, to: destinationIndexPath)
+            tableView(todoTableview, moveRowAt: sourceIndexPath, to: destinationIndexPath)
         }
         updateData()
 //            let itemToMove = tableviewData[sourceIndexPath.section].remove(at: sourceIndexPath.row)

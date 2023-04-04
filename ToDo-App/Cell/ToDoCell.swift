@@ -15,11 +15,11 @@ protocol CustomCellDelegate: AnyObject {
 }
 class ToDoCell: UITableViewCell {
 
-    @IBOutlet weak var ToDoTitleLabel: UILabel!
-    @IBOutlet weak var OptionsToDoButton: UIButton!
-    @IBOutlet weak var ToDoDescriptionLabel: UILabel!
-    @IBOutlet weak var ToDoTagsLabel: UILabel!
-    @IBOutlet weak var ToDoDoneButton: UIButton!
+    @IBOutlet weak var todoTitleLabel: UILabel!
+    @IBOutlet weak var optionsToDoButton: UIButton!
+    @IBOutlet weak var todoDescriptionLabel: UILabel!
+    @IBOutlet weak var todoTagsLabel: UILabel!
+    @IBOutlet weak var todoDoneButton: UIButton!
     
     var doneFlag: Bool?
     var indexPath: IndexPath?
@@ -28,8 +28,8 @@ class ToDoCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         buttonConfigure(color: EnumColor.darkGray.getColor(), font: EnumFont.doneButton.rawValue, imageName: EnumIcon.forDoneUncheck.rawValue)
-        OptionsToDoButton.menu = setMenuOptions()
-        OptionsToDoButton.showsMenuAsPrimaryAction = true
+        optionsToDoButton.menu = setMenuOptions()
+        optionsToDoButton.showsMenuAsPrimaryAction = true
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 10
     }
@@ -43,9 +43,9 @@ class ToDoCell: UITableViewCell {
     func configure(with model: ToDoCellModel) {
         
         let tagsCellConcat = model.tags.map{ "\($0)" }.joined(separator: ",")
-        ToDoTitleLabel.attributedText = spacingAdded(for: model.title, space: 5)
-        ToDoDescriptionLabel.attributedText = spacingAdded(for: model.description, space: 5)
-        ToDoTagsLabel.attributedText = tagIconConversion(tags: tagsCellConcat)
+        todoTitleLabel.attributedText = spacingAdded(for: model.title, space: 5)
+        todoDescriptionLabel.attributedText = spacingAdded(for: model.description, space: 5)
+        todoTagsLabel.attributedText = tagIconConversion(tags: tagsCellConcat)
     }
     
     func spacingAdded(for description: String, space lineSpace: Int) -> NSAttributedString {
@@ -79,8 +79,8 @@ class ToDoCell: UITableViewCell {
         let fontConfiguration = UIImage.SymbolConfiguration(font: iconFont)
         let image = UIImage(systemName: sfIconName, withConfiguration: fontConfiguration)?.withTintColor(doneColor, renderingMode: .alwaysOriginal)
         
-        ToDoDoneButton.setImage(image, for: .normal)
-        ToDoDoneButton.configuration?.imagePlacement = .trailing
+        todoDoneButton.setImage(image, for: .normal)
+        todoDoneButton.configuration?.imagePlacement = .trailing
     }
     
     func setMenuOptions() -> UIMenu {
@@ -121,21 +121,21 @@ class ToDoCell: UITableViewCell {
     }
     
     func strikeThroughLabels() {
-        ToDoTitleLabel.attributedText = strikeThrough(for: ToDoTitleLabel.text)
-        ToDoDescriptionLabel.attributedText = strikeThrough(for: ToDoDescriptionLabel.text)
+        todoTitleLabel.attributedText = strikeThrough(for: todoTitleLabel.text)
+        todoDescriptionLabel.attributedText = strikeThrough(for: todoDescriptionLabel.text)
     }
     
     func unStrikeThroughLabels() {
-        ToDoTitleLabel.attributedText = removeStrikeThrough(for: ToDoTitleLabel.attributedText)
-        ToDoDescriptionLabel.attributedText = removeStrikeThrough(for: ToDoDescriptionLabel.attributedText)
+        todoTitleLabel.attributedText = removeStrikeThrough(for: todoTitleLabel.attributedText)
+        todoDescriptionLabel.attributedText = removeStrikeThrough(for: todoDescriptionLabel.attributedText)
     }
     
     // MARK: Button Actions
-    @IBAction func OptionsToDoButtonPressed(_ sender: Any) {
+    @IBAction func optionsToDoButtonPressed(_ sender: Any) {
         hapticFeedbackSoft()
     }
     
-    @IBAction func DoneButtonPressed(_ sender: UIButton) {
+    @IBAction func doneButtonPressed(_ sender: UIButton) {
         hapticFeedbackHeavy()
         buttonScaleUpAnimation(sender)
         guard let done = doneFlag else { return }

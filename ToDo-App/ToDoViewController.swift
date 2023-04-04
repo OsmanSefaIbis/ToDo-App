@@ -9,13 +9,13 @@ import UIKit
 
 class ToDoViewController: UIViewController {
     
-    @IBOutlet weak var AppTitleLabel: UILabel!
-    @IBOutlet weak var TagButtonWork: UIButton!
-    @IBOutlet weak var TagButtonStudy: UIButton!
-    @IBOutlet weak var TagButtonEntertainment: UIButton!
-    @IBOutlet weak var TagButtonFamily: UIButton!
-    @IBOutlet weak var ToDoTableview: UITableView!
-    @IBOutlet weak var AddToDoButton: UIButton!
+    @IBOutlet weak var appTitleLabel: UILabel!
+    @IBOutlet weak var tagButtonWork: UIButton!
+    @IBOutlet weak var tagButtonStudy: UIButton!
+    @IBOutlet weak var tagButtonEntertainment: UIButton!
+    @IBOutlet weak var tagButtonFamily: UIButton!
+    @IBOutlet weak var todoTableview: UITableView!
+    @IBOutlet weak var addToDoButton: UIButton!
     
     public let cellName = "ToDoCell"
     public var tableviewData: [ToDoCellModel] = []
@@ -37,7 +37,7 @@ class ToDoViewController: UIViewController {
         initiateTableViewWithMockData()
         initiateTagFlags()
         updateData()
-        configureAddToDoButton()
+        configureaddToDoButton()
     }
 
     func initiateTableViewWithMockData() {
@@ -53,35 +53,35 @@ class ToDoViewController: UIViewController {
                 element.tags.contains(where: { Array(tagSelection).contains($0) })
             }
         }
-        ToDoTableview.reloadData()
+        todoTableview.reloadData()
     }
     
     func tableviewSetupUI() {
-        ToDoTableview.delegate = self
-        ToDoTableview.dataSource = self
-        ToDoTableview.register(.init(nibName: cellName, bundle: nil), forCellReuseIdentifier: cellName)
-        ToDoTableview.separatorStyle = ToDoCell.SeparatorStyle.none
-        ToDoTableview.sectionIndexMinimumDisplayRowCount = 0
+        todoTableview.delegate = self
+        todoTableview.dataSource = self
+        todoTableview.register(.init(nibName: cellName, bundle: nil), forCellReuseIdentifier: cellName)
+        todoTableview.separatorStyle = ToDoCell.SeparatorStyle.none
+        todoTableview.sectionIndexMinimumDisplayRowCount = 0
     }
     
     func configureButtonIcons() {
-        configureButton(for: TagButtonWork, tag: "work")
-        configureButton(for: TagButtonStudy, tag: "study")
-        configureButton(for: TagButtonEntertainment, tag: "entertainment")
-        configureButton(for: TagButtonFamily, tag: "family")
+        configureButton(for: tagButtonWork, tag: "work")
+        configureButton(for: tagButtonStudy, tag: "study")
+        configureButton(for: tagButtonEntertainment, tag: "entertainment")
+        configureButton(for: tagButtonFamily, tag: "family")
     }
     
-    func configureAddToDoButton() {
+    func configureaddToDoButton() {
         let iconFont = UIFont.systemFont(ofSize: CGFloat(EnumFont.addButtonIcon.rawValue),weight: .bold)
         let configuration = UIImage.SymbolConfiguration(font: iconFont)
         let addButtonIcon = UIImage(systemName: EnumIcon.forAddButton.rawValue,
                                     withConfiguration: configuration)?
                                     .withTintColor(EnumColor.lightGray.getColor(),
                                     renderingMode: .alwaysOriginal)
-        AddToDoButton.setImage(addButtonIcon, for: .normal)
+        addToDoButton.setImage(addButtonIcon, for: .normal)
     }
     
-    func TagButtonPressedHelper(for tagName: String, flag pressedFlag: inout Bool, tag tagEnum: EnumTag) {
+    func tagButtonPressedHelper(for tagName: String, flag pressedFlag: inout Bool, tag tagEnum: EnumTag) {
         pressedFlag.toggle()
         revertTagButtonBackground(for: tagName, with: pressedFlag)
         if pressedFlag{
@@ -101,7 +101,7 @@ class ToDoViewController: UIViewController {
         self.present(vc, animated: false)
         
         if let indexPath, let editFlag{
-            vc.AddDescriptionTextView.removePlaceholder()
+            vc.addDescriptionTextView.removePlaceholder()
             vc.editFlag = editFlag
             vc.editIndexPath = indexPath
             vc.configureFields(with: filteredTableViewData[indexPath.row])
@@ -112,21 +112,21 @@ class ToDoViewController: UIViewController {
     let coloredCase = (tagName, true)
     switch coloredCase{
         case ("work",flag):
-            TagButtonWork.backgroundColor = EnumColor.workSoft.getColor()
+            tagButtonWork.backgroundColor = EnumColor.workSoft.getColor()
         case ("work",_):
-        TagButtonWork.backgroundColor = .white
+        tagButtonWork.backgroundColor = .white
         case ("study",flag):
-            TagButtonStudy.backgroundColor = EnumColor.studySoft.getColor()
+            tagButtonStudy.backgroundColor = EnumColor.studySoft.getColor()
         case ("study",_):
-        TagButtonStudy.backgroundColor = .white
+        tagButtonStudy.backgroundColor = .white
         case ("entertainment",flag):
-            TagButtonEntertainment.backgroundColor = EnumColor.entertainmentSoft.getColor()
+            tagButtonEntertainment.backgroundColor = EnumColor.entertainmentSoft.getColor()
         case ("entertainment",_):
-        TagButtonEntertainment.backgroundColor = .white
+        tagButtonEntertainment.backgroundColor = .white
         case ("family",flag):
-            TagButtonFamily.backgroundColor = EnumColor.familySoft.getColor()
+            tagButtonFamily.backgroundColor = EnumColor.familySoft.getColor()
         case ("family",_):
-        TagButtonFamily.backgroundColor = .white
+        tagButtonFamily.backgroundColor = .white
         default:
             break
     }
@@ -153,32 +153,32 @@ class ToDoViewController: UIViewController {
     }
     
     // MARK: Button Actions
-    @IBAction func TagWorkButtonPressed(_ sender: UIButton) {
+    @IBAction func tagWorkButtonPressed(_ sender: UIButton) {
         hapticFeedbackMedium()
         buttonScaleUpAnimation(sender)
-        TagButtonPressedHelper(for: "work", flag: &tagFlagDictionary["workPressedFlag"]!, tag: .work)
+        tagButtonPressedHelper(for: "work", flag: &tagFlagDictionary["workPressedFlag"]!, tag: .work)
     }
     
-    @IBAction func TagStudyButtonPressed(_ sender: UIButton) {
+    @IBAction func tagStudyButtonPressed(_ sender: UIButton) {
         hapticFeedbackMedium()
         buttonScaleUpAnimation(sender)
-        TagButtonPressedHelper(for: "study", flag: &tagFlagDictionary["studyPressedFlag"]!, tag: .study)
+        tagButtonPressedHelper(for: "study", flag: &tagFlagDictionary["studyPressedFlag"]!, tag: .study)
     }
     
-    @IBAction func TagEntertainmentButtonPressed(_ sender: UIButton) {
+    @IBAction func tagEntertainmentButtonPressed(_ sender: UIButton) {
         hapticFeedbackMedium()
         buttonScaleUpAnimation(sender)
-        TagButtonPressedHelper(for: "entertainment", flag: &tagFlagDictionary["entertainmentPressedFlag"]!,
+        tagButtonPressedHelper(for: "entertainment", flag: &tagFlagDictionary["entertainmentPressedFlag"]!,
                                tag: .entertainment)
     }
     
-    @IBAction func TagFamilyButtonPressed(_ sender: UIButton) {
+    @IBAction func tagFamilyButtonPressed(_ sender: UIButton) {
         hapticFeedbackMedium()
         buttonScaleUpAnimation(sender)
-        TagButtonPressedHelper(for: "family", flag: &tagFlagDictionary["familyPressedFlag"]!, tag: .family)
+        tagButtonPressedHelper(for: "family", flag: &tagFlagDictionary["familyPressedFlag"]!, tag: .family)
     }
     
-    @IBAction func AddToDoButtonPressed(_ sender: UIButton) {
+    @IBAction func addToDoButtonPressed(_ sender: UIButton) {
         hapticFeedbackHeavy()
         buttonRotateNinetyDegree(sender)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
