@@ -42,67 +42,51 @@ extension ToDoViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         2
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section{
-            case 0:
-                return filteredTableViewData.count
-            case 1:
-                return doneTableViewData.count
-            default:
-                return 0
+        case 0:
+            return filteredTableViewData.count
+        case 1:
+            return doneTableViewData.count
+        default:
+            return 0
         }
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let todoCell = self.todoTableview.dequeueReusableCell(withIdentifier: cellName) as! ToDoCell
         todoCell.delegate = self
         todoCell.indexPath = indexPath
-        todoCell.doneFlag = filteredTableViewData[indexPath.row].doneFlag
         todoCell.configure(with: filteredTableViewData[indexPath.row])
         return todoCell
     }
+    
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-            return true
+        return true
     }
-        
+    
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        if sourceIndexPath.section == destinationIndexPath.section {
-            switch sourceIndexPath.section {
+        let movedObject: ToDoCellModel
+        switch sourceIndexPath.section {
             case 0:
-                let movedObject = tableviewData[sourceIndexPath.row]
+                movedObject = tableviewData[sourceIndexPath.row]
                 tableviewData.remove(at: sourceIndexPath.row)
-                tableviewData.insert(movedObject, at: destinationIndexPath.row)
             case 1:
-                let movedObject = doneTableViewData[sourceIndexPath.row]
+                movedObject = doneTableViewData[sourceIndexPath.row]
                 doneTableViewData.remove(at: sourceIndexPath.row)
-                doneTableViewData.insert(movedObject, at: destinationIndexPath.row)
             default:
-                break
-            }
-        } else {
-                let movedObject: ToDoCellModel
-                switch sourceIndexPath.section {
-                    case 0:
-                        movedObject = tableviewData[sourceIndexPath.row]
-                        tableviewData.remove(at: sourceIndexPath.row)
-                        updateData()
-                    case 1:
-                        movedObject = doneTableViewData[sourceIndexPath.row]
-                        doneTableViewData.remove(at: sourceIndexPath.row)
-                        updateData()
-                    default:
-                        return
-                }
-                
-                switch destinationIndexPath.section {
-                    case 0:
-                        tableviewData.append(movedObject)
-                        updateData()
-                    case 1:
-                        doneTableViewData.append(movedObject)
-                        updateData()
-                    default:
-                        return
-                    }
-            }
+                return
         }
+        
+        switch destinationIndexPath.section {
+            case 0:
+                tableviewData.append(movedObject)
+            case 1:
+                doneTableViewData.append(movedObject)
+            default:
+                return
+        }
+        updateData()
+    }// EOM
 }

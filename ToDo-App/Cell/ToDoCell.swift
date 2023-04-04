@@ -21,7 +21,6 @@ class ToDoCell: UITableViewCell {
     @IBOutlet weak var todoTagsLabel: UILabel!
     @IBOutlet weak var todoDoneButton: UIButton!
     
-    var doneFlag: Bool?
     var indexPath: IndexPath?
     weak var delegate: CustomCellDelegate?
 
@@ -46,6 +45,12 @@ class ToDoCell: UITableViewCell {
         todoTitleLabel.attributedText = spacingAdded(for: model.title, space: 5)
         todoDescriptionLabel.attributedText = spacingAdded(for: model.description, space: 5)
         todoTagsLabel.attributedText = tagIconConversion(tags: tagsCellConcat)
+        let cellLook = model.doneFlag
+        if cellLook{
+            doneTodoLook()
+        }else{
+            todoLook()
+        }
     }
     
     func spacingAdded(for description: String, space lineSpace: Int) -> NSAttributedString {
@@ -130,6 +135,17 @@ class ToDoCell: UITableViewCell {
         todoDescriptionLabel.attributedText = removeStrikeThrough(for: todoDescriptionLabel.attributedText)
     }
     
+    func doneTodoLook(){
+        buttonConfigure(color: EnumColor.lightGray.getColor(), font: EnumFont.doneButton.rawValue, imageName: EnumIcon.forDoneCheck.rawValue)
+        strikeThroughLabels()
+        setAllViewsBackgroundColor(.lightGray)
+    }
+    func todoLook(){
+        buttonConfigure(color: EnumColor.darkGray.getColor(), font: EnumFont.doneButton.rawValue , imageName: EnumIcon.forDoneUncheck.rawValue)
+        unStrikeThroughLabels()
+        setAllViewsBackgroundColor(EnumColor.cornSilk.getColor())
+    }
+    
     // MARK: Button Actions
     @IBAction func optionsToDoButtonPressed(_ sender: Any) {
         hapticFeedbackSoft()
@@ -138,19 +154,6 @@ class ToDoCell: UITableViewCell {
     @IBAction func doneButtonPressed(_ sender: UIButton) {
         hapticFeedbackHeavy()
         buttonScaleUpAnimation(sender)
-        guard let done = doneFlag else { return }
-        if !done {
-            buttonConfigure(color: EnumColor.lightGray.getColor(), font: EnumFont.doneButton.rawValue, imageName: EnumIcon.forDoneCheck.rawValue)
-            strikeThroughLabels()
-            setAllViewsBackgroundColor(.lightGray)
-        }else{
-            buttonConfigure(color: EnumColor.darkGray.getColor(), font: EnumFont.doneButton.rawValue , imageName: EnumIcon.forDoneUncheck.rawValue)
-            unStrikeThroughLabels()
-            setAllViewsBackgroundColor(EnumColor.cornSilk.getColor())
-        }
-        // TODO: Below is causing issue, trace it !!!
-        //delegate?.doneButtonPressed(self)
-        doneFlag?.toggle()
         delegate?.doneButtonPressed(self)
     }
     

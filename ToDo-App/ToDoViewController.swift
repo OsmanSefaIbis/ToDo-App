@@ -18,6 +18,7 @@ class ToDoViewController: UIViewController {
     @IBOutlet weak var addToDoButton: UIButton!
     
     public let cellName = "ToDoCell"
+    
     public var tableviewData: [ToDoCellModel] = []
     public var filteredTableViewData: [ToDoCellModel] = []
     public var doneTableViewData: [ToDoCellModel] = []

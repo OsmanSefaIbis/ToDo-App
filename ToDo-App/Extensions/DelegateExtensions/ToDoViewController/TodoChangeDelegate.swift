@@ -12,12 +12,12 @@ extension ToDoViewController: TodoChangeDelegate {
     func editChanged(for todoModel: ToDoCellModel, at indexPath: IndexPath?) {
         if let indexPath{
             tableviewData.remove(at: indexPath.row)
-            tableviewData.append(todoModel)
+            tableviewData.insert(todoModel, at: indexPath.row)
             updateData()
         }
     }
     func todoAdded(for todoModel: ToDoCellModel) {
-        tableviewData.append(todoModel)
+        tableviewData.insert(todoModel, at: 0)
         updateData()
     }
 }
