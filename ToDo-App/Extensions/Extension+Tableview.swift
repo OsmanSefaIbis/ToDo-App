@@ -48,7 +48,7 @@ extension ToDoViewController: UITableViewDataSource {
         case 0:
             return filteredTableViewData.count
         case 1:
-            return doneTableViewData.count
+            return filteredDoneTableViewData.count
         default:
             return 0
         }
@@ -58,7 +58,15 @@ extension ToDoViewController: UITableViewDataSource {
         let todoCell = self.todoTableview.dequeueReusableCell(withIdentifier: cellName) as! ToDoCell
         todoCell.delegate = self
         todoCell.indexPath = indexPath
-        todoCell.configure(with: filteredTableViewData[indexPath.row])
+        let cellSection = indexPath.section
+        switch cellSection{
+        case 0:
+            todoCell.configure(with: tableviewData[indexPath.row])
+        case 1:
+            todoCell.configure(with: doneTableViewData[indexPath.row])
+        default:
+            break
+        }
         return todoCell
     }
     
@@ -83,10 +91,9 @@ extension ToDoViewController: UITableViewDataSource {
             case 0:
                 tableviewData.append(movedObject)
             case 1:
-                doneTableViewData.append(movedObject)
+                doneTableViewData.insert(movedObject, at: 0)
             default:
                 return
         }
-        updateData()
     }// EOM
 }

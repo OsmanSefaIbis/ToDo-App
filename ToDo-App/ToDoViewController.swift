@@ -22,6 +22,7 @@ class ToDoViewController: UIViewController {
     public var tableviewData: [ToDoCellModel] = []
     public var filteredTableViewData: [ToDoCellModel] = []
     public var doneTableViewData: [ToDoCellModel] = []
+    public var filteredDoneTableViewData: [ToDoCellModel] = []
     
     private var isRotating = false
     private var tagSelection: Set<EnumTag> = []
@@ -51,6 +52,13 @@ class ToDoViewController: UIViewController {
             filteredTableViewData = tableviewData
         }else{
             filteredTableViewData = tableviewData.filter { element in
+                element.tags.contains(where: { Array(tagSelection).contains($0) })
+            }
+        }
+        if Array(tagSelection).isEmpty{
+            filteredDoneTableViewData = doneTableViewData
+        }else{
+            filteredDoneTableViewData = doneTableViewData.filter { element in
                 element.tags.contains(where: { Array(tagSelection).contains($0) })
             }
         }
@@ -105,7 +113,15 @@ class ToDoViewController: UIViewController {
             vc.addDescriptionTextView.removePlaceholder()
             vc.editFlag = editFlag
             vc.editIndexPath = indexPath
-            vc.configureFields(with: filteredTableViewData[indexPath.row])
+            let section = indexPath.section
+            switch section{
+            case 0:
+                vc.configureFields(with: filteredTableViewData[indexPath.row])
+            case 1:
+                vc.configureFields(with: filteredDoneTableViewData[indexPath.row])
+            default:
+                break
+            }
         }
     }
     

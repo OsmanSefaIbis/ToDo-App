@@ -153,7 +153,6 @@ class ToDoCell: UITableViewCell {
     
     @IBAction func doneButtonPressed(_ sender: UIButton) {
         hapticFeedbackHeavy()
-        buttonScaleUpAnimation(sender)
         delegate?.doneButtonPressed(self)
     }
     
