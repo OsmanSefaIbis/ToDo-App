@@ -42,7 +42,8 @@ class ToDoViewController: UIViewController {
         tableviewSetupUI()
         configureButtonIcons()
         initiateTableViewWithMockData()
-        // initiateTableViewWithCoreData(with: mockData.dataSetDemo)
+        //initiateTableViewWithCoreData(with: mockData.dataSetDemo)
+        //dumpCoreData()
         initiateTagFlags()
         updateData()
         configureaddToDoButton()
@@ -58,7 +59,6 @@ class ToDoViewController: UIViewController {
         retrieveFromCoreData()
         let dataFetchedFromCoreData: [ToDoCellModel] = databaseData.map {
             let tagsString = $0.todoTags ?? ""
-            let todoTagsString = tagsString as NSString
             let tagsArray = tagsString.components(separatedBy: ",")
             let tagsSet: Set<EnumTag> = Set(tagsArray.compactMap { EnumTag(rawValue: $0) })
             return ToDoCellModel(
@@ -83,6 +83,7 @@ class ToDoViewController: UIViewController {
                 element.tags.contains(where: { Array(tagSelection).contains($0) })
             }
         }
+        updateCoreData()
         todoTableview.reloadData()
     }
     
@@ -190,7 +191,7 @@ class ToDoViewController: UIViewController {
         ]
     }
     // MARK: Core Data
-    private func saveToCoreData(_ data: ToDoCellModel){
+    public func saveToCoreData(_ data: ToDoCellModel) {
         let context = appDelegate.persistentContainer.viewContext
         if let entity = NSEntityDescription.entity(forEntityName: "TodoEntity", in: context){
             let todoObject = NSManagedObject(entity: entity, insertInto: context)
@@ -208,7 +209,7 @@ class ToDoViewController: UIViewController {
         }
     }
     
-    public func retrieveFromCoreData(){
+    private func retrieveFromCoreData() {
         let context = appDelegate.persistentContainer.viewContext
         let request = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
         do{
@@ -217,6 +218,27 @@ class ToDoViewController: UIViewController {
             self.databaseData = result
         }catch{
             print("Error: Occured with retrieveFromCoreData() ")
+        }
+    }
+    
+    func updateCoreData(){
+        for each in tableviewData{
+            saveToCoreData(each)
+        }
+    }
+    
+    func dumpCoreData(){
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TodoEntity")
+
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        let persistentStoreCoordinator = appDelegate.persistentContainer.persistentStoreCoordinator
+
+        do {
+            try persistentStoreCoordinator.execute(batchDeleteRequest, with: appDelegate.persistentContainer.viewContext)
+            print("Core Data dumped ... ")
+        } catch {
+            fatalError("Core Data dump gone bad ... ")
         }
     }
     

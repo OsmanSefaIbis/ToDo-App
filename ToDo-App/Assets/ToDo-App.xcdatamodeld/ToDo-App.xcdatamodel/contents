@@ -6,5 +6,10 @@
         <attribute name="todoDoneFlag" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="todoTags" optional="YES" attributeType="String"/>
         <attribute name="todoTitle" optional="YES" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
 </model>
