@@ -61,9 +61,9 @@ extension ToDoViewController: UITableViewDataSource {
         let cellSection = indexPath.section
         switch cellSection{
         case 0:
-            todoCell.configure(with: tableviewData[indexPath.row])
+            todoCell.configure(with: filteredTableViewData[indexPath.row])
         case 1:
-            todoCell.configure(with: doneTableViewData[indexPath.row])
+            todoCell.configure(with: filteredDoneTableViewData[indexPath.row])
         default:
             break
         }

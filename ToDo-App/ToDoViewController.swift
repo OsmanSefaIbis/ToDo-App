@@ -76,14 +76,11 @@ class ToDoViewController: UIViewController {
     public func updateData() {
         if Array(tagSelection).isEmpty{
             filteredTableViewData = tableviewData
+            filteredDoneTableViewData = doneTableViewData
         }else{
             filteredTableViewData = tableviewData.filter { element in
                 element.tags.contains(where: { Array(tagSelection).contains($0) })
             }
-        }
-        if Array(tagSelection).isEmpty{
-            filteredDoneTableViewData = doneTableViewData
-        }else{
             filteredDoneTableViewData = doneTableViewData.filter { element in
                 element.tags.contains(where: { Array(tagSelection).contains($0) })
             }
