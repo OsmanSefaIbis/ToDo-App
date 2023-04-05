@@ -10,12 +10,16 @@ import Foundation
 extension ToDoViewController: CustomCellDelegate {
     
     func deleteActionPressed(at indexPath: IndexPath) {
+        let deletedObject: ToDoCellModel
         let section = indexPath.section
         switch section{
         case 0:
-            tableviewData.remove(at: indexPath.row)
+            deletedObject = filteredTableViewData[indexPath.row]
+            tableviewData.removeAll(where: { $0.id == deletedObject.id
+            } )
         case 1:
-            doneTableViewData.remove(at: indexPath.row)
+            deletedObject = filteredDoneTableViewData[indexPath.row]
+            doneTableViewData.removeAll(where: { $0.id == deletedObject.id } )
         default:
             return
         }

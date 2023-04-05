@@ -42,7 +42,7 @@ class ToDoViewController: UIViewController {
         tableviewSetupUI()
         configureButtonIcons()
         initiateTableViewWithMockData()
-        //initiateTableViewWithCoreData(with: mockData.dataSetDemo)
+        //initiateTableViewWithCoreData(with: [])
         //dumpCoreData()
         initiateTagFlags()
         updateData()
@@ -83,7 +83,7 @@ class ToDoViewController: UIViewController {
                 element.tags.contains(where: { Array(tagSelection).contains($0) })
             }
         }
-        updateCoreData()
+        //updateCoreData()
         todoTableview.reloadData()
     }
     
