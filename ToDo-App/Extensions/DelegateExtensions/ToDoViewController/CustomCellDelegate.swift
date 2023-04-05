@@ -33,19 +33,19 @@ extension ToDoViewController: CustomCellDelegate {
         if let section = cell.indexPath?.section{
             switch section{
             case 0:
-                doneCheck = tableviewData[sourceIndexPath.row].doneFlag
+                doneCheck = filteredTableViewData[sourceIndexPath.row].doneFlag
             case 1:
-                doneCheck = doneTableViewData[sourceIndexPath.row].doneFlag
+                doneCheck = filteredDoneTableViewData[sourceIndexPath.row].doneFlag
             default:
                 break
             }
         }
         if !doneCheck{
-            tableviewData[sourceIndexPath.row].doneFlag.toggle()
+            filteredTableViewData[sourceIndexPath.row].doneFlag.toggle()
             destinationIndexPath = IndexPath(row: 0, section: 1)
             tableView(todoTableview, moveRowAt: sourceIndexPath, to: destinationIndexPath)
         }else{
-            doneTableViewData[sourceIndexPath.row].doneFlag.toggle()
+            filteredDoneTableViewData[sourceIndexPath.row].doneFlag.toggle()
             destinationIndexPath = IndexPath(row: tableviewData.count-1, section: 0)
             tableView(todoTableview, moveRowAt: sourceIndexPath, to: destinationIndexPath)
         }

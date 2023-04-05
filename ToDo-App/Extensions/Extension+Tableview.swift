@@ -78,11 +78,12 @@ extension ToDoViewController: UITableViewDataSource {
         let movedObject: ToDoCellModel
         switch sourceIndexPath.section {
             case 0:
-                movedObject = tableviewData[sourceIndexPath.row]
-                tableviewData.remove(at: sourceIndexPath.row)
+                movedObject = filteredTableViewData[sourceIndexPath.row]
+                
+                tableviewData.removeAll(where: { $0.id == movedObject.id } )
             case 1:
-                movedObject = doneTableViewData[sourceIndexPath.row]
-                doneTableViewData.remove(at: sourceIndexPath.row)
+                movedObject = filteredDoneTableViewData[sourceIndexPath.row]
+                doneTableViewData.removeAll(where: { $0.id == movedObject.id } )
             default:
                 return
         }
