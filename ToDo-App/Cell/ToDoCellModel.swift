@@ -20,4 +20,11 @@ struct ToDoCellModel{
         self.description = description
         self.tags = tags
     }
+    init(title: String, description: String, tags: Set<EnumTag>, doneFlag: Bool) {
+        self.id = UUID()
+        self.title = title
+        self.description = description
+        self.tags = tags
+        self.doneFlag = doneFlag
+    }
 }

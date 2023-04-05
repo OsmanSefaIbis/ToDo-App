@@ -48,7 +48,29 @@ class ToDoViewController: UIViewController {
 
     func initiateTableViewWithMockData() {
         let mockData = MockData()
-        tableviewData = mockData.dataSetDemoFilled
+        let dataset = mockData.dataSetDemoFilled
+        
+        tableviewData = dataset
+        
+// TODO: Object Mapping, tags must be handled properly
+/*        for each in dataset{
+            saveToCoreData(each)
+        }
+        retrieveFromCoreData()
+        let dataFetchedFromCoreData: [ToDoCellModel] = databaseData.map {
+            let tagsString = $0.todoTags ?? ""
+            let todoTagsString = tagsString as NSString
+            let tagsArray = tagsString.components(separatedBy: ",")
+            let tagsSet: Set<EnumTag> = Set(tagsArray.compactMap { EnumTag(rawValue: $0) })
+            return ToDoCellModel(
+                title: $0.todoTitle ?? "",
+                description: $0.todoDescription ?? "",
+                tags: tagsSet,
+                doneFlag: $0.todoDoneFlag
+            )
+        }
+        tableviewData = dataFetchedFromCoreData
+*/
     }
     
     public func updateData() {
