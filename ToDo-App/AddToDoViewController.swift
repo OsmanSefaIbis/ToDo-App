@@ -197,7 +197,7 @@ class AddToDoViewController: UIViewController {
             hapticFeedbackMedium()
         }
         else{
-            var newTodo: ToDoCellModel = .init( title: addTitleTextField.text!,
+            let newTodo: ToDoCellModel = .init( title: addTitleTextField.text!,
                                                 description: addDescriptionTextView.text,
                                                 tags: tagSelection)
             if !editFlag{

@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import CoreData
 
 class ToDoViewController: UIViewController {
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     @IBOutlet weak var appTitleLabel: UILabel!
     @IBOutlet weak var tagButtonWork: UIButton!
@@ -19,6 +22,7 @@ class ToDoViewController: UIViewController {
     
     public let cellName = "ToDoCell"
     
+    private(set) var databaseData: [TodoEntity] = []
     public var tableviewData: [ToDoCellModel] = []
     public var filteredTableViewData: [ToDoCellModel] = []
     public var doneTableViewData: [ToDoCellModel] = []
@@ -44,7 +48,7 @@ class ToDoViewController: UIViewController {
 
     func initiateTableViewWithMockData() {
         let mockData = MockData()
-        tableviewData = mockData.dataSet1
+        tableviewData = mockData.dataSetDemoFilled
     }
     
     public func updateData() {
@@ -167,6 +171,35 @@ class ToDoViewController: UIViewController {
             "entertainmentPressedFlag" : false,
             "familyPressedFlag" : false,
         ]
+    }
+    // MARK: Core Data
+    private func saveToCoreData(_ data: ToDoCellModel){
+        let context = appDelegate.persistentContainer.viewContext
+        if let entity = NSEntityDescription.entity(forEntityName: "TodoEntity", in: context){
+            let todoObject = NSManagedObject(entity: entity, insertInto: context)
+            todoObject.setValue(data.id, forKey: "id")
+            todoObject.setValue(data.title, forKey: "todoTitle")
+            todoObject.setValue(data.description, forKey: "todoDescription")
+            todoObject.setValue(data.tags, forKey: "todoTags")
+            todoObject.setValue(data.doneFlag, forKey: "todoDoneFlag")
+            do{
+                try context.save()
+            }catch{
+                print("Error: Occured with saveToCoreData() ")
+            }
+        }
+    }
+    
+    public func retrieveFromCoreData(){
+        let context = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
+        do{
+            let result = try context.fetch(request)
+            print("CoreData all data count \(result.count)")
+            self.databaseData = result
+        }catch{
+            print("Error: Occured with retrieveFromCoreData() ")
+        }
     }
     
     // MARK: Button Actions
