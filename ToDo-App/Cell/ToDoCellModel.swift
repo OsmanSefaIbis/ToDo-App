@@ -30,4 +30,7 @@ struct ToDoCellModel{
         self.tags = tags
         self.doneFlag = doneFlag
     }
+    static func resetId(){
+        ToDoCellModel.nextId = 1
+    }
 }

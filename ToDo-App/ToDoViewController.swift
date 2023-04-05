@@ -41,18 +41,19 @@ class ToDoViewController: UIViewController {
     func setupUI() {
         tableviewSetupUI()
         configureButtonIcons()
-        initiateTableViewWithMockData()
-        //initiateTableViewWithCoreData(with: [])
+        //initiateTableViewWithMockData(with: mockData.dataSetDemo)
+        initiateTableViewWithCoreData(with: [])
         //dumpCoreData()
         initiateTagFlags()
         updateData()
         configureaddToDoButton()
     }
 
-    func initiateTableViewWithMockData() {
-        tableviewData = mockData.dataSetDemo
+    func initiateTableViewWithMockData(with dataSet: [ToDoCellModel] ) {
+        tableviewData = dataSet
     }
     func initiateTableViewWithCoreData(with dataSet: [ToDoCellModel]){
+        //ToDoCellModel.resetId()
         for each in dataSet{
             saveToCoreData(each)
         }
@@ -83,7 +84,6 @@ class ToDoViewController: UIViewController {
                 element.tags.contains(where: { Array(tagSelection).contains($0) })
             }
         }
-        //updateCoreData()
         todoTableview.reloadData()
     }
     
@@ -208,6 +208,20 @@ class ToDoViewController: UIViewController {
             }
         }
     }
+    public func deleteFromCoreData(with id: Int64){
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
+        fetchRequest.predicate = NSPredicate(format: "id == %@", "\(id)")
+        do {
+            let deleteEntity = try context.fetch(fetchRequest)
+            for thisEntity in deleteEntity {
+                context.delete(thisEntity)
+            }
+            try context.save()
+        } catch {
+            print("Error deleting todo: \(error)")
+        }
+    }
     
     private func retrieveFromCoreData() {
         let context = appDelegate.persistentContainer.viewContext
@@ -218,12 +232,6 @@ class ToDoViewController: UIViewController {
             self.databaseData = result
         }catch{
             print("Error: Occured with retrieveFromCoreData() ")
-        }
-    }
-    
-    func updateCoreData(){
-        for each in tableviewData{
-            saveToCoreData(each)
         }
     }
     

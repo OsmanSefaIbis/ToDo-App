@@ -15,8 +15,8 @@ extension ToDoViewController: CustomCellDelegate {
         switch section{
         case 0:
             deletedObject = filteredTableViewData[indexPath.row]
-            tableviewData.removeAll(where: { $0.id == deletedObject.id
-            } )
+            tableviewData.removeAll(where: { $0.id == deletedObject.id } )
+            deleteFromCoreData(with: deletedObject.id)
         case 1:
             deletedObject = filteredDoneTableViewData[indexPath.row]
             doneTableViewData.removeAll(where: { $0.id == deletedObject.id } )
