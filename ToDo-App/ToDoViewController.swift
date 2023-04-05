@@ -31,6 +31,7 @@ class ToDoViewController: UIViewController {
     private var isRotating = false
     private var tagSelection: Set<EnumTag> = []
     private var tagFlagDictionary: [String : Bool] = [ : ]
+    private let mockData = MockData()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,19 +42,17 @@ class ToDoViewController: UIViewController {
         tableviewSetupUI()
         configureButtonIcons()
         initiateTableViewWithMockData()
+        // initiateTableViewWithCoreData(with: mockData.dataSetDemo)
         initiateTagFlags()
         updateData()
         configureaddToDoButton()
     }
 
     func initiateTableViewWithMockData() {
-        let mockData = MockData()
-        let dataset = mockData.dataSetDemoFilled
-        
-        tableviewData = dataset
-        
-// TODO: Object Mapping, tags must be handled properly
-/*        for each in dataset{
+        tableviewData = mockData.dataSetDemo
+    }
+    func initiateTableViewWithCoreData(with dataSet: [ToDoCellModel]){
+        for each in dataSet{
             saveToCoreData(each)
         }
         retrieveFromCoreData()
@@ -70,7 +69,6 @@ class ToDoViewController: UIViewController {
             )
         }
         tableviewData = dataFetchedFromCoreData
-*/
     }
     
     public func updateData() {
@@ -199,7 +197,8 @@ class ToDoViewController: UIViewController {
             todoObject.setValue(data.id, forKey: "id")
             todoObject.setValue(data.title, forKey: "todoTitle")
             todoObject.setValue(data.description, forKey: "todoDescription")
-            todoObject.setValue(data.tags, forKey: "todoTags")
+            let tags = data.tags.map({ $0.rawValue }).joined(separator: ", ")
+            todoObject.setValue(tags, forKey: "todoTags")
             todoObject.setValue(data.doneFlag, forKey: "todoDoneFlag")
             do{
                 try context.save()
