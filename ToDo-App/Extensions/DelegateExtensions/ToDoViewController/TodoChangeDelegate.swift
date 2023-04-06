@@ -41,13 +41,19 @@ extension ToDoViewController: TodoChangeDelegate {
                 break
             }
             guard let unWrappedEditedTodo = editedTodo else{ return }
+            
+            print("*** editChanged ***")
+            listDataInCoreData()
             updateDataInCoreData(unWrappedEditedTodo)
+            listDataInCoreData()
             updateData()
         }
     }
 
     func todoAdded(for todoModel: ToDoCellModel) {
         tableviewData.insert(todoModel, at: 0)
+        print("*** todoAdded ***")
+        listDataInCoreData()
         saveToCoreData(todoModel)
         listDataInCoreData()
         updateData()

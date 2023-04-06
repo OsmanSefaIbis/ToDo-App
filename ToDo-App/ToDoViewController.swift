@@ -46,10 +46,10 @@ class ToDoViewController: UIViewController {
         
         //initiateTableViewWithMockData(with: mockData.dataSetDemo)
         //initiateTableViewWithCoreData(with: mockData.dataSetForCoreData)
-        initiateTableViewWithCoreData(with: [])
-//        ToDoCellModel.resetId()
-//        dumpCoreData()
-//        listDataInCoreData()
+        //initiateTableViewWithCoreData(with: [])
+        ToDoCellModel.resetId()
+        dumpCoreData()
+        listDataInCoreData()
         
         initiateTagFlags()
         updateData()
