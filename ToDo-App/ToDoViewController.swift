@@ -214,9 +214,9 @@ class ToDoViewController: UIViewController {
             todoObject.setValue(data.doneFlag, forKey: "todoDoneFlag")
             do{
                 try context.save()
-                print("CoreData: Data saved successfully!")
+                print(" ˆˆˆˆˆ CoreData: Data saved successfully! ˆˆˆˆˆ \n")
             }catch{
-                print("Error: Occured with saveToCoreData()")
+                print("Error: Occured in saveToCoreData() with \(error)")
             }
         }
     }
@@ -236,10 +236,10 @@ class ToDoViewController: UIViewController {
                 todoObject.setValue(data.doneFlag, forKey: "todoDoneFlag")
             }
             try context.save()
-            print("CoreData: Data updated successfully!")
+            print(" ˆˆˆˆˆ CoreData: Data updated successfully! ˆˆˆˆˆ \n")
             
         } catch {
-            print("Error: Occured with updateDataInCoreData()")
+            print("Error: Occured in updateDataInCoreData() with \(error) ")
         }
     }
     
@@ -253,9 +253,9 @@ class ToDoViewController: UIViewController {
                 context.delete(thisEntity)
             }
             try context.save()
-            print("CoreData: Data deleted successfully!")
+            print(" ˆˆˆˆˆ CoreData: Data deleted successfully! ˆˆˆˆˆ \n")
         } catch {
-            print("Error: Occured with deleteFromCoreData()")
+            print("Error: Occured in deleteFromCoreData() with \(error) ")
         }
     }
     
@@ -264,10 +264,10 @@ class ToDoViewController: UIViewController {
         let request = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
         do{
             let result = try context.fetch(request)
-            print("CoreData: Total data count:  \(result.count)")
+            print(" ˆˆˆˆˆ CoreData - Total data count:  \(result.count) ˆˆˆˆˆ \n")
             self.databaseData = result
         }catch{
-            print("Error: Occured with retrieveFromCoreData()")
+            print("Error: Occured in retrieveFromCoreData() with \(error) ")
         }
     }
     func listDataInCoreData(){
@@ -275,11 +275,13 @@ class ToDoViewController: UIViewController {
         let fetchRequest = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
         do {
             let todoList = try context.fetch(fetchRequest)
-            for todo in todoList {
-                print(" ID: \(todo.id) - DoneFlag: \(todo.todoDoneFlag) - Tags: \(todo.todoTags ?? "") - Title: \(todo.todoTitle ?? "") - Description: \(todo.todoDescription ?? "" )")
+            print("****** START")
+            for (index, todo) in todoList.enumerated() {
+                print("Index: \(index+1) - ID: \(todo.id) - Title: \(todo.todoTitle ?? "") \t\t- DoneFlag: \(todo.todoDoneFlag) \t- Tags: \(todo.todoTags ?? "") \t\t\t\t- Description: \(todo.todoDescription ?? "" )")
             }
+            print("****** END \n")
         } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
+            print("Error: Occured in listDataInCoreData() with \(error) ")
         }
     }
     
@@ -292,7 +294,7 @@ class ToDoViewController: UIViewController {
 
         do {
             try persistentStoreCoordinator.execute(batchDeleteRequest, with: appDelegate.persistentContainer.viewContext)
-            print("Core Data dumped ... ")
+            print(" ˆˆˆˆˆ Core Data dumped ˆˆˆˆˆ \n")
         } catch {
             fatalError("Core Data dump gone bad ... ")
         }

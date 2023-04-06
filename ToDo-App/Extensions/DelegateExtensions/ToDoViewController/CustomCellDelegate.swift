@@ -22,7 +22,7 @@ extension ToDoViewController: CustomCellDelegate {
         default:
             return
         }
-        print("*** deleteActionPressed ***")
+        print("****************************** deleteActionPressed ****************************** ID: \(deletedObject.id) \n")
         listDataInCoreData()
         deleteFromCoreData(with: deletedObject.id)
         listDataInCoreData()
@@ -60,7 +60,7 @@ extension ToDoViewController: CustomCellDelegate {
             tableView(todoTableview, moveRowAt: sourceIndexPath, to: destinationIndexPath)
         }
         guard let unWrappedMovedObject = movedObject else { return }
-        print("*** doneButtonPressed ***")
+        print("******************************  doneButtonPressed ****************************** ID: \(unWrappedMovedObject.id) \n")
         listDataInCoreData()
         updateDataInCoreData(unWrappedMovedObject)
         listDataInCoreData()
