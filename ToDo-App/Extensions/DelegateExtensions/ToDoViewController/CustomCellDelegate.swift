@@ -20,6 +20,7 @@ extension ToDoViewController: CustomCellDelegate {
         case 1:
             deletedObject = filteredDoneTableViewData[indexPath.row]
             doneTableViewData.removeAll(where: { $0.id == deletedObject.id } )
+            // TODO: Add deleteFromCoreData() for done case
         default:
             return
         }

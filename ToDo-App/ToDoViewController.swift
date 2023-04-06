@@ -41,9 +41,13 @@ class ToDoViewController: UIViewController {
     func setupUI() {
         tableviewSetupUI()
         configureButtonIcons()
+        
         //initiateTableViewWithMockData(with: mockData.dataSetDemo)
         initiateTableViewWithCoreData(with: [])
-        //dumpCoreData()
+//        ToDoCellModel.resetId()
+//        dumpCoreData()
+//        listDataInCoreData()
+        
         initiateTagFlags()
         updateData()
         configureaddToDoButton()
@@ -53,7 +57,6 @@ class ToDoViewController: UIViewController {
         tableviewData = dataSet
     }
     func initiateTableViewWithCoreData(with dataSet: [ToDoCellModel]){
-        //ToDoCellModel.resetId()
         for each in dataSet{
             saveToCoreData(each)
         }
@@ -203,11 +206,35 @@ class ToDoViewController: UIViewController {
             todoObject.setValue(data.doneFlag, forKey: "todoDoneFlag")
             do{
                 try context.save()
+                print("CoreData: Data saved successfully!")
             }catch{
-                print("Error: Occured with saveToCoreData() ")
+                print("Error: Occured with saveToCoreData()")
             }
         }
     }
+    
+    public func updateDataInCoreData(_ data: ToDoCellModel) {
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<TodoEntity> = TodoEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", "\(data.id)")
+        do {
+            let results = try context.fetch(fetchRequest)
+            
+            if let todoObject = results.first {
+                todoObject.setValue(data.title, forKey: "todoTitle")
+                todoObject.setValue(data.description, forKey: "todoDescription")
+                let tags = data.tags.map({ $0.rawValue }).joined(separator: ", ")
+                todoObject.setValue(tags, forKey: "todoTags")
+                todoObject.setValue(data.doneFlag, forKey: "todoDoneFlag")
+            }
+            try context.save()
+            print("CoreData: Data updated successfully!")
+            
+        } catch {
+            print("Error: Occured with updateDataInCoreData()")
+        }
+    }
+    
     public func deleteFromCoreData(with id: Int64){
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
@@ -218,8 +245,9 @@ class ToDoViewController: UIViewController {
                 context.delete(thisEntity)
             }
             try context.save()
+            print("CoreData: Data deleted successfully!")
         } catch {
-            print("Error deleting todo: \(error)")
+            print("Error: Occured with deleteFromCoreData()")
         }
     }
     
@@ -228,10 +256,22 @@ class ToDoViewController: UIViewController {
         let request = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
         do{
             let result = try context.fetch(request)
-            print("CoreData all data count \(result.count)")
+            print("CoreData: Total data count:  \(result.count)")
             self.databaseData = result
         }catch{
-            print("Error: Occured with retrieveFromCoreData() ")
+            print("Error: Occured with retrieveFromCoreData()")
+        }
+    }
+    func listDataInCoreData(){
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
+        do {
+            let todoList = try context.fetch(fetchRequest)
+            for todo in todoList {
+                print(" ID: \(todo.id) - DoneFlag: \(todo.todoDoneFlag) - Tags: \(todo.todoTags ?? "") - Title: \(todo.todoTitle ?? "") - Description: \(todo.todoDescription ?? "" )")
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
     

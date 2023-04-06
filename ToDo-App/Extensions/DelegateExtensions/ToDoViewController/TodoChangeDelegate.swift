@@ -8,18 +8,28 @@
 import Foundation
 
 extension ToDoViewController: TodoChangeDelegate {
-    func editChanged(for todoModel: ToDoCellModel, at indexPath: IndexPath?) {
-        var temp = todoModel
+    func editChanged(with editedValues : [String : Any], at indexPath: IndexPath?) {
         if let indexPath{
+            let editedTodoId = tableviewData[indexPath.row].id
+            let editedTodoDoneFlag = tableviewData[indexPath.row].doneFlag
+
+            let editedTodo: ToDoCellModel = .init(id: editedTodoId,
+                                                  title: editedValues["title"] as! String,
+                                                  description: editedValues["description"] as! String,
+                                                  tags: editedValues["tags"] as! Set<EnumTag>,
+                                                  doneFlag: editedTodoDoneFlag)
             let section = indexPath.section
             switch section{
             case 0:
                 tableviewData.remove(at: indexPath.row)
-                tableviewData.insert(todoModel, at: indexPath.row)
+                tableviewData.insert(editedTodo, at: indexPath.row)
+                listDataInCoreData()
+                updateDataInCoreData(editedTodo)
+                listDataInCoreData()
             case 1:
-                temp.doneFlag.toggle()
                 doneTableViewData.remove(at: indexPath.row)
-                doneTableViewData.insert(temp, at: indexPath.row)
+                doneTableViewData.insert(editedTodo, at: indexPath.row)
+                // TODO: Add saveToCoreData() for done case
             default:
                 break
             }

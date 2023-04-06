@@ -9,7 +9,7 @@ import UIKit
 
 protocol TodoChangeDelegate: AnyObject{
     
-    func editChanged(for todoModel: ToDoCellModel, at indexPath: IndexPath?)
+    func editChanged(with editedValues : [String : Any], at indexPath: IndexPath?)
     func todoAdded(for todoModel: ToDoCellModel)
 }
 
@@ -197,13 +197,18 @@ class AddToDoViewController: UIViewController {
             hapticFeedbackMedium()
         }
         else{
-            let newTodo: ToDoCellModel = .init( title: addTitleTextField.text!,
-                                                description: addDescriptionTextView.text,
-                                                tags: tagSelection)
+            let editedValues: [ String : Any ] = [
+                    "title" : addTitleTextField.text! ,
+                    "description" : addDescriptionTextView.text!,
+                    "tags" : tagSelection
+                ]
             if !editFlag{
+                let newTodo: ToDoCellModel = .init( title: addTitleTextField.text!,
+                                                    description: addDescriptionTextView.text,
+                                                    tags: tagSelection)
                 delegate?.todoAdded(for: newTodo)
             }else{
-                delegate?.editChanged(for: newTodo, at: editIndexPath)
+                delegate?.editChanged(with: editedValues, at: editIndexPath)
             }
             hapticFeedbackHeavy()
             dismiss(animated: false)
