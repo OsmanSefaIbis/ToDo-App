@@ -60,15 +60,11 @@ class ToDoViewController: UIViewController {
         tableviewData = dataSet
     }
     func initiateTableViewWithCoreData(with dataSet: [ToDoCellModel]){
-//        for each in dataSet{
-//            saveToCoreData(each)
-//        }
         retrieveFromCoreData()
-        let dataFetchedFromCoreData: [ToDoCellModel] = databaseData.map {
+        var dataFetchedFromCoreData: [ToDoCellModel] = databaseData.map {
             let tagsStringSpaced = $0.todoTags ?? ""
             let tagsString = tagsStringSpaced.replacingOccurrences(of: " ", with: "")
             let tagsArray = tagsString.components(separatedBy: ",")
-            // FIXME: Below is faulty
             let tagsSet: Set<EnumTag> = Set(tagsArray.compactMap { EnumTag(rawValue: $0) })
             return ToDoCellModel(
                 title: $0.todoTitle ?? "",
@@ -77,6 +73,7 @@ class ToDoViewController: UIViewController {
                 doneFlag: $0.todoDoneFlag
             )
         }
+        dataFetchedFromCoreData.sort{ $0.id < $1.id }
         for each in dataFetchedFromCoreData{
             if each.doneFlag{
                 doneTableViewData.append(each)
