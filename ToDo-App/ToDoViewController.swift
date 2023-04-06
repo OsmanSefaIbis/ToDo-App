@@ -46,10 +46,10 @@ class ToDoViewController: UIViewController {
         
         //initiateTableViewWithMockData(with: mockData.dataSetDemo)
         //initiateTableViewWithCoreData(with: mockData.dataSetForCoreData)
-        //initiateTableViewWithCoreData(with: [])
-        ToDoCellModel.resetId()
-        dumpCoreData()
-        listDataInCoreData()
+        initiateTableViewWithCoreData(with: [])
+//        ToDoCellModel.resetId()
+//        dumpCoreData()
+//        listDataInCoreData()
         
         initiateTagFlags()
         updateData()
@@ -73,7 +73,7 @@ class ToDoViewController: UIViewController {
                 doneFlag: $0.todoDoneFlag
             )
         }
-        dataFetchedFromCoreData.sort{ $0.id < $1.id }
+        dataFetchedFromCoreData.sort{ $0.id > $1.id }
         for each in dataFetchedFromCoreData{
             if each.doneFlag{
                 doneTableViewData.append(each)
