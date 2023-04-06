@@ -31,7 +31,7 @@ class ToDoViewController: UIViewController {
     private var isRotating = false
     private var tagSelection: Set<EnumTag> = []
     private var tagFlagDictionary: [String : Bool] = [ : ]
-    private let mockData = MockData()
+    //private let mockData = MockData()
     
     private var initiateWithSomeData: Bool = true
     
@@ -46,10 +46,10 @@ class ToDoViewController: UIViewController {
         
         //initiateTableViewWithMockData(with: mockData.dataSetDemo)
         //initiateTableViewWithCoreData(with: mockData.dataSetForCoreData)
-        initiateTableViewWithCoreData(with: [])
-//        ToDoCellModel.resetId()
-//        dumpCoreData()
-//        listDataInCoreData()
+        //initiateTableViewWithCoreData(with: [])
+        ToDoCellModel.resetId()
+        dumpCoreData()
+        listDataInCoreData()
         
         initiateTagFlags()
         updateData()

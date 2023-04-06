@@ -87,23 +87,27 @@ class ToDoCell: UITableViewCell {
         todoDoneButton.setImage(image, for: .normal)
         todoDoneButton.configuration?.imagePlacement = .trailing
     }
-    
+    // FIXME: Found the probable cause, the indexPath is not handled properly
     func setMenuOptions() -> UIMenu {
         let font = UIFont.systemFont(ofSize: 12)
         let attributes = [NSAttributedString.Key.font: font]
         let editTitle = NSAttributedString(string: "Edit", attributes: attributes)
         let deleteTitle = NSAttributedString(string: "Delete", attributes: attributes)
         
-        let actionEdit = UIAction(title: "Edit") { _ in
-            if let indexpath = self.indexPath{
-                self.delegate?.editActionPressed(at: indexpath)
+        let actionEdit = UIAction(title: "Edit") { [weak self] _ in
+            guard let strongSelf = self else { return }
+            if let indexpath = strongSelf.indexPath{
+                print("$$$$$$$$$ editActionPressed $$$$$$$$$ indexPath --> section: \(indexpath.section) row: \(indexpath.row)")
+                strongSelf.delegate?.editActionPressed(at: indexpath)
             }
         }
         actionEdit.setValue(editTitle, forKey: "attributedTitle")
         
-        let actionDelete = UIAction(title: "Delete") { _ in
-            if let indexpath = self.indexPath{
-                self.delegate?.deleteActionPressed(at: indexpath)
+        let actionDelete = UIAction(title: "Delete") { [weak self] _ in
+            guard let strongSelf = self else { return }
+            if let indexpath = strongSelf.indexPath{
+                print("$$$$$$$$$ deleteActionPressed $$$$$$$$$ indexPath --> section: \(indexpath.section) row: \(indexpath.row)")
+                strongSelf.delegate?.deleteActionPressed(at: indexpath)
             }
         }
         actionDelete.setValue(deleteTitle, forKey: "attributedTitle")
