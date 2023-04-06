@@ -9,33 +9,43 @@ import Foundation
 
 extension ToDoViewController: TodoChangeDelegate {
     func editChanged(with editedValues : [String : Any], at indexPath: IndexPath?) {
+        var editedTodo: ToDoCellModel?
         if let indexPath{
-            let editedTodoId = tableviewData[indexPath.row].id
-            let editedTodoDoneFlag = tableviewData[indexPath.row].doneFlag
-
-            let editedTodo: ToDoCellModel = .init(id: editedTodoId,
-                                                  title: editedValues["title"] as! String,
-                                                  description: editedValues["description"] as! String,
-                                                  tags: editedValues["tags"] as! Set<EnumTag>,
-                                                  doneFlag: editedTodoDoneFlag)
             let section = indexPath.section
             switch section{
             case 0:
+                let editedTodoId = tableviewData[indexPath.row].id
+                let editedTodoDoneFlag = tableviewData[indexPath.row].doneFlag
+
+                editedTodo = .init(id: editedTodoId,
+                                   title: editedValues["title"] as! String,
+                                   description: editedValues["description"] as! String,
+                                   tags: editedValues["tags"] as! Set<EnumTag>,
+                                   doneFlag: editedTodoDoneFlag)
+                guard let unWrappedEditedTodo = editedTodo else{ return }
                 tableviewData.remove(at: indexPath.row)
-                tableviewData.insert(editedTodo, at: indexPath.row)
-                listDataInCoreData()
-                updateDataInCoreData(editedTodo)
-                listDataInCoreData()
+                tableviewData.insert(unWrappedEditedTodo, at: indexPath.row)
             case 1:
+                let editedTodoId = doneTableViewData[indexPath.row].id
+                let editedTodoDoneFlag = doneTableViewData[indexPath.row].doneFlag
+
+                editedTodo = .init(id: editedTodoId,
+                                   title: editedValues["title"] as! String,
+                                   description: editedValues["description"] as! String,
+                                   tags: editedValues["tags"] as! Set<EnumTag>,
+                                   doneFlag: editedTodoDoneFlag)
+                guard let unWrappedEditedTodo = editedTodo else{ return }
                 doneTableViewData.remove(at: indexPath.row)
-                doneTableViewData.insert(editedTodo, at: indexPath.row)
-                // TODO: Add saveToCoreData() for done case
+                doneTableViewData.insert(unWrappedEditedTodo, at: indexPath.row)
             default:
                 break
             }
+            guard let unWrappedEditedTodo = editedTodo else{ return }
+            updateDataInCoreData(unWrappedEditedTodo)
             updateData()
         }
     }
+
     func todoAdded(for todoModel: ToDoCellModel) {
         tableviewData.insert(todoModel, at: 0)
         saveToCoreData(todoModel)

@@ -16,14 +16,13 @@ extension ToDoViewController: CustomCellDelegate {
         case 0:
             deletedObject = filteredTableViewData[indexPath.row]
             tableviewData.removeAll(where: { $0.id == deletedObject.id } )
-            deleteFromCoreData(with: deletedObject.id)
         case 1:
             deletedObject = filteredDoneTableViewData[indexPath.row]
             doneTableViewData.removeAll(where: { $0.id == deletedObject.id } )
-            // TODO: Add deleteFromCoreData() for done case
         default:
             return
         }
+        deleteFromCoreData(with: deletedObject.id)
         updateData()
     }
     
@@ -32,6 +31,7 @@ extension ToDoViewController: CustomCellDelegate {
     }
     
     func doneButtonPressed(_ cell: ToDoCell) {
+        var movedObject: ToDoCellModel?
         guard let sourceIndexPath = todoTableview.indexPath(for: cell) else { return }
         var destinationIndexPath = IndexPath()
         var doneCheck: Bool = false
@@ -47,13 +47,18 @@ extension ToDoViewController: CustomCellDelegate {
         }
         if !doneCheck{
             filteredTableViewData[sourceIndexPath.row].doneFlag.toggle()
+            movedObject = filteredTableViewData[sourceIndexPath.row]
             destinationIndexPath = IndexPath(row: 0, section: 1)
             tableView(todoTableview, moveRowAt: sourceIndexPath, to: destinationIndexPath)
         }else{
             filteredDoneTableViewData[sourceIndexPath.row].doneFlag.toggle()
+            movedObject = filteredDoneTableViewData[sourceIndexPath.row]
             destinationIndexPath = IndexPath(row: tableviewData.count-1, section: 0)
             tableView(todoTableview, moveRowAt: sourceIndexPath, to: destinationIndexPath)
         }
+        guard let unWrappedMovedObject = movedObject else { return }
+        
+        updateDataInCoreData(unWrappedMovedObject)
         updateData()
     }
 }

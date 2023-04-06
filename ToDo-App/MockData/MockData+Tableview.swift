@@ -31,4 +31,12 @@ struct MockData{
         .init(title: "11", description: "Eleven", tags: [.family, .entertainment]),
         .init(title: "12", description: "Twelve", tags: [.study]),
     ]
+    
+    let dataSetForCoreData: [ToDoCellModel] =
+    [
+        .init(title: "First", description: "Value1", tags: [.work]),
+        .init(title: "Second", description: "Value2", tags: [.entertainment]),
+        .init(title: "Third", description: "Done Value1", tags: [.family, .entertainment], doneFlag: true),
+        .init(title: "Fourth", description: "Done Value2", tags: [.study], doneFlag: true),
+    ]
 }

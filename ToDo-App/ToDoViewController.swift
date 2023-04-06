@@ -33,6 +33,8 @@ class ToDoViewController: UIViewController {
     private var tagFlagDictionary: [String : Bool] = [ : ]
     private let mockData = MockData()
     
+    private var initiateWithSomeData: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -43,6 +45,7 @@ class ToDoViewController: UIViewController {
         configureButtonIcons()
         
         //initiateTableViewWithMockData(with: mockData.dataSetDemo)
+        //initiateTableViewWithCoreData(with: mockData.dataSetForCoreData)
         initiateTableViewWithCoreData(with: [])
 //        ToDoCellModel.resetId()
 //        dumpCoreData()
@@ -72,7 +75,13 @@ class ToDoViewController: UIViewController {
                 doneFlag: $0.todoDoneFlag
             )
         }
-        tableviewData = dataFetchedFromCoreData
+        for each in dataFetchedFromCoreData{
+            if each.doneFlag{
+                doneTableViewData.append(each)
+            }else{
+                tableviewData.append(each)
+            }
+        }
     }
     
     public func updateData() {
