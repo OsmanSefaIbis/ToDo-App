@@ -57,10 +57,10 @@ class ToDoViewController: UIViewController {
          */
         
         initiateTableViewWithCoreData(with: [])
-        ToDoCellModel.resetId()
-        dumpCoreData()
-        listDataInCoreData()
-        
+//        ToDoCellModel.resetId()
+//        dumpCoreData()
+//        listDataInCoreData()
+
         initiateTagFlags()
         updateData()
         configureaddToDoButton()
@@ -76,13 +76,16 @@ class ToDoViewController: UIViewController {
             let tagsString = tagsStringSpaced.replacingOccurrences(of: " ", with: "")
             let tagsArray = tagsString.components(separatedBy: ",")
             let tagsSet: Set<EnumTag> = Set(tagsArray.compactMap { EnumTag(rawValue: $0) })
+            // Thought i was bug tracing but actually i was not passing the ids when retrieving from core data, this solves the issue.
             return ToDoCellModel(
+                id: $0.id,
                 title: $0.todoTitle ?? "",
                 description: $0.todoDescription ?? "",
                 tags: tagsSet,
                 doneFlag: $0.todoDoneFlag
             )
         }
+        dataFetchedFromCoreData.sort{ $0.id > $1.id } // You had no fault :(
         for each in dataFetchedFromCoreData{
             if each.doneFlag{
                 doneTableViewData.append(each)
