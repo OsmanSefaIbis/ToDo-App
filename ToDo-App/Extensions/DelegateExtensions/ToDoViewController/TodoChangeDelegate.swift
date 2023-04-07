@@ -14,29 +14,28 @@ extension ToDoViewController: TodoChangeDelegate {
             let section = indexPath.section
             switch section{
             case 0:
-                // FIXME: Probable cause occurs here
                 let editedTodoId = filteredTableViewData[indexPath.row].id
                 let editedTodoDoneFlag = filteredTableViewData[indexPath.row].doneFlag
-
+                
+                tableviewData.removeAll(where: { $0.id == editedTodoId } )
                 editedTodo = .init(id: editedTodoId,
                                    title: editedValues["title"] as! String,
                                    description: editedValues["description"] as! String,
                                    tags: editedValues["tags"] as! Set<EnumTag>,
                                    doneFlag: editedTodoDoneFlag)
                 guard let unWrappedEditedTodo = editedTodo else{ return }
-                tableviewData.removeAll(where: { $0.id == editedTodoId } )
                 tableviewData.insert(unWrappedEditedTodo, at: 0)
             case 1:
                 let editedTodoId = filteredDoneTableViewData[indexPath.row].id
                 let editedTodoDoneFlag = filteredDoneTableViewData[indexPath.row].doneFlag
-
+                
+                doneTableViewData.removeAll(where: { $0.id == editedTodoId } )
                 editedTodo = .init(id: editedTodoId,
                                    title: editedValues["title"] as! String,
                                    description: editedValues["description"] as! String,
                                    tags: editedValues["tags"] as! Set<EnumTag>,
                                    doneFlag: editedTodoDoneFlag)
                 guard let unWrappedEditedTodo = editedTodo else{ return }
-                doneTableViewData.removeAll(where: { $0.id == editedTodoId } )
                 doneTableViewData.insert(unWrappedEditedTodo, at: 0)
             default:
                 break
