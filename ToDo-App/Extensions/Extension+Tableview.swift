@@ -22,15 +22,14 @@ extension ToDoViewController: UITableViewDelegate {
         headerView.backgroundColor = .systemBackground
         
         switch section{
-            
             case 0:
-                titleLabel.attributedText = NSAttributedString(string: "Active", attributes: attributes)
+                titleLabel.attributedText = NSAttributedString(string: headerActive, attributes: attributes)
             case 1:
-                let donetitle = strikeThrough(for: "Done")
+                let donetitle = strikeThrough(for: headerDone)
                 donetitle.addAttribute(NSAttributedString.Key.font, value: font, range: NSMakeRange(0, donetitle.length))
                 titleLabel.attributedText = donetitle
         default:
-            titleLabel.text = ""
+            titleLabel.text = nil
         }
         headerView.addSubview(titleLabel)
         return headerView
@@ -45,10 +44,10 @@ extension ToDoViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section{
-        case 0:
-            return filteredTableViewData.count
-        case 1:
-            return filteredDoneTableViewData.count
+            case 0:
+                return filteredTableViewData.count
+            case 1:
+                return filteredDoneTableViewData.count
         default:
             return 0
         }
@@ -60,10 +59,10 @@ extension ToDoViewController: UITableViewDataSource {
         todoCell.indexPath = indexPath
         let cellSection = indexPath.section
         switch cellSection{
-        case 0:
-            todoCell.configure(with: filteredTableViewData[indexPath.row])
-        case 1:
-            todoCell.configure(with: filteredDoneTableViewData[indexPath.row])
+            case 0:
+                todoCell.configure(with: filteredTableViewData[indexPath.row])
+            case 1:
+                todoCell.configure(with: filteredDoneTableViewData[indexPath.row])
         default:
             break
         }
@@ -79,21 +78,21 @@ extension ToDoViewController: UITableViewDataSource {
         switch sourceIndexPath.section {
             case 0:
                 movedObject = filteredTableViewData[sourceIndexPath.row]
-                tableviewData.removeAll(where: { $0.id == movedObject.id } )
+                tableViewData.removeAll(where: { $0.id == movedObject.id } )
             case 1:
                 movedObject = filteredDoneTableViewData[sourceIndexPath.row]
                 doneTableViewData.removeAll(where: { $0.id == movedObject.id } )
-            default:
-                return
+        default:
+            return
         }
         
         switch destinationIndexPath.section {
             case 0:
-                tableviewData.append(movedObject)
+                tableViewData.append(movedObject)
             case 1:
                 doneTableViewData.insert(movedObject, at: 0)
-            default:
-                return
+        default:
+            return
         }
-    }// EOM
+    }
 }

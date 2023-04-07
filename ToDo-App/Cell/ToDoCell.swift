@@ -47,9 +47,9 @@ class ToDoCell: UITableViewCell {
         todoTagsLabel.attributedText = tagIconConversion(tags: tagsCellConcat)
         let cellLook = model.doneFlag
         if cellLook{
-            doneTodoLook()
+            makeDoneLookCell()
         }else{
-            todoLook()
+            makeActiveLookCell()
         }
     }
     
@@ -87,32 +87,26 @@ class ToDoCell: UITableViewCell {
         todoDoneButton.setImage(image, for: .normal)
         todoDoneButton.configuration?.imagePlacement = .trailing
     }
-    // FIXME: Found the probable cause, the indexPath is not handled properly
+
     func setMenuOptions() -> UIMenu {
-        let font = UIFont.systemFont(ofSize: 12)
-        let attributes = [NSAttributedString.Key.font: font]
-        let editTitle = NSAttributedString(string: "Edit", attributes: attributes)
-        let deleteTitle = NSAttributedString(string: "Delete", attributes: attributes)
         
-        let actionEdit = UIAction(title: "Edit") { [weak self] _ in
+        let actionEdit = UIAction(title: menuOptionEdit) { [weak self] _ in
             guard let strongSelf = self else { return }
             if let indexpath = strongSelf.indexPath{
-                print("$$$$$$$$$ editActionPressed $$$$$$$$$ indexPath --> section: \(indexpath.section) row: \(indexpath.row)\n")
-                
                 strongSelf.delegate?.editActionPressed(at: indexpath)
             }
         }
-        actionEdit.setValue(editTitle, forKey: "attributedTitle")
+        actionEdit.setValue(producesMenuOptionTitles().0, forKey: someKey)
         
-        let actionDelete = UIAction(title: "Delete") { [weak self] _ in
+        let actionDelete = UIAction(title: menuOptionDelete) { [weak self] _ in
             guard let strongSelf = self else { return }
             if let indexpath = strongSelf.indexPath{
-                print("$$$$$$$$$ deleteActionPressed $$$$$$$$$ indexPath --> section: \(indexpath.section) row: \(indexpath.row)")
                 strongSelf.delegate?.deleteActionPressed(at: indexpath)
             }
         }
-        actionDelete.setValue(deleteTitle, forKey: "attributedTitle")
-        let menu = UIMenu(title: "", children: [actionEdit, actionDelete])
+        actionDelete.setValue(producesMenuOptionTitles().1, forKey: someKey)
+        
+        let menu = UIMenu(title: emptyMenuTitle, children: [actionEdit, actionDelete])
         menu.preferredElementSize = .small
         return menu
     }
@@ -140,12 +134,12 @@ class ToDoCell: UITableViewCell {
         todoDescriptionLabel.attributedText = removeStrikeThrough(for: todoDescriptionLabel.attributedText)
     }
     
-    func doneTodoLook(){
+    func makeDoneLookCell(){
         buttonConfigure(color: EnumColor.lightGray.getColor(), font: EnumFont.doneButton.rawValue, imageName: EnumIcon.forDoneCheck.rawValue)
         strikeThroughLabels()
         setAllViewsBackgroundColor(.lightGray)
     }
-    func todoLook(){
+    func makeActiveLookCell(){
         buttonConfigure(color: EnumColor.darkGray.getColor(), font: EnumFont.doneButton.rawValue , imageName: EnumIcon.forDoneUncheck.rawValue)
         unStrikeThroughLabels()
         setAllViewsBackgroundColor(EnumColor.cornSilk.getColor())
@@ -160,8 +154,6 @@ class ToDoCell: UITableViewCell {
         hapticFeedbackHeavy()
         delegate?.doneButtonPressed(self)
     }
-    
-    // MARK: EOF
 }
 
 

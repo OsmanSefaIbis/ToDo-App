@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ToDoCellModel{
+public struct ToDoCellModel{
     static var nextId: Int64 = 1
     let id: Int64
     var title: String

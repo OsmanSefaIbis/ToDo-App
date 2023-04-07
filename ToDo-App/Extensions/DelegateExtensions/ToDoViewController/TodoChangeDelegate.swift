@@ -17,14 +17,14 @@ extension ToDoViewController: TodoChangeDelegate {
                 let editedTodoId = filteredTableViewData[indexPath.row].id
                 let editedTodoDoneFlag = filteredTableViewData[indexPath.row].doneFlag
                 
-                tableviewData.removeAll(where: { $0.id == editedTodoId } )
+                tableViewData.removeAll(where: { $0.id == editedTodoId } )
                 editedTodo = .init(id: editedTodoId,
                                    title: editedValues["title"] as! String,
                                    description: editedValues["description"] as! String,
                                    tags: editedValues["tags"] as! Set<EnumTag>,
                                    doneFlag: editedTodoDoneFlag)
                 guard let unWrappedEditedTodo = editedTodo else{ return }
-                tableviewData.insert(unWrappedEditedTodo, at: 0)
+                tableViewData.insert(unWrappedEditedTodo, at: 0)
             case 1:
                 let editedTodoId = filteredDoneTableViewData[indexPath.row].id
                 let editedTodoDoneFlag = filteredDoneTableViewData[indexPath.row].doneFlag
@@ -53,7 +53,7 @@ extension ToDoViewController: TodoChangeDelegate {
     }
 
     func todoAdded(for todoModel: ToDoCellModel) {
-        tableviewData.insert(todoModel, at: 0)
+        tableViewData.insert(todoModel, at: 0)
         print("****************************** todoAdded ****************************** ID: \(todoModel.id) \tTitle: \(todoModel.title)\n")
         print("*******BEFORE")
         listDataInCoreData()

@@ -40,27 +40,30 @@ class AddToDoViewController: UIViewController {
     
     func setupUI() {
         assignDelegates()
-        appTitleStrikeThrough()
-        initiateflags()
-        configureTextViews()
-        configureTagButtons()
+        configureUIComponents()
     }
     
     func assignDelegates() {
         addDescriptionTextView.delegate = self
         addTitleTextField.delegate = self
     }
+    func configureUIComponents(){
+        appTitleStrikeThrough()
+        configureTextComponents()
+        configureTagButtons()
+    }
     
-    func configureTextViews() {
+    func configureTextComponents() {
         addConfigureTV(for: addDescriptionTextView)
         addConfigureTF(for: addTitleTextField)
     }
     
     func configureTagButtons() {
-        configureButton(for: tagButtonWork, tag: "work")
-        configureButton(for: tagButtonStudy, tag: "study")
-        configureButton(for: tagButtonEntertainment, tag: "entertainment")
-        configureButton(for: tagButtonFamily, tag: "family")
+        configureButton(for: tagButtonWork, tag: EnumTag.work.rawValue)
+        configureButton(for: tagButtonStudy, tag: EnumTag.study.rawValue)
+        configureButton(for: tagButtonEntertainment, tag: EnumTag.entertainment.rawValue)
+        configureButton(for: tagButtonFamily, tag: EnumTag.family.rawValue)
+        initiateTagFlags(for: &tagFlagDictionary)
     }
     
     func configureFields(with cellModel: ToDoCellModel) {
@@ -74,46 +77,46 @@ class AddToDoViewController: UIViewController {
         for tag in tags{
             switch tag{
             case .work:
-                tagFlagDictionary["workFlag"] = true
-                revertTagButtonBackground(for: "work", with: &tagFlagDictionary["workFlag"]!, toogle: false)
+                tagFlagDictionary[EnumTagPressed.workPressedFlag.rawValue] = true
+                revertTagButtonBackground(for: EnumTag.work.rawValue, with: &tagFlagDictionary[EnumTagPressed.workPressedFlag.rawValue]!)
             case .study:
-                tagFlagDictionary["studyFlag"] = true
-                revertTagButtonBackground(for: "study", with: &tagFlagDictionary["studyFlag"]!, toogle: false)
+                tagFlagDictionary[EnumTagPressed.studyPressedFlag.rawValue] = true
+                revertTagButtonBackground(for: EnumTag.study.rawValue, with: &tagFlagDictionary[EnumTagPressed.studyPressedFlag.rawValue]!)
             case .entertainment:
-                tagFlagDictionary["entertainmentFlag"] = true
-                revertTagButtonBackground(for: "entertainment", with: &tagFlagDictionary["entertainmentFlag"]!, toogle: false)
+                tagFlagDictionary[EnumTagPressed.entertainmentPressedFlag.rawValue] = true
+                revertTagButtonBackground(for: EnumTag.entertainment.rawValue, with: &tagFlagDictionary[EnumTagPressed.entertainmentPressedFlag.rawValue]!)
             case .family:
-                tagFlagDictionary["familyFlag"] = true
-                revertTagButtonBackground(for: "family", with: &tagFlagDictionary["familyFlag"]!, toogle: false)
+                tagFlagDictionary[EnumTagPressed.familyPressedFlag.rawValue] = true
+                revertTagButtonBackground(for: EnumTag.family.rawValue, with: &tagFlagDictionary[EnumTagPressed.familyPressedFlag.rawValue]!)
             }
         }
     }
     
-    func revertTagButtonBackground(for tagName: String, with flag: inout Bool, toogle: Bool) {
+    func revertTagButtonBackground(for tagName: String, with flag: inout Bool, toogle: Bool = false) {
         if(toogle){
             flag.toggle()
         }
        let coloredCase = (tagName, true)
-       switch coloredCase{
-           case ("work",flag):
-               tagButtonWork.backgroundColor = EnumColor.workSoft.getColor()
-           case ("work",_):
-           tagButtonWork.backgroundColor = .white
-           case ("study",flag):
-               tagButtonStudy.backgroundColor = EnumColor.studySoft.getColor()
-           case ("study",_):
-           tagButtonStudy.backgroundColor = .white
-           case ("entertainment",flag):
-               tagButtonEntertainment.backgroundColor = EnumColor.entertainmentSoft.getColor()
-           case ("entertainment",_):
-           tagButtonEntertainment.backgroundColor = .white
-           case ("family",flag):
-               tagButtonFamily.backgroundColor = EnumColor.familySoft.getColor()
-           case ("family",_):
-           tagButtonFamily.backgroundColor = .white
-           default:
-               break
-       }
+        switch coloredCase{
+            case (EnumTag.work.rawValue,flag):
+                tagButtonWork.backgroundColor = EnumColor.workSoft.getColor()
+            case (EnumTag.study.rawValue,flag):
+                tagButtonStudy.backgroundColor = EnumColor.studySoft.getColor()
+            case (EnumTag.entertainment.rawValue,flag):
+                tagButtonEntertainment.backgroundColor = EnumColor.entertainmentSoft.getColor()
+            case (EnumTag.family.rawValue,flag):
+                tagButtonFamily.backgroundColor = EnumColor.familySoft.getColor()
+            case (EnumTag.work.rawValue,_):
+                tagButtonWork.backgroundColor = .white
+            case (EnumTag.study.rawValue,_):
+                tagButtonStudy.backgroundColor = .white
+            case (EnumTag.entertainment.rawValue,_):
+                tagButtonEntertainment.backgroundColor = .white
+            case (EnumTag.family.rawValue,_):
+                tagButtonFamily.backgroundColor = .white
+        default:
+            break
+        }
     }
     
     func appTitleStrikeThrough() {
@@ -126,21 +129,12 @@ class AddToDoViewController: UIViewController {
         }
     }
     
-    func initiateflags() {
-        tagFlagDictionary = [
-            "workFlag" : false,
-            "studyFlag" : false,
-            "entertainmentFlag" : false,
-            "familyFlag" : false,
-        ]
-    }
-    
     // MARK: Button Actions
     @IBAction func tagButtonWorkPressed(_ sender: UIButton) {
         hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
-        revertTagButtonBackground(for: "work", with: &tagFlagDictionary["workFlag"]!, toogle: true)
-        if tagFlagDictionary["workFlag"]!{
+        revertTagButtonBackground(for: EnumTag.work.rawValue, with: &tagFlagDictionary[EnumTagPressed.workPressedFlag.rawValue]!, toogle: true)
+        if tagFlagDictionary[EnumTagPressed.workPressedFlag.rawValue]!{
             tagSelection.insert(.work)
         }else{
             tagSelection.remove(.work)
@@ -150,8 +144,8 @@ class AddToDoViewController: UIViewController {
     @IBAction func tagButtonStudyPressed(_ sender: UIButton) {
         hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
-        revertTagButtonBackground(for: "study", with: &tagFlagDictionary["studyFlag"]!, toogle: true)
-        if tagFlagDictionary["studyFlag"]!{
+        revertTagButtonBackground(for: EnumTag.study.rawValue, with: &tagFlagDictionary[EnumTagPressed.studyPressedFlag.rawValue]!, toogle: true)
+        if tagFlagDictionary[EnumTagPressed.studyPressedFlag.rawValue]!{
             tagSelection.insert(.study)
         }else{
             tagSelection.remove(.study)
@@ -161,8 +155,8 @@ class AddToDoViewController: UIViewController {
     @IBAction func tagButtonEntertainmentPressed(_ sender: UIButton) {
         hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
-        revertTagButtonBackground(for: "entertainment", with: &tagFlagDictionary["entertainmentFlag"]!, toogle: true)
-        if tagFlagDictionary["entertainmentFlag"]!{
+        revertTagButtonBackground(for: EnumTag.entertainment.rawValue, with: &tagFlagDictionary[EnumTagPressed.entertainmentPressedFlag.rawValue]!, toogle: true)
+        if tagFlagDictionary[EnumTagPressed.entertainmentPressedFlag.rawValue]!{
             tagSelection.insert(.entertainment)
         }else{
             tagSelection.remove(.entertainment)
@@ -172,8 +166,8 @@ class AddToDoViewController: UIViewController {
     @IBAction func tagButtonFamilyPressed(_ sender: UIButton) {
         hapticFeedbackSoft()
         buttonScaleUpAnimation(sender)
-        revertTagButtonBackground(for: "family", with: &tagFlagDictionary["familyFlag"]!, toogle: true)
-        if tagFlagDictionary["familyFlag"]!{
+        revertTagButtonBackground(for: EnumTag.family.rawValue, with: &tagFlagDictionary[EnumTagPressed.familyPressedFlag.rawValue]!, toogle: true)
+        if tagFlagDictionary[EnumTagPressed.familyPressedFlag.rawValue]!{
             tagSelection.insert(.family)
         }else{
             tagSelection.remove(.family)
@@ -187,20 +181,20 @@ class AddToDoViewController: UIViewController {
     
     @IBAction func addToDoButtonPressed(_ sender: Any) {
         if addTitleTextField.text!.isEmpty {
-            addTitleTextField.placeholder = "title please ... "
+            addTitleTextField.placeholder = emptyTitlePrompt
             addTitleTextField.shake()
             hapticFeedbackMedium()
         }else if addDescriptionTextView.text.isEmpty {
             addDescriptionTextView.removePlaceholder()
-            addDescriptionTextView.addPlaceholder("description please ... ")
+            addDescriptionTextView.addPlaceholder(emptyDescriptionPrompt)
             addDescriptionTextView.shake()
             hapticFeedbackMedium()
         }
         else{
             let editedValues: [ String : Any ] = [
-                    "title" : addTitleTextField.text! ,
-                    "description" : addDescriptionTextView.text!,
-                    "tags" : tagSelection
+                    EnumTodoFields.title.rawValue : addTitleTextField.text! ,
+                    EnumTodoFields.description.rawValue : addDescriptionTextView.text!,
+                    EnumTodoFields.tags.rawValue : tagSelection
                 ]
             if !editFlag{
                 let newTodo: ToDoCellModel = .init( title: addTitleTextField.text!,
@@ -214,6 +208,4 @@ class AddToDoViewController: UIViewController {
             dismiss(animated: false)
         }
     }
-    
-    // MARK: EOF
 }
