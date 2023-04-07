@@ -42,9 +42,11 @@ extension ToDoViewController: TodoChangeDelegate {
             }
             guard let unWrappedEditedTodo = editedTodo else{ return }
             
-            print("****************************** editChanged ****************************** ID: \(unWrappedEditedTodo.id) \n")
+            print("****************************** editChanged ****************************** ID: \(unWrappedEditedTodo.id) \tTitle: \(unWrappedEditedTodo.title)\n")
+            print("*******BEFORE")
             listDataInCoreData()
             updateDataInCoreData(unWrappedEditedTodo)
+            print("*******AFTER")
             listDataInCoreData()
             updateData()
         }
@@ -52,9 +54,11 @@ extension ToDoViewController: TodoChangeDelegate {
 
     func todoAdded(for todoModel: ToDoCellModel) {
         tableviewData.insert(todoModel, at: 0)
-        print("****************************** todoAdded ****************************** ID: \(todoModel.id) \n")
+        print("****************************** todoAdded ****************************** ID: \(todoModel.id) \tTitle: \(todoModel.title)\n")
+        print("*******BEFORE")
         listDataInCoreData()
         saveToCoreData(todoModel)
+        print("*******AFTER")
         listDataInCoreData()
         updateData()
     }

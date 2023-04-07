@@ -79,7 +79,6 @@ extension ToDoViewController: UITableViewDataSource {
         switch sourceIndexPath.section {
             case 0:
                 movedObject = filteredTableViewData[sourceIndexPath.row]
-                
                 tableviewData.removeAll(where: { $0.id == movedObject.id } )
             case 1:
                 movedObject = filteredDoneTableViewData[sourceIndexPath.row]
