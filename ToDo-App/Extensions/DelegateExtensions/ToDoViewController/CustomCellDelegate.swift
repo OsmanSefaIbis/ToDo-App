@@ -22,7 +22,7 @@ extension ToDoViewController: CustomCellDelegate {
         default:
             return
         }
-        print("****************************** deleteActionPressed ****************************** ID: \(deletedObject.id) \n")
+        print("****************************** deleteActionPressed ****************************** ID: \(deletedObject.id) \tTitle: \(deletedObject.title)")
         listDataInCoreData()
         deleteFromCoreData(with: deletedObject.id)
         listDataInCoreData()

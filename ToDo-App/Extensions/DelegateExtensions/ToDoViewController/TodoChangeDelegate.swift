@@ -14,8 +14,9 @@ extension ToDoViewController: TodoChangeDelegate {
             let section = indexPath.section
             switch section{
             case 0:
-                let editedTodoId = tableviewData[indexPath.row].id
-                let editedTodoDoneFlag = tableviewData[indexPath.row].doneFlag
+                // FIXME: Probable cause occurs here
+                let editedTodoId = filteredTableViewData[indexPath.row].id
+                let editedTodoDoneFlag = filteredTableViewData[indexPath.row].doneFlag
 
                 editedTodo = .init(id: editedTodoId,
                                    title: editedValues["title"] as! String,
@@ -23,11 +24,11 @@ extension ToDoViewController: TodoChangeDelegate {
                                    tags: editedValues["tags"] as! Set<EnumTag>,
                                    doneFlag: editedTodoDoneFlag)
                 guard let unWrappedEditedTodo = editedTodo else{ return }
-                tableviewData.remove(at: indexPath.row)
-                tableviewData.insert(unWrappedEditedTodo, at: indexPath.row)
+                tableviewData.removeAll(where: { $0.id == editedTodoId } )
+                tableviewData.insert(unWrappedEditedTodo, at: 0)
             case 1:
-                let editedTodoId = doneTableViewData[indexPath.row].id
-                let editedTodoDoneFlag = doneTableViewData[indexPath.row].doneFlag
+                let editedTodoId = filteredDoneTableViewData[indexPath.row].id
+                let editedTodoDoneFlag = filteredDoneTableViewData[indexPath.row].doneFlag
 
                 editedTodo = .init(id: editedTodoId,
                                    title: editedValues["title"] as! String,
@@ -35,8 +36,8 @@ extension ToDoViewController: TodoChangeDelegate {
                                    tags: editedValues["tags"] as! Set<EnumTag>,
                                    doneFlag: editedTodoDoneFlag)
                 guard let unWrappedEditedTodo = editedTodo else{ return }
-                doneTableViewData.remove(at: indexPath.row)
-                doneTableViewData.insert(unWrappedEditedTodo, at: indexPath.row)
+                doneTableViewData.removeAll(where: { $0.id == editedTodoId } )
+                doneTableViewData.insert(unWrappedEditedTodo, at: 0)
             default:
                 break
             }

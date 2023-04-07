@@ -97,7 +97,8 @@ class ToDoCell: UITableViewCell {
         let actionEdit = UIAction(title: "Edit") { [weak self] _ in
             guard let strongSelf = self else { return }
             if let indexpath = strongSelf.indexPath{
-                print("$$$$$$$$$ editActionPressed $$$$$$$$$ indexPath --> section: \(indexpath.section) row: \(indexpath.row)")
+                print("$$$$$$$$$ editActionPressed $$$$$$$$$ indexPath --> section: \(indexpath.section) row: \(indexpath.row)\n")
+                
                 strongSelf.delegate?.editActionPressed(at: indexpath)
             }
         }
