@@ -46,10 +46,20 @@ class ToDoViewController: UIViewController {
         
         //initiateTableViewWithMockData(with: mockData.dataSetDemo)
         //initiateTableViewWithCoreData(with: mockData.dataSetForCoreData)
+        
+        
+        /* IMPORTANT */
+        /*
+        Before Refactoring, the below 4 line was used for testing the app execution ,
+        comment first line to dump core data, vice versa,
+        to start adding editing doneing and deleting todos.
+        // All of the tracing printouts are left intentionally, maybe for future use.
+         */
+        
         initiateTableViewWithCoreData(with: [])
-//        ToDoCellModel.resetId()
-//        dumpCoreData()
-//        listDataInCoreData()
+        ToDoCellModel.resetId()
+        dumpCoreData()
+        listDataInCoreData()
         
         initiateTagFlags()
         updateData()
@@ -73,9 +83,6 @@ class ToDoViewController: UIViewController {
                 doneFlag: $0.todoDoneFlag
             )
         }
-        // Finally !
-        /* Traced all cases and found out when the i closed and opened the app, during this line it messes the ordering, otherwise all the cases work fine, this line causes inconsistency with data and indexPath accessed data, so it overrides :) */
-        dataFetchedFromCoreData.sort{ $0.id > $1.id }
         for each in dataFetchedFromCoreData{
             if each.doneFlag{
                 doneTableViewData.append(each)
