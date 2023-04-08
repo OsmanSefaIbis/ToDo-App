@@ -8,19 +8,22 @@
 import UIKit
 import CoreData
 
-// MARK: Core Data
+// MARK: Core Data - Start
+
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
+let coreDataEntityName = "TodoEntity"
+let coreDataEqualityPredicate = "id == %@"
 
 public func saveToCoreData(_ data: ToDoCellModel) {
     let context = appDelegate.persistentContainer.viewContext
-    if let entity = NSEntityDescription.entity(forEntityName: "TodoEntity", in: context){
+    let tags = data.tags.map({ $0.rawValue }).joined(separator: ", ")
+    if let entity = NSEntityDescription.entity(forEntityName: coreDataEntityName, in: context){
         let todoObject = NSManagedObject(entity: entity, insertInto: context)
-        todoObject.setValue(data.id, forKey: "id")
-        todoObject.setValue(data.title, forKey: "todoTitle")
-        todoObject.setValue(data.description, forKey: "todoDescription")
-        let tags = data.tags.map({ $0.rawValue }).joined(separator: ", ")
-        todoObject.setValue(tags, forKey: "todoTags")
-        todoObject.setValue(data.doneFlag, forKey: "todoDoneFlag")
+        todoObject.setValue(data.id, forKey: EnumTodoEntityFields.id.rawValue)
+        todoObject.setValue(data.title, forKey: EnumTodoEntityFields.todoTitle.rawValue)
+        todoObject.setValue(data.description, forKey: EnumTodoEntityFields.todoDescription.rawValue)
+        todoObject.setValue(data.doneFlag, forKey: EnumTodoEntityFields.todoDoneFlag.rawValue)
+        todoObject.setValue(tags, forKey: EnumTodoEntityFields.todoTags.rawValue)
         do{
             try context.save()
         }catch{
@@ -32,15 +35,15 @@ public func saveToCoreData(_ data: ToDoCellModel) {
 public func updateDataInCoreData(_ data: ToDoCellModel) {
     let context = appDelegate.persistentContainer.viewContext
     let fetchRequest: NSFetchRequest<TodoEntity> = TodoEntity.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "id == %@", "\(data.id)")
+    let tags = data.tags.map({ $0.rawValue }).joined(separator: ", ")
+    fetchRequest.predicate = NSPredicate(format: coreDataEqualityPredicate, "\(data.id)")
     do {
         let results = try context.fetch(fetchRequest)
         if let todoObject = results.first {
-            todoObject.setValue(data.title, forKey: "todoTitle")
-            todoObject.setValue(data.description, forKey: "todoDescription")
-            let tags = data.tags.map({ $0.rawValue }).joined(separator: ", ")
-            todoObject.setValue(tags, forKey: "todoTags")
-            todoObject.setValue(data.doneFlag, forKey: "todoDoneFlag")
+            todoObject.setValue(data.title, forKey: EnumTodoEntityFields.todoTitle.rawValue)
+            todoObject.setValue(data.description, forKey: EnumTodoEntityFields.todoDescription.rawValue)
+            todoObject.setValue(data.doneFlag, forKey: EnumTodoEntityFields.todoDoneFlag.rawValue)
+            todoObject.setValue(tags, forKey: EnumTodoEntityFields.todoTags.rawValue)
         }
         try context.save()
         
@@ -51,8 +54,8 @@ public func updateDataInCoreData(_ data: ToDoCellModel) {
 
 public func deleteFromCoreData(with id: Int64){
     let context = appDelegate.persistentContainer.viewContext
-    let fetchRequest = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
-    fetchRequest.predicate = NSPredicate(format: "id == %@", "\(id)")
+    let fetchRequest = NSFetchRequest<TodoEntity>(entityName: coreDataEntityName)
+    fetchRequest.predicate = NSPredicate(format: coreDataEqualityPredicate, "\(id)")
     do {
         let deleteEntity = try context.fetch(fetchRequest)
         for thisEntity in deleteEntity {
@@ -66,7 +69,7 @@ public func deleteFromCoreData(with id: Int64){
 
 public func retrieveFromCoreData(to databaseData: inout [TodoEntity]) {
     let context = appDelegate.persistentContainer.viewContext
-    let request = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
+    let request = NSFetchRequest<TodoEntity>(entityName: coreDataEntityName)
     do{
         let result = try context.fetch(request)
         databaseData = result
@@ -77,7 +80,7 @@ public func retrieveFromCoreData(to databaseData: inout [TodoEntity]) {
 
 func listDataInCoreData(){
     let context = appDelegate.persistentContainer.viewContext
-    let fetchRequest = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
+    let fetchRequest = NSFetchRequest<TodoEntity>(entityName: coreDataEntityName)
     do {
         _ = try context.fetch(fetchRequest)
     } catch let error as NSError {
@@ -86,7 +89,7 @@ func listDataInCoreData(){
 }
 
 func dumpCoreData(){
-    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TodoEntity")
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: coreDataEntityName)
 
     let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
@@ -100,6 +103,23 @@ func dumpCoreData(){
     }
 }
 
+// MARK: Core Data - End
+
+let hapticHeavy = UIImpactFeedbackGenerator(style: .medium)
+let hapticMedium = UIImpactFeedbackGenerator(style: .medium)
+let hapticSoft = UIImpactFeedbackGenerator(style: .soft)
+
+let headerActive = "Active"
+let headerDone = "Done"
+let emptyTitlePrompt = "title please ... "
+let emptyDescriptionPrompt = "description please ... "
+let placeholderDescriptionPrompt = "add a description ..."
+let menuOptionEdit = "Edit"
+let menuOptionDelete = "Delete"
+let emptyMenuTitle = ""
+let someKey = "attributedTitle"
+
+// Migrated here for clean code purposes
 func convertTagStringToSetOfEnumTag(for tagStringSpaced : String) -> Set<EnumTag>{
     let tagsString = tagStringSpaced.replacingOccurrences(of: " ", with: "")
     let tagsArray = tagsString.components(separatedBy: ",")
@@ -115,19 +135,6 @@ func initiateTagFlags(for tagFlagDictionary: inout [String : Bool] ) {
         EnumTagPressed.familyPressedFlag.rawValue : false,
     ]
 }
-
-let hapticHeavy = UIImpactFeedbackGenerator(style: .medium)
-let hapticMedium = UIImpactFeedbackGenerator(style: .medium)
-let hapticSoft = UIImpactFeedbackGenerator(style: .soft)
-
-let headerActive = "Active"
-let headerDone = "Done"
-let emptyTitlePrompt = "title please ... "
-let emptyDescriptionPrompt = "description please ... "
-let menuOptionEdit = "Edit"
-let menuOptionDelete = "Delete"
-let emptyMenuTitle = ""
-let someKey = "attributedTitle"
 
 func hapticFeedbackHeavy() {
     hapticHeavy.prepare()
@@ -146,7 +153,7 @@ func hapticFeedbackSoft() {
 
 func addConfigureTV(for textViewName: UITextView) {
     textViewName.removePlaceholder()
-    textViewName.addPlaceholder("add a description ...")
+    textViewName.addPlaceholder(placeholderDescriptionPrompt)
     textViewName.layer.borderWidth = 0.5
     textViewName.layer.borderColor = UIColor.lightGray.cgColor
     textViewName.layer.cornerRadius = 5.0
@@ -167,6 +174,7 @@ func configureButton(for buttonName: UIButton, tag tagName: String) {
     buttonName.setImage(createTagIcon(tag: tagName, font: values.font), for: .normal)
     buttonName.layer.cornerRadius = values.cornerRadius
 }
+
 func configureAddTodoButton(for buttonName: UIButton) {
     let iconFont = UIFont.systemFont(ofSize: CGFloat(EnumFont.addButtonIcon.rawValue),weight: .bold)
     let configuration = UIImage.SymbolConfiguration(font: iconFont)
@@ -182,7 +190,7 @@ func createTagIcon(tag tagName: String, font FontSize: Int) -> UIImage {
     var tagIcon = UIImage(systemName: tagIconName)
     let iconFont = UIFont.systemFont(ofSize: CGFloat(FontSize))
     let configuration = UIImage.SymbolConfiguration(font: iconFont)
-    switch tagName{
+    switch tagName {
         case EnumTag.work.rawValue:
             tagIcon = UIImage(systemName: tagIconName, withConfiguration: configuration)?.withTintColor(EnumColor.work.getColor(), renderingMode: .alwaysOriginal)
         case EnumTag.study.rawValue:
@@ -196,7 +204,6 @@ func createTagIcon(tag tagName: String, font FontSize: Int) -> UIImage {
     }
     return tagIcon!
 }
-
 
 func strikeThrough(for text: String?) -> (NSMutableAttributedString) {
     guard let text else { return NSMutableAttributedString()}
@@ -228,4 +235,14 @@ func producesMenuOptionTitles() -> (NSAttributedString, NSAttributedString){
     let editTitle = NSAttributedString(string: menuOptionEdit, attributes: attributes)
     let deleteTitle = NSAttributedString(string: menuOptionDelete, attributes: attributes)
     return (editTitle, deleteTitle)
+}
+
+func configureHeaderAttribute() -> ([NSAttributedString.Key : UIFont], UIFont)  {
+    let font = UIFont.systemFont(ofSize: 12, weight: .bold)
+    return ([NSAttributedString.Key.font: font], font)
+}
+
+func getFields(for dataArray: [ToDoCellModel], at indexOfRow: Int) -> (Int64, Bool){
+    let (id, doneFlag) = (dataArray[indexOfRow].id, dataArray[indexOfRow].doneFlag)
+    return (id,doneFlag)
 }

@@ -8,6 +8,7 @@
 import Foundation
 
 enum EnumIcon: String {
+    
     case forAddButton = "plus"
     case forTag = "circle.fill"
     case forDoneCheck = "checkmark.square.fill"

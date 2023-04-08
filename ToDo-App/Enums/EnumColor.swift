@@ -8,6 +8,7 @@
 import UIKit
 
 enum EnumColor: String{
+    
     case work = "#D2CEFFFF"
     case workSoft = "#D2CEFF66"
     case study = "#D1E5F7FF"

@@ -8,6 +8,7 @@
 import Foundation
 
 enum EnumTag: String{
+    
     case work
     case study
     case entertainment

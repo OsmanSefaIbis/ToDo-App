@@ -16,21 +16,19 @@ extension ToDoViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 12))
-        let font = UIFont.systemFont(ofSize: 12, weight: .bold)
-        let attributes = [NSAttributedString.Key.font: font]
-        titleLabel.textColor = EnumColor.lightGray.getColor()
-        headerView.backgroundColor = .systemBackground
-        
-        switch section{
+        let attributes = configureHeaderAttribute()
+        switch section {
             case 0:
-                titleLabel.attributedText = NSAttributedString(string: headerActive, attributes: attributes)
+            titleLabel.attributedText = NSAttributedString(string: headerActive, attributes: attributes.0)
             case 1:
                 let donetitle = strikeThrough(for: headerDone)
-                donetitle.addAttribute(NSAttributedString.Key.font, value: font, range: NSMakeRange(0, donetitle.length))
+            donetitle.addAttribute(NSAttributedString.Key.font, value: attributes.1, range: NSMakeRange(0, donetitle.length))
                 titleLabel.attributedText = donetitle
         default:
             titleLabel.text = nil
         }
+        titleLabel.textColor = EnumColor.lightGray.getColor()
+        headerView.backgroundColor = .systemBackground
         headerView.addSubview(titleLabel)
         return headerView
         }
@@ -43,9 +41,9 @@ extension ToDoViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section{
+        switch section {
             case 0:
-                return filteredTableViewData.count
+                return filteredActiveTableViewData.count
             case 1:
                 return filteredDoneTableViewData.count
         default:
@@ -55,12 +53,11 @@ extension ToDoViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let todoCell = self.todoTableview.dequeueReusableCell(withIdentifier: cellName) as! ToDoCell
-        todoCell.delegate = self
         todoCell.indexPath = indexPath
-        let cellSection = indexPath.section
-        switch cellSection{
+        todoCell.delegate = self
+        switch indexPath.section {
             case 0:
-                todoCell.configure(with: filteredTableViewData[indexPath.row])
+                todoCell.configure(with: filteredActiveTableViewData[indexPath.row])
             case 1:
                 todoCell.configure(with: filteredDoneTableViewData[indexPath.row])
         default:
@@ -77,8 +74,8 @@ extension ToDoViewController: UITableViewDataSource {
         let movedObject: ToDoCellModel
         switch sourceIndexPath.section {
             case 0:
-                movedObject = filteredTableViewData[sourceIndexPath.row]
-                tableViewData.removeAll(where: { $0.id == movedObject.id } )
+                movedObject = filteredActiveTableViewData[sourceIndexPath.row]
+                activeTableViewData.removeAll(where: { $0.id == movedObject.id } )
             case 1:
                 movedObject = filteredDoneTableViewData[sourceIndexPath.row]
                 doneTableViewData.removeAll(where: { $0.id == movedObject.id } )
@@ -88,9 +85,9 @@ extension ToDoViewController: UITableViewDataSource {
         
         switch destinationIndexPath.section {
             case 0:
-                tableViewData.append(movedObject)
+            activeTableViewData.insert(movedObject, at: destinationIndexPath.row)
             case 1:
-                doneTableViewData.insert(movedObject, at: 0)
+            doneTableViewData.insert(movedObject, at: destinationIndexPath.row)
         default:
             return
         }

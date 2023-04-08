@@ -7,6 +7,7 @@
 
 import Foundation
 enum EnumTagPressed: String{
+    
     case workPressedFlag
     case studyPressedFlag
     case entertainmentPressedFlag

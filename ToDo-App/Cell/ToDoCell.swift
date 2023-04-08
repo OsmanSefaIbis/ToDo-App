@@ -6,13 +6,13 @@
 //
 
 import UIKit
+
 protocol CustomCellDelegate: AnyObject {
-    
     func deleteActionPressed(at indexPath: IndexPath)
     func editActionPressed(at indexPath: IndexPath)
     func doneButtonPressed(_ cell: ToDoCell)
-    
 }
+
 class ToDoCell: UITableViewCell {
 
     @IBOutlet weak var todoTitleLabel: UILabel!
@@ -26,11 +26,7 @@ class ToDoCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        buttonConfigure(color: EnumColor.darkGray.getColor(), font: EnumFont.doneButton.rawValue, imageName: EnumIcon.forDoneUncheck.rawValue)
-        optionsToDoButton.menu = setMenuOptions()
-        optionsToDoButton.showsMenuAsPrimaryAction = true
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 10
+        someInitialUIConfigurations()
     }
     
     override func layoutSubviews() {
@@ -39,8 +35,16 @@ class ToDoCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: margins)
     }
     
+    func someInitialUIConfigurations(){
+        buttonConfigure(color: EnumColor.darkGray.getColor(), font: EnumFont.doneButton.rawValue, imageName: EnumIcon.forDoneUncheck.rawValue)
+        optionsToDoButton.menu = setMenuOptions()
+        optionsToDoButton.showsMenuAsPrimaryAction = true
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 10
+    }
+    
     func configure(with model: ToDoCellModel) {
-        
+        // Caller: cellForRowAt
         let tagsCellConcat = model.tags.map{ "\($0)" }.joined(separator: ",")
         todoTitleLabel.attributedText = spacingAdded(for: model.title, space: 5)
         todoDescriptionLabel.attributedText = spacingAdded(for: model.description, space: 5)
@@ -139,6 +143,7 @@ class ToDoCell: UITableViewCell {
         strikeThroughLabels()
         setAllViewsBackgroundColor(.lightGray)
     }
+    
     func makeActiveLookCell(){
         buttonConfigure(color: EnumColor.darkGray.getColor(), font: EnumFont.doneButton.rawValue , imageName: EnumIcon.forDoneUncheck.rawValue)
         unStrikeThroughLabels()

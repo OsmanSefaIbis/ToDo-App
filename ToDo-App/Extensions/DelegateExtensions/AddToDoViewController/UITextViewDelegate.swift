@@ -29,7 +29,7 @@ extension AddToDoViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if addDescriptionTextView.text.isEmpty {
             addDescriptionTextView.removePlaceholder()
-            addDescriptionTextView.addPlaceholder("add a description ...")
+            addDescriptionTextView.addPlaceholder(placeholderDescriptionPrompt)
             addDescriptionTextView.textColor = UIColor.lightGray
         }
     }

@@ -8,6 +8,7 @@
 import Foundation
 
 public struct ToDoCellModel{
+    
     static var nextId: Int64 = 1
     let id: Int64
     var title: String
@@ -22,13 +23,16 @@ public struct ToDoCellModel{
         self.description = description
         self.tags = tags
     }
+    
     init(id: Int64, title: String, description: String, tags: Set<EnumTag>, doneFlag: Bool) {
+        ToDoCellModel.nextId += 1
         self.id = id
         self.title = title
         self.description = description
         self.tags = tags
         self.doneFlag = doneFlag
     }
+    
     static func resetId(){
         ToDoCellModel.nextId = 1
     }

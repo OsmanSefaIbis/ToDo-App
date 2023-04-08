@@ -47,6 +47,7 @@ class AddToDoViewController: UIViewController {
         addDescriptionTextView.delegate = self
         addTitleTextField.delegate = self
     }
+    
     func configureUIComponents(){
         appTitleStrikeThrough()
         configureTextComponents()
@@ -190,19 +191,19 @@ class AddToDoViewController: UIViewController {
             addDescriptionTextView.shake()
             hapticFeedbackMedium()
         }
-        else{
-            let editedValues: [ String : Any ] = [
-                    EnumTodoFields.title.rawValue : addTitleTextField.text! ,
-                    EnumTodoFields.description.rawValue : addDescriptionTextView.text!,
-                    EnumTodoFields.tags.rawValue : tagSelection
+        else {
+            if editFlag {
+                let editedValues: [ String : Any ] = [
+                        EnumTodoFields.title.rawValue : addTitleTextField.text! ,
+                        EnumTodoFields.description.rawValue : addDescriptionTextView.text!,
+                        EnumTodoFields.tags.rawValue : tagSelection
                 ]
-            if !editFlag{
+                delegate?.editChanged(with: editedValues, at: editIndexPath)
+            }else {
                 let newTodo: ToDoCellModel = .init( title: addTitleTextField.text!,
                                                     description: addDescriptionTextView.text,
                                                     tags: tagSelection)
                 delegate?.todoAdded(for: newTodo)
-            }else{
-                delegate?.editChanged(with: editedValues, at: editIndexPath)
             }
             hapticFeedbackHeavy()
             dismiss(animated: false)

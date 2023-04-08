@@ -21,16 +21,14 @@ class ToDoViewController: UIViewController {
     public let cellName = "ToDoCell"
     public let nextViewController = "AddToDoViewController"
     public let storyBoard = "Main"
-    public var databaseData: [TodoEntity] = []
-    public var tableViewData: [ToDoCellModel] = []
+    public var activeTableViewData: [ToDoCellModel] = []
     public var doneTableViewData: [ToDoCellModel] = []
-    public var filteredTableViewData: [ToDoCellModel] = []
+    public var filteredActiveTableViewData: [ToDoCellModel] = []
     public var filteredDoneTableViewData: [ToDoCellModel] = []
+    public var databaseData: [TodoEntity] = []
     
-    private var isRotating = false
     private var tagSelection: Set<EnumTag> = []
     private var tagFlagDictionary: [String : Bool] = [ : ]
-    private var initiateWithSomeData: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,10 +42,16 @@ class ToDoViewController: UIViewController {
         updateData()
     }
     
+    func testing(){
+        ToDoCellModel.resetId()
+        dumpCoreData()
+    }
+    
     func initiateTableViewWithCoreData() {
+        //testing()
         retrieveFromCoreData(to: &databaseData)
         var dataFetchedFromCoreData: [ToDoCellModel] = databaseData.map {
-            return ToDoCellModel(
+            return ToDoCellModel (
                 id: $0.id,
                 title: $0.todoTitle ?? "",
                 description: $0.todoDescription ?? "",
@@ -56,21 +60,21 @@ class ToDoViewController: UIViewController {
             )
         }
         dataFetchedFromCoreData.sort { $0.id > $1.id }
-        for each in dataFetchedFromCoreData{
-            if each.doneFlag{
+        for each in dataFetchedFromCoreData {
+            if each.doneFlag {
                 doneTableViewData.append(each)
-            }else{
-                tableViewData.append(each)
+            }else {
+                activeTableViewData.append(each)
             }
         }
     }
-    
+
     public func updateData() {
-        if Array(tagSelection).isEmpty{
-            filteredTableViewData = tableViewData
+        if Array(tagSelection).isEmpty {
+            filteredActiveTableViewData = activeTableViewData
             filteredDoneTableViewData = doneTableViewData
-        }else{
-            filteredTableViewData = tableViewData.filter { element in
+        }else {
+            filteredActiveTableViewData = activeTableViewData.filter { element in
                 element.tags.contains(where: { Array(tagSelection).contains($0) })
             }
             filteredDoneTableViewData = doneTableViewData.filter { element in
@@ -96,6 +100,7 @@ class ToDoViewController: UIViewController {
         configureAddTodoButton(for: addToDoButton)
         initiateTagFlags(for: &tagFlagDictionary)
     }
+    
     func tagButtonPressedHelper(for tagName: String, flag pressedFlag: inout Bool, tag tagEnum: EnumTag) {
         pressedFlag.toggle()
         revertTagButtonBackground(for: tagName, with: pressedFlag)
@@ -121,7 +126,7 @@ class ToDoViewController: UIViewController {
             let section = indexPath.section
             switch section{
             case 0:
-                nextVC.configureFields(with: filteredTableViewData[indexPath.row])
+                nextVC.configureFields(with: filteredActiveTableViewData[indexPath.row])
             case 1:
                 nextVC.configureFields(with: filteredDoneTableViewData[indexPath.row])
             default:
@@ -132,7 +137,7 @@ class ToDoViewController: UIViewController {
     
     func revertTagButtonBackground(for tagName: String, with flag: Bool) {
     let coloredCase = (tagName, true)
-    switch coloredCase{
+    switch coloredCase {
         case (EnumTag.work.rawValue, flag):
             tagButtonWork.backgroundColor = EnumColor.workSoft.getColor()
         case (EnumTag.study.rawValue, flag):
@@ -151,14 +156,13 @@ class ToDoViewController: UIViewController {
             tagButtonFamily.backgroundColor = .white
     default:
         break
+        }
     }
-}
     
     func buttonRotateNinetyDegree(_ sender: UIButton) {
         UIView.animate(withDuration: 0.5, animations: {
             sender.transform = sender.transform.rotated(by: CGFloat.pi/2)
-            }
-        )
+        })
     }
     
     // MARK: Button Actions

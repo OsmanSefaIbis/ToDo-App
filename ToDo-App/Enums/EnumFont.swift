@@ -6,6 +6,7 @@
 //
 import Foundation
 enum EnumFont: Int {
+    
     case tagCornerRadius = 15
     case tagIcon = 12
     case tagIconBig = 18

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9649837A29E0A8C9008D7E81 /* EnumTagPressed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9649837929E0A8C9008D7E81 /* EnumTagPressed.swift */; };
 		9649837C29E0BE3C008D7E81 /* EnumTodoFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9649837B29E0BE3C008D7E81 /* EnumTodoFields.swift */; };
+		9649837E29E1C072008D7E81 /* EnumTodoEntityFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9649837D29E1C072008D7E81 /* EnumTodoEntityFields.swift */; };
 		96A8E5A829CCAF0300B80386 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5A729CCAF0300B80386 /* AppDelegate.swift */; };
 		96A8E5AA29CCAF0300B80386 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5A929CCAF0300B80386 /* SceneDelegate.swift */; };
 		96A8E5AC29CCAF0300B80386 /* ToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A8E5AB29CCAF0300B80386 /* ToDoViewController.swift */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		9649837929E0A8C9008D7E81 /* EnumTagPressed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumTagPressed.swift; sourceTree = "<group>"; };
 		9649837B29E0BE3C008D7E81 /* EnumTodoFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumTodoFields.swift; sourceTree = "<group>"; };
+		9649837D29E1C072008D7E81 /* EnumTodoEntityFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumTodoEntityFields.swift; sourceTree = "<group>"; };
 		96A8E5A429CCAF0300B80386 /* ToDo-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ToDo-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A8E5A729CCAF0300B80386 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96A8E5A929CCAF0300B80386 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				96A8E5DD29DAA78B00B80386 /* EnumFont.swift */,
 				9649837929E0A8C9008D7E81 /* EnumTagPressed.swift */,
 				9649837B29E0BE3C008D7E81 /* EnumTodoFields.swift */,
+				9649837D29E1C072008D7E81 /* EnumTodoEntityFields.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				96A8E5E929DAC4AA00B80386 /* CustomCellDelegate.swift in Sources */,
 				96A8E5D629DAA65D00B80386 /* ToDoCellModel.swift in Sources */,
 				96FD9EC129DE15F6007D05A5 /* ToDo-App.xcdatamodeld in Sources */,
+				9649837E29E1C072008D7E81 /* EnumTodoEntityFields.swift in Sources */,
 				96A8E5E329DAC37600B80386 /* Extension+UIView.swift in Sources */,
 				96A8E5EB29DAC51200B80386 /* TodoChangeDelegate.swift in Sources */,
 				9649837A29E0A8C9008D7E81 /* EnumTagPressed.swift in Sources */,
