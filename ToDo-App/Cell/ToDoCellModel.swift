@@ -33,7 +33,10 @@ public struct ToDoCellModel{
         self.doneFlag = doneFlag
     }
     
-    static func resetId(){
+    static func resetId() {
         ToDoCellModel.nextId = 1
+    }
+    static func setNextId(with initiateWithID: Int64) {
+        ToDoCellModel.nextId = initiateWithID
     }
 }

@@ -14,6 +14,15 @@ let appDelegate = UIApplication.shared.delegate as! AppDelegate
 let coreDataEntityName = "TodoEntity"
 let coreDataEqualityPredicate = "id == %@"
 
+func manuallySetID(with greatestCoreDataID: Int64) {
+/*
+    To ensure that the id values for new instances of ToDoCellModel are unique and do not conflict with existing ids.
+    Core Data is retrieving the id's but user is able to delete data, so when the initiation of new struct takes place it can cause overlapping ids.
+*/
+    let initiateTodoCellModelWithID = greatestCoreDataID + 1
+    ToDoCellModel.setNextId(with: initiateTodoCellModelWithID)
+}
+
 public func saveToCoreData(_ data: ToDoCellModel) {
     let context = appDelegate.persistentContainer.viewContext
     let tags = data.tags.map({ $0.rawValue }).joined(separator: ", ")

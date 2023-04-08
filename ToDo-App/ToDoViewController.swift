@@ -42,13 +42,15 @@ class ToDoViewController: UIViewController {
         updateData()
     }
     
-    func testing(){
-        ToDoCellModel.resetId()
-        dumpCoreData()
+    func testing(value test: Bool){
+        if test {
+            ToDoCellModel.resetId()
+            dumpCoreData()
+        }
     }
     
     func initiateTableViewWithCoreData() {
-        //testing()
+        testing(value: false) /* only run it once the set it to false */
         retrieveFromCoreData(to: &databaseData)
         var dataFetchedFromCoreData: [ToDoCellModel] = databaseData.map {
             return ToDoCellModel (
@@ -60,6 +62,9 @@ class ToDoViewController: UIViewController {
             )
         }
         dataFetchedFromCoreData.sort { $0.id > $1.id }
+        guard let mostRecentId = dataFetchedFromCoreData.first?.id else { return }
+        manuallySetID(with: mostRecentId)
+        
         for each in dataFetchedFromCoreData {
             if each.doneFlag {
                 doneTableViewData.append(each)

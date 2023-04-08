@@ -14,8 +14,8 @@
             filePath = "ToDo-App/GlobalFunctions/GlobalFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "saveToCoreData(_:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -40,7 +40,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "1F90B38B-1A88-4D6C-AF60-9EDEE3AE65F6"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ToDo-App/AddToDoViewController.swift"
@@ -80,6 +80,36 @@
                   startingLineNumber = "203"
                   endingLineNumber = "203"
                   offsetFromSymbolStart = "5648">
+               </Location>
+               <Location
+                  uuid = "1F90B38B-1A88-4D6C-AF60-9EDEE3AE65F6 - 1d5a59134c23ab51"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ToDo_App.AddToDoViewController.addToDoButtonPressed(Any) -&gt; ()"
+                  moduleName = "ToDo-App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sefaibis/Developer/Dev%20Workspace/My%20Projects%20Folder/My%20Remote%20Repos/ToDo-App/ToDo-App/AddToDoViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "203"
+                  endingLineNumber = "203"
+                  offsetFromSymbolStart = "4428">
+               </Location>
+               <Location
+                  uuid = "1F90B38B-1A88-4D6C-AF60-9EDEE3AE65F6 - 1d5a59134c23ab51"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ToDo_App.AddToDoViewController.addToDoButtonPressed(Any) -&gt; ()"
+                  moduleName = "ToDo-App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sefaibis/Developer/Dev%20Workspace/My%20Projects%20Folder/My%20Remote%20Repos/ToDo-App/ToDo-App/AddToDoViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "203"
+                  endingLineNumber = "203"
+                  offsetFromSymbolStart = "5680">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -126,8 +156,8 @@
             filePath = "ToDo-App/GlobalFunctions/GlobalFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
             landmarkName = "getFields(for:at:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -135,16 +165,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "862E197A-8F1E-48BA-89B2-D7F9246456CD"
+            uuid = "6938B1B2-1234-4111-BA0D-443FB985A772"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ToDo-App/ToDoViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "initiateTableViewWithCoreData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7E562869-5412-4F5B-94D7-9E2E4D4FD8FD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ToDo-App/Extensions/DelegateExtensions/ToDoViewController/TodoChangeDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "todoAdded(for:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B16FC63D-49E2-4D87-BAB7-02AC2887F32C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ToDo-App/ToDoViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "updateData()"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "initiateTableViewWithCoreData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
