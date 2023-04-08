@@ -50,7 +50,7 @@ class ToDoViewController: UIViewController {
     }
     
     func initiateTableViewWithCoreData() {
-        testing(value: false) /* only run it once the set it to false */
+        testing(value: false) /* only run it once then set it to false */
         retrieveFromCoreData(to: &databaseData)
         var dataFetchedFromCoreData: [ToDoCellModel] = databaseData.map {
             return ToDoCellModel (
