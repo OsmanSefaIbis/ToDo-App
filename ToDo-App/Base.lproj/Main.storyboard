@@ -76,22 +76,8 @@
                                                                     <action selector="tagStudyButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OVA-kJ-HQk"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="4zH-qJ-JIV">
-                                                                <rect key="frame" x="134" y="0.0" width="135.66666666666663" height="30"/>
-                                                                <color key="tintColor" systemColor="opaqueSeparatorColor"/>
-                                                                <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="tinted" title=" entertainment " cornerStyle="capsule">
-                                                                    <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
-                                                                    <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
-                                                                    <color key="baseForegroundColor" systemColor="labelColor"/>
-                                                                    <color key="baseBackgroundColor" systemColor="systemGray5Color"/>
-                                                                </buttonConfiguration>
-                                                                <connections>
-                                                                    <action selector="tagEntertainmentButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vE3-Dl-yQg"/>
-                                                                </connections>
-                                                            </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="dTv-Yx-TZY">
-                                                                <rect key="frame" x="279.66666666666669" y="0.0" width="81.333333333333314" height="30"/>
+                                                                <rect key="frame" x="134" y="0.0" width="64" height="30"/>
                                                                 <color key="tintColor" systemColor="opaqueSeparatorColor"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="tinted" title=" family " cornerStyle="capsule">
@@ -102,6 +88,20 @@
                                                                 </buttonConfiguration>
                                                                 <connections>
                                                                     <action selector="tagFamilyButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3kd-aU-Cb3"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="4zH-qJ-JIV">
+                                                                <rect key="frame" x="208" y="0.0" width="153" height="30"/>
+                                                                <color key="tintColor" systemColor="opaqueSeparatorColor"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="tinted" title=" entertainment " cornerStyle="capsule">
+                                                                    <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
+                                                                    <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
+                                                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                                                    <color key="baseBackgroundColor" systemColor="systemGray5Color"/>
+                                                                </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="tagEntertainmentButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vE3-Dl-yQg"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -208,10 +208,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="689"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EAy-ay-s4o" userLabel="AppTitleView">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="51.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="48.666666666666664"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="todo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqQ-yg-5Zi">
-                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="51.333333333333336"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="48.666666666666664"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -227,13 +227,13 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbk-ei-Nhn" userLabel="TitleView">
-                                                <rect key="frame" x="0.0" y="56.333333333333329" width="393" height="50.666666666666671"/>
+                                                <rect key="frame" x="0.0" y="53.666666666666671" width="393" height="49"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="TsY-9E-prf">
-                                                        <rect key="frame" x="16" y="0.0" width="377" height="50.666666666666664"/>
+                                                        <rect key="frame" x="16" y="0.0" width="361" height="49"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mK5-iZ-Anj">
-                                                                <rect key="frame" x="0.0" y="0.0" width="377" height="20"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="361" height="20"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="20" id="3L0-BL-8WI"/>
                                                                 </constraints>
@@ -242,7 +242,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="add a title ..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tUh-6G-sgU">
-                                                                <rect key="frame" x="0.0" y="25.000000000000014" width="377" height="25.666666666666671"/>
+                                                                <rect key="frame" x="0.0" y="24.999999999999986" width="361" height="24"/>
                                                                 <color key="backgroundColor" red="0.97254908080000002" green="0.97254908080000002" blue="0.96862745289999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -254,16 +254,16 @@
                                                 <constraints>
                                                     <constraint firstItem="TsY-9E-prf" firstAttribute="top" secondItem="cbk-ei-Nhn" secondAttribute="top" id="4mr-m2-osk"/>
                                                     <constraint firstAttribute="height" constant="60" id="dxt-gl-bmE"/>
+                                                    <constraint firstAttribute="trailing" secondItem="TsY-9E-prf" secondAttribute="trailing" constant="16" id="jSQ-Xv-5hc"/>
                                                     <constraint firstItem="TsY-9E-prf" firstAttribute="leading" secondItem="cbk-ei-Nhn" secondAttribute="leading" constant="16" id="qH5-FN-xLT"/>
                                                     <constraint firstAttribute="bottom" secondItem="TsY-9E-prf" secondAttribute="bottom" id="wzW-J7-0dU"/>
-                                                    <constraint firstAttribute="trailing" secondItem="TsY-9E-prf" secondAttribute="trailing" id="yel-ZT-qis"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJl-sg-8hq" userLabel="DescriptionView">
-                                                <rect key="frame" x="0.0" y="112.00000000000003" width="393" height="366.66666666666674"/>
+                                                <rect key="frame" x="0.0" y="107.66666666666663" width="393" height="371"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Gxh-aJ-q4I">
-                                                        <rect key="frame" x="16" y="0.0" width="361" height="366.66666666666669"/>
+                                                        <rect key="frame" x="16" y="0.0" width="361" height="371"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHW-Vw-bq5">
                                                                 <rect key="frame" x="0.0" y="0.0" width="361" height="20"/>
@@ -275,7 +275,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oUE-oW-CEm">
-                                                                <rect key="frame" x="0.0" y="25" width="361" height="341.66666666666669"/>
+                                                                <rect key="frame" x="0.0" y="25" width="361" height="346"/>
                                                                 <color key="backgroundColor" red="0.96266549830000003" green="0.96266549830000003" blue="0.96266549830000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <color key="textColor" systemColor="labelColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -316,6 +316,7 @@
                                                                         <state key="normal" title="Button"/>
                                                                         <buttonConfiguration key="configuration" style="tinted" title=" work " cornerStyle="capsule">
                                                                             <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
+                                                                            <color key="baseForegroundColor" systemColor="labelColor"/>
                                                                             <color key="baseBackgroundColor" systemColor="opaqueSeparatorColor"/>
                                                                         </buttonConfiguration>
                                                                         <connections>
@@ -328,6 +329,7 @@
                                                                         <state key="normal" title="Button"/>
                                                                         <buttonConfiguration key="configuration" style="tinted" title=" study " cornerStyle="capsule">
                                                                             <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
+                                                                            <color key="baseForegroundColor" systemColor="labelColor"/>
                                                                             <color key="baseBackgroundColor" systemColor="opaqueSeparatorColor"/>
                                                                         </buttonConfiguration>
                                                                         <connections>
@@ -340,6 +342,7 @@
                                                                         <state key="normal" title="Button"/>
                                                                         <buttonConfiguration key="configuration" style="tinted" title=" entertainment " cornerStyle="capsule">
                                                                             <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
+                                                                            <color key="baseForegroundColor" systemColor="labelColor"/>
                                                                             <color key="baseBackgroundColor" systemColor="opaqueSeparatorColor"/>
                                                                         </buttonConfiguration>
                                                                         <connections>
@@ -352,6 +355,7 @@
                                                                         <state key="normal" title="Button"/>
                                                                         <buttonConfiguration key="configuration" style="tinted" title=" family " cornerStyle="capsule">
                                                                             <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
+                                                                            <color key="baseForegroundColor" systemColor="labelColor"/>
                                                                             <color key="baseBackgroundColor" systemColor="opaqueSeparatorColor"/>
                                                                         </buttonConfiguration>
                                                                         <connections>

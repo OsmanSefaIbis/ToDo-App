@@ -46,7 +46,6 @@ extension ToDoViewController: TodoChangeDelegate {
     }
 
     func todoAdded(for newTodo: ToDoCellModel) {
-        
         activeTableViewData.insert(newTodo, at: 0)
         saveToCoreData(newTodo)
         updateData()

@@ -31,6 +31,8 @@ class ToDoCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        contentView.layer.cornerRadius = 15
+        contentView.layer.masksToBounds = true
         let margins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
         contentView.frame = contentView.frame.inset(by: margins)
     }
@@ -66,8 +68,9 @@ class ToDoCell: UITableViewCell {
     
     func tagIconConversion(tags tagString: String) -> NSAttributedString {
         var tagImageArray: [UIImage] = []
-        let tagArray = tagString.split(separator: ",")
+        var tagArray = tagString.split(separator: ",")
         let tagAttributedString = NSMutableAttributedString()
+        tagArray = tagArray.sorted(by: { $0 > $1})
         
         for tag in tagArray{
             tagImageArray.append(createTagIcon(tag: String(tag), font: EnumFont.tagIconBig.rawValue))
